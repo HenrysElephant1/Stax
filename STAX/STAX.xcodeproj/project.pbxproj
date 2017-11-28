@@ -1,0 +1,623 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F0A07E7E1F9535C800B9AACF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A07E7D1F9535C800B9AACF /* AppDelegate.swift */; };
+		F0A07E801F9535C800B9AACF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A07E7F1F9535C800B9AACF /* ViewController.swift */; };
+		F0A07E831F9535C800B9AACF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0A07E811F9535C800B9AACF /* Main.storyboard */; };
+		F0A07E851F9535C800B9AACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0A07E841F9535C800B9AACF /* Assets.xcassets */; };
+		F0A07E881F9535C800B9AACF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0A07E861F9535C800B9AACF /* LaunchScreen.storyboard */; };
+		F0A07E931F9535C800B9AACF /* STAXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A07E921F9535C800B9AACF /* STAXTests.swift */; };
+		F0A07E9E1F9535C800B9AACF /* STAXUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A07E9D1F9535C800B9AACF /* STAXUITests.swift */; };
+		F0A38D541FB3E95800008930 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A38D531FB3E95800008930 /* CoreData.framework */; };
+		F0A38D551FB3EA7D00008930 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A38D531FB3E95800008930 /* CoreData.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F0A07E8F1F9535C800B9AACF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0A07E721F9535C700B9AACF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0A07E791F9535C700B9AACF;
+			remoteInfo = STAX;
+		};
+		F0A07E9A1F9535C800B9AACF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0A07E721F9535C700B9AACF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F0A07E791F9535C700B9AACF;
+			remoteInfo = STAX;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1D2992CF598F5300E8A69F2E /* Pods-STAX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-STAX.release.xcconfig"; path = "Pods/Target Support Files/Pods-STAX/Pods-STAX.release.xcconfig"; sourceTree = "<group>"; };
+		60DFF3C715BE93B31CFAEFE5 /* libPods-STAX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-STAX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA7ED2823D9764B788BD61A2 /* Pods-STAX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-STAX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-STAX/Pods-STAX.debug.xcconfig"; sourceTree = "<group>"; };
+		F0A07E7A1F9535C800B9AACF /* STAX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = STAX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0A07E7D1F9535C800B9AACF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F0A07E7F1F9535C800B9AACF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F0A07E821F9535C800B9AACF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F0A07E841F9535C800B9AACF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F0A07E871F9535C800B9AACF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F0A07E891F9535C800B9AACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0A07E8E1F9535C800B9AACF /* STAXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STAXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0A07E921F9535C800B9AACF /* STAXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STAXTests.swift; sourceTree = "<group>"; };
+		F0A07E941F9535C800B9AACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0A07E991F9535C800B9AACF /* STAXUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = STAXUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0A07E9D1F9535C800B9AACF /* STAXUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STAXUITests.swift; sourceTree = "<group>"; };
+		F0A07E9F1F9535C800B9AACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0A38D531FB3E95800008930 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F0A07E771F9535C700B9AACF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0A38D551FB3EA7D00008930 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A07E8B1F9535C800B9AACF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0A38D541FB3E95800008930 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A07E961F9535C800B9AACF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		53FF125A5D202D0F5B1D3E4D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DA7ED2823D9764B788BD61A2 /* Pods-STAX.debug.xcconfig */,
+				1D2992CF598F5300E8A69F2E /* Pods-STAX.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		57D3DCC711D434B3DBC0D926 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F0A38D531FB3E95800008930 /* CoreData.framework */,
+				60DFF3C715BE93B31CFAEFE5 /* libPods-STAX.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F0A07E711F9535C700B9AACF = {
+			isa = PBXGroup;
+			children = (
+				F0A07E7C1F9535C800B9AACF /* STAX */,
+				F0A07E911F9535C800B9AACF /* STAXTests */,
+				F0A07E9C1F9535C800B9AACF /* STAXUITests */,
+				F0A07E7B1F9535C800B9AACF /* Products */,
+				53FF125A5D202D0F5B1D3E4D /* Pods */,
+				57D3DCC711D434B3DBC0D926 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F0A07E7B1F9535C800B9AACF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F0A07E7A1F9535C800B9AACF /* STAX.app */,
+				F0A07E8E1F9535C800B9AACF /* STAXTests.xctest */,
+				F0A07E991F9535C800B9AACF /* STAXUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F0A07E7C1F9535C800B9AACF /* STAX */ = {
+			isa = PBXGroup;
+			children = (
+				F0A07E7D1F9535C800B9AACF /* AppDelegate.swift */,
+				F0A07E7F1F9535C800B9AACF /* ViewController.swift */,
+				F0A07E811F9535C800B9AACF /* Main.storyboard */,
+				F0A07E841F9535C800B9AACF /* Assets.xcassets */,
+				F0A07E861F9535C800B9AACF /* LaunchScreen.storyboard */,
+				F0A07E891F9535C800B9AACF /* Info.plist */,
+			);
+			path = STAX;
+			sourceTree = "<group>";
+		};
+		F0A07E911F9535C800B9AACF /* STAXTests */ = {
+			isa = PBXGroup;
+			children = (
+				F0A07E921F9535C800B9AACF /* STAXTests.swift */,
+				F0A07E941F9535C800B9AACF /* Info.plist */,
+			);
+			path = STAXTests;
+			sourceTree = "<group>";
+		};
+		F0A07E9C1F9535C800B9AACF /* STAXUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F0A07E9D1F9535C800B9AACF /* STAXUITests.swift */,
+				F0A07E9F1F9535C800B9AACF /* Info.plist */,
+			);
+			path = STAXUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F0A07E791F9535C700B9AACF /* STAX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0A07EA21F9535C800B9AACF /* Build configuration list for PBXNativeTarget "STAX" */;
+			buildPhases = (
+				D7342211E23F1E7A032550A9 /* [CP] Check Pods Manifest.lock */,
+				F0A07E761F9535C700B9AACF /* Sources */,
+				F0A07E771F9535C700B9AACF /* Frameworks */,
+				F0A07E781F9535C700B9AACF /* Resources */,
+				EFAFD28397BF28E818A1BC62 /* [CP] Embed Pods Frameworks */,
+				B51FEC0E72F404395AACFE9B /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = STAX;
+			productName = STAX;
+			productReference = F0A07E7A1F9535C800B9AACF /* STAX.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F0A07E8D1F9535C800B9AACF /* STAXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0A07EA51F9535C800B9AACF /* Build configuration list for PBXNativeTarget "STAXTests" */;
+			buildPhases = (
+				F0A07E8A1F9535C800B9AACF /* Sources */,
+				F0A07E8B1F9535C800B9AACF /* Frameworks */,
+				F0A07E8C1F9535C800B9AACF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F0A07E901F9535C800B9AACF /* PBXTargetDependency */,
+			);
+			name = STAXTests;
+			productName = STAXTests;
+			productReference = F0A07E8E1F9535C800B9AACF /* STAXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F0A07E981F9535C800B9AACF /* STAXUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F0A07EA81F9535C800B9AACF /* Build configuration list for PBXNativeTarget "STAXUITests" */;
+			buildPhases = (
+				F0A07E951F9535C800B9AACF /* Sources */,
+				F0A07E961F9535C800B9AACF /* Frameworks */,
+				F0A07E971F9535C800B9AACF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F0A07E9B1F9535C800B9AACF /* PBXTargetDependency */,
+			);
+			name = STAXUITests;
+			productName = STAXUITests;
+			productReference = F0A07E991F9535C800B9AACF /* STAXUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F0A07E721F9535C700B9AACF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "TEAM STAX";
+				TargetAttributes = {
+					F0A07E791F9535C700B9AACF = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+					};
+					F0A07E8D1F9535C800B9AACF = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F0A07E791F9535C700B9AACF;
+					};
+					F0A07E981F9535C800B9AACF = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F0A07E791F9535C700B9AACF;
+					};
+				};
+			};
+			buildConfigurationList = F0A07E751F9535C700B9AACF /* Build configuration list for PBXProject "STAX" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F0A07E711F9535C700B9AACF;
+			productRefGroup = F0A07E7B1F9535C800B9AACF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F0A07E791F9535C700B9AACF /* STAX */,
+				F0A07E8D1F9535C800B9AACF /* STAXTests */,
+				F0A07E981F9535C800B9AACF /* STAXUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F0A07E781F9535C700B9AACF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0A07E881F9535C800B9AACF /* LaunchScreen.storyboard in Resources */,
+				F0A07E851F9535C800B9AACF /* Assets.xcassets in Resources */,
+				F0A07E831F9535C800B9AACF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A07E8C1F9535C800B9AACF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A07E971F9535C800B9AACF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B51FEC0E72F404395AACFE9B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-STAX/Pods-STAX-resources.sh",
+				"${PODS_ROOT}/GTMOAuth2/Source/Touch/GTMOAuth2ViewTouch.xib",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-STAX/Pods-STAX-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D7342211E23F1E7A032550A9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-STAX-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EFAFD28397BF28E818A1BC62 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-STAX/Pods-STAX-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F0A07E761F9535C700B9AACF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0A07E801F9535C800B9AACF /* ViewController.swift in Sources */,
+				F0A07E7E1F9535C800B9AACF /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A07E8A1F9535C800B9AACF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0A07E931F9535C800B9AACF /* STAXTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F0A07E951F9535C800B9AACF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F0A07E9E1F9535C800B9AACF /* STAXUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F0A07E901F9535C800B9AACF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0A07E791F9535C700B9AACF /* STAX */;
+			targetProxy = F0A07E8F1F9535C800B9AACF /* PBXContainerItemProxy */;
+		};
+		F0A07E9B1F9535C800B9AACF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F0A07E791F9535C700B9AACF /* STAX */;
+			targetProxy = F0A07E9A1F9535C800B9AACF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F0A07E811F9535C800B9AACF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F0A07E821F9535C800B9AACF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F0A07E861F9535C800B9AACF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F0A07E871F9535C800B9AACF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F0A07EA01F9535C800B9AACF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F0A07EA11F9535C800B9AACF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F0A07EA31F9535C800B9AACF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA7ED2823D9764B788BD61A2 /* Pods-STAX.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = STAX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.astromyx.STAX;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		F0A07EA41F9535C800B9AACF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D2992CF598F5300E8A69F2E /* Pods-STAX.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = STAX/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.astromyx.STAX;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		F0A07EA61F9535C800B9AACF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = STAXTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.astromyx.STAXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/STAX.app/STAX";
+			};
+			name = Debug;
+		};
+		F0A07EA71F9535C800B9AACF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = STAXTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.astromyx.STAXTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/STAX.app/STAX";
+			};
+			name = Release;
+		};
+		F0A07EA91F9535C800B9AACF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = STAXUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.astromyx.STAXUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = STAX;
+			};
+			name = Debug;
+		};
+		F0A07EAA1F9535C800B9AACF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = STAXUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.astromyx.STAXUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = STAX;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F0A07E751F9535C700B9AACF /* Build configuration list for PBXProject "STAX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0A07EA01F9535C800B9AACF /* Debug */,
+				F0A07EA11F9535C800B9AACF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0A07EA21F9535C800B9AACF /* Build configuration list for PBXNativeTarget "STAX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0A07EA31F9535C800B9AACF /* Debug */,
+				F0A07EA41F9535C800B9AACF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0A07EA51F9535C800B9AACF /* Build configuration list for PBXNativeTarget "STAXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0A07EA61F9535C800B9AACF /* Debug */,
+				F0A07EA71F9535C800B9AACF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F0A07EA81F9535C800B9AACF /* Build configuration list for PBXNativeTarget "STAXUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F0A07EA91F9535C800B9AACF /* Debug */,
+				F0A07EAA1F9535C800B9AACF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F0A07E721F9535C700B9AACF /* Project object */;
+}
