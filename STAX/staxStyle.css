@@ -1,6 +1,7 @@
 body {
 	background-color: #E6EAE6;
 	margin: 0px;
+	padding: 0px;
 	font-family: "Arial";
 }
 
@@ -103,9 +104,9 @@ a {
 	padding: 4px;
 }
 
-#feed {
+#mainContents {
 	/*background: #F6FAF6;*/
-	overflow: auto;
+	/*overflow: auto;*/
 	float: right;
 	width: calc(100% - 210px);
 	margin: 0px;
@@ -132,7 +133,8 @@ a {
 
 .dealInfo {
 	float: left;
-	width: 376px;
+	/*width: calc(100% - 420px);*/
+	width: 300px;
 	height: 190px;
 	padding: 5px;
 }
@@ -158,4 +160,63 @@ a {
 	padding: 5px;
 	text-align: center;
 	line-height: 190px;
+}
+
+#cardBackgroundOverlay {
+	display: none;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	background-color: #000000;
+	opacity: .7;
+}
+
+#clickedCard {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	width: 800px;
+	height: 600px;
+	padding: 5px;
+	background-color: white;
+	border: 1px solid #C0D6C0;
+	border-radius: 5px;
+	overflow: auto;
+}
+
+#popupImage {
+	float: left;
+	width: 290px;
+	height: 290px;
+	padding: 5px;
+	border: 1px solid #C0D6C0;
+	border-radius: 1px;
+}
+
+#popupInfo {
+	float: left;
+	width: calc( 100% - 315px );
+	padding: 5px;
+}
+
+#popupDealItem {
+	float: left;
+}
+
+#popupDealNewPrice {
+	float: left;
+	clear: left;
+}
+
+#popupDealOldPrice {
+	float: left;
+	clear: left;
 }
