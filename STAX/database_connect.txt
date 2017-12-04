@@ -1,0 +1,9 @@
+
+$serverName = "staxsofdev17.database.windows.net";
+$connectionOptions = array(
+    "Database" => "Stax_",
+    "Uid" => "master_stax",
+    "PWD" => "dev2017softwareB0C@"
+	
+//Establishes the connection
+$conn = sqlsrv_connect($serverName, $connectionOptions);
