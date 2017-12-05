@@ -25,19 +25,17 @@ a {
 }
 
 #headerSpan {
+	position: fixed;
 	width: 100%;
 	height: 40px;
 	margin: auto;
 	padding: 0px;
 	background-color: #70c972;
-	/*background: -webkit-linear-gradient(#70c972, #70c972); /* For Safari 5.1 to 6.0 */
-    /*background: -o-linear-gradient(#70c972, #70c972); /* For Opera 11.1 to 12.0 */
-    /*background: -moz-linear-gradient(#70c972, #70c972); /* For Firefox 3.6 to 15 */
-    /*background: linear-gradient(#70c972, #70c972); /* Standard syntax */
     border-bottom: 2px solid #377738;
 }
 
 #header {
+	/*position: fixed;*/
 	width: 990px;
 	padding: 0px;
 	margin: auto;
@@ -46,19 +44,20 @@ a {
 }
 
 #headerImage {
+	/*position: fixed;*/
 	float: left;
 	height: 36px;
 	width: 40px;
 	margin: 0px;
-	padding: 2px;
+	padding: 0px;
 }
 
 #headerText {
 	float: left;
-	height: 40px;
 	margin: 0px;
 	padding: 0px;
-	line-height: 40px;
+	padding-left: 10px;
+	margin-top: 8px;
 }
 
 #accountTab {
@@ -69,6 +68,13 @@ a {
 	line-height: 40px;
 }
 
+#contentsSpacer {
+	float: left;
+	height: 40px;
+	width: 100%;
+	margin: 0px;
+}
+
 #spacer {
 	height: 5px;
 	width: 1000px;
@@ -76,11 +82,12 @@ a {
 }
 
 #sidebar {
-	/*background: #FFFFFF;*/
+	position: fixed;
 	float: left;
 	width: 200px;
 	margin: 0px;
 	padding: 0px;
+	top: 46px;
 }
 
 .sidebarButton {
@@ -120,6 +127,7 @@ a {
 	height: 200px;
 	border: 1px solid #C0D6C0;
 	border-radius: 5px;
+	cursor: pointer;
 }
 
 .dealImage {
@@ -219,4 +227,27 @@ a {
 #popupDealOldPrice {
 	float: left;
 	clear: left;
+}
+
+#popupMap {
+	float: left;
+	clear: left;
+	width: 790px;
+	height: 600px;
+	padding: 5px;
+	border: 1px solid #C0D6C0;
+	border-radius: 1px;
+}
+
+#pageLinks {
+	float: left;
+	clear: left;
+}
+
+#prevPage {
+	float: left;
+}
+
+#nextPage {
+	float: left;
 }
