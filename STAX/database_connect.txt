@@ -1,9 +1,15 @@
+<?php
+$host = "staxsmysql.mysql.database.azure.com";
+$db_name = "stax_";
+$username = "master_stax@staxsmysql";
+$password = "dev2017softwareB0C@";
 
-$serverName = "staxsofdev17.database.windows.net";
-$connectionOptions = array(
-    "Database" => "Stax_",
-    "Uid" => "master_stax",
-    "PWD" => "dev2017softwareB0C@"
-	
-//Establishes the connection
-$conn = sqlsrv_connect($serverName, $connectionOptions);
+$conn = mysqli_init();
+mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306);
+if(mysqli_connect_errno($conn)){
+	die('Failed to connect to MySQL: '.mysqli_connect_error());
+}
+
+mysqli_close($conn);
+
+?>
