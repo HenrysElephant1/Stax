@@ -1,0 +1,49 @@
+deals Table:
+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| dealID       | int(11)      | NO   | PRI | NULL    |       |
+| item         | varchar(255) | YES  |     | NULL    |       |
+| dealType     | varchar(255) | YES  |     | NULL    |       |
+| upvotes      | int(11)      | YES  |     | NULL    |       |
+| downvotes    | int(11)      | YES  |     | NULL    |       |
+| geoLatitude  | float        | YES  |     | NULL    |       |
+| geoLongitude | float        | YES  |     | NULL    |       |
+| orgPrice     | float        | YES  |     | NULL    |       |
+| salePrice    | float        | YES  |     | NULL    |       |
+| storeName    | varchar(255) | YES  |     | NULL    |       |
+| image        | varchar(255) | YES  |     | NULL    |       |
+| memberID     | int(11)      | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+
+members Table
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| memberID      | int(11)      | NO   | PRI | NULL    |       |
+| username      | varchar(255) | NO   |     | NULL    |       |
+| password      | varchar(255) | NO   |     | NULL    |       |
+| email         | varchar(255) | YES  |     | NULL    |       |
+| active        | varchar(255) | YES  |     | NULL    |       |
+| resetToken    | varchar(255) | YES  |     | NULL    |       |
+| resetComplete | varchar(3)   | YES  |     | No      |       |
++---------------+--------------+------+-----+---------+-------+
+
+favorites Table
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| ID       | int(11) | NO   | PRI | NULL    |       |
+| memberID | int(11) | YES  |     | NULL    |       |
+| dealID   | int(11) | YES  |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
+
+votes Table:
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| ID       | int(11) | NO   | PRI | NULL    |       |
+| memberID | int(11) | YES  |     | NULL    |       |
+| dealID   | int(11) | YES  |     | NULL    |       |
+| value    | int(11) | YES  |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
