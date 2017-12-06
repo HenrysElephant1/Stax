@@ -6,6 +6,8 @@
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
 	<script>
+		var popMap;
+		var popUpMapMarker;
 		function showPopup( dealID ) {
 			// var currentScrollHeight = document.documentElement.scrollTop || document.body.scrollTop;
 			// var contentsDiv = document.getElementById("contents");
@@ -16,6 +18,8 @@
 			// mainContentsDiv.style.overflow = "hidden";
 
 			// Fill in image attributes
+			
+
 			var dealDiv = document.getElementById( dealID );
 			var dealImage =  dealDiv.getElementsByTagName( "img" )[0];
 			var imageSrc = dealImage.getAttribute("src");
@@ -37,6 +41,14 @@
 
 			document.getElementById("cardBackgroundOverlay").style.display = 'block';
 			document.getElementById("clickedCard").style.display = 'block';
+
+			initPopMap();
+
+
+			popUpMapMarker.setPosition({lat: parseFloat(document.getElementById(dealID+'lat').getAttribute('value')), lng: parseFloat(document.getElementById(dealID+'long').getAttribute('value'))});
+			popMap.setCenter(popUpMapMarker.getPosition());
+
+
 		}
 
 		function hidePopup() {
@@ -87,12 +99,15 @@
 	$query = "SELECT * FROM deals LIMIT " . $DEALS_PER_PAGE . " OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 
 	$resultset = mysqli_query( $conn, $query );
-
+	
 	while( $row = mysqli_fetch_array($resultset, MYSQLI_NUM) ) {
 		$image = "baguette.jpeg";
 		$itemName = $row[1];
-		$salePrice = $row[8];
+		$itemLat = $row[5];
+		$itemLong = $row[6];
 		$originalPrice = $row[7];
+		$salePrice = $row[8];
+		$storeName = $row[9];
 		$storeImage = "france.png";
 
 		echo '
@@ -102,13 +117,17 @@
 				<div class="dealItem"><h3>' . $itemName . '</h3></div>
 				<div class="dealNewPrice"><h2>Sale Price: $' . $salePrice . '</h2></div>
 				<div class="dealOldPrice"><p>Original Price: $' . $originalPrice . '</p></div>
+				<input type="hidden" id="deal'.$row[0].'lat" value='.$itemLat.' />
+				<input type="hidden" id="deal'.$row[0].'long" value='.$itemLong.' />
 			</div>
-			<div class="dealStore">
-				<img src="' . $storeImage . '" alt="Store Logo" width="190" height="190">
+			<div id="map" class="dealStore">
 			</div>
-		</div>
-';
+		</div>';
+
+		
 	}
+
+	
 
 	// for( $i=0; $i<10; $i++ ) {
 	// 	$image = "baguette.jpeg";
@@ -181,6 +200,31 @@
 		<div id="popupDealOldPrice"><p>Original Price</p></div>
 	</div>
 	<div id="popupMap"></div>
+
+	<script>
+
+	  
+      function initPopMap() {
+        var myLatLng = {lat: 0, lng: 180};
+
+        popMap = new google.maps.Map(document.getElementById("popupMap"), {
+          zoom: 8,
+          center: myLatLng,
+          gestureHandling: "cooperative"
+        });
+
+        popUpMapMarker = new google.maps.Marker({
+          position: myLatLng,
+          map: popMap,
+          title: "popUpMapMarker"
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA&callback=initPopMap">
+    </script>
+
+
 </div>
 </body>
 </html>
