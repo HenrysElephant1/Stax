@@ -11,7 +11,7 @@
 		    <select name="type" size="3" style="width=500px height=300px" required> 
 		    		<option value="buyXGetXFree" onclick='changeForm("buyXGetXFree")'>          Buy X get X free          </option>
 		    		<option value="Sale" onclick='changeForm("Sale")'>          Sale          </option> </select>
-		    <p id="origPrice"></p>
+		    <p id="orgPrice"></p>
 		    <p id="salePrice"></p>
 		    <p>Image:&nbsp <input type="file" name="fileToUpload" id="fileToUpload" /></p>
 		<?php
@@ -32,18 +32,18 @@
         			var newHTML = 'Price:&nbsp <input type="int" name="salePrice" size="10" maxlength="30" required />';
         			document.getElementById('salePrice').innerHTML = newHTML;
 
-        			oldHTML = document.getElementById('origPrice').innerHTML;
+        			oldHTML = document.getElementById('orgPrice').innerHTML;
         			newHTML = 'Buy <input type="int" name="itemsToBuy" size="10" maxlength="2" required /> items and get <input type="int" name="freeItems" size="10" maxlength="2" required /> items free';
-        			document.getElementById('origPrice').innerHTML = newHTML;
+        			document.getElementById('orgPrice').innerHTML = newHTML;
 	  			}
 	  			else{
 	  				var oldHTML = document.getElementById('salePrice').innerHTML;
         			var newHTML = 'Sale Price:&nbsp <input type="int" name="salePrice" size="10" maxlength="30" required />';
         			document.getElementById('salePrice').innerHTML = newHTML;
 
-        			oldHTML = document.getElementById('origPrice').innerHTML;
-        			newHTML = 'Original Price:&nbsp <input type="int" name="origPrice" size="10" maxlength="30" required />';
-        			document.getElementById('origPrice').innerHTML = newHTML;
+        			oldHTML = document.getElementById('orgPrice').innerHTML;
+        			newHTML = 'Original Price:&nbsp <input type="int" name="orgPrice" size="10" maxlength="30" required />';
+        			document.getElementById('orgPrice').innerHTML = newHTML;
 	  			}
 	  		}
 	  	</script>
