@@ -62,7 +62,7 @@
 	<div id="sidebar">
 		<a href="index.php"><div class="sidebarButton" id="activeSidebarButton"><p>Deals</p></div></a>
 		<a href="#header"><div class="sidebarButton"><p>Favorites</p></div></a>
-		<a href="#header"><div class="sidebarButton"><p>Add a Deal</p></div></a>
+		<a href="new_deal.php"><div class="sidebarButton"><p>Add a Deal</p></div></a>
 	</div>
 
 	<div id="mainContents">
@@ -71,18 +71,18 @@
 <?php
 	$DEALS_PER_PAGE = 10;
 
-	// $conn = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
+	$conn = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
 
-	$host = "staxsmysql.mysql.database.azure.com";
-	$db_name = "stax_";
-	$username = "master_stax@staxsmysql";
-	$password = "dev2017softwareB0C@";
+	// $host = "staxsmysql.mysql.database.azure.com";
+	// $db_name = "stax_";
+	// $username = "master_stax@staxsmysql";
+	// $password = "dev2017softwareB0C@";
 
-	$conn = mysqli_init();
-	mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306);
-	if(mysqli_connect_errno($conn)){
-		die('Failed to connect to MySQL: '.mysqli_connect_error());
-	}
+	// $conn = mysqli_init();
+	// mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306);
+	// if(mysqli_connect_errno($conn)){
+	// 	die('Failed to connect to MySQL: '.mysqli_connect_error());
+	// }
 
 	$query = "SELECT * FROM deals LIMIT " . $DEALS_PER_PAGE . " OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 
@@ -90,13 +90,21 @@
 
 	while( $row = mysqli_fetch_array($resultset, MYSQLI_NUM) ) {
 		$image = "baguette.jpeg";
+		$dealID = $row[0];
 		$itemName = $row[1];
-		$salePrice = $row[8];
+		$dealType = $row[2];
+		$upVotes = $row[3];
+		$downVotes = $row[4];
+		$geoLatitude = $row[5];
+		$geoLongitude = $row[6];
 		$originalPrice = $row[7];
-		$storeImage = "france.png";
+		$salePrice = $row[8];
+		$storeName = $row[9];
+		$image = $row[10];
+		$memberID = $row[11];
 
 		echo '
-		<div class="deal" id="deal' . $row[0] . '" onclick="showPopup(\'deal' . $row[0] . '\')">
+		<div class="deal" id="deal' . $dealID . '" onclick="showPopup(\'deal' . $dealID . '\')">
 			<div class="dealImage"><img src="' . $image . '" alt="Item Image" width="190" height="190"></div>
 			<div class="dealInfo">
 				<div class="dealItem"><h3>' . $itemName . '</h3></div>
@@ -138,7 +146,7 @@
 	$dealsResultSet = mysqli_query( $conn, $totalDealsQuery );
 	$totalDeals = mysqli_fetch_array( $dealsResultSet )[0];
 
-	if( empty($_GET['page']) || $page < 0 || $page > (int)($totalDeals / $DEALS_PER_PAGE) ) {
+	if( empty($_GET['page']) || $page < 0 || $page > $totalDeals / $DEALS_PER_PAGE ) {
 		$page = 0;
 	}
 	else { 
