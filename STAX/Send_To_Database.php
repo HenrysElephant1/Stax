@@ -24,11 +24,7 @@
     	die('Error uploading file - check destination is writeable.');
 	}
 
-
-
-
 	//collect information from the form
-
 	$name = $_REQUEST['productName'];
 
 	$type = $_REQUEST['type'];
@@ -44,16 +40,6 @@
 
 	$storeName = $_REQUEST['storeName'];
 
-	// if($type == "buyXGetXFree")
-	// {
-	// 	if ($_REQUEST['itemsToBuy'] > 1)
-	// 	{ $name = "Buy {$_REQUEST['itemsToBuy']} " . $name . "s and get {$_REQUEST['freeItems']} free!";}
-	// 	else {$name = "Buy {$_REQUEST['itemsToBuy']} " . $name . " and get {$_REQUEST['freeItems']} free!";}
-
-	// }
-	// else {
-	// 	$origPrice =  $_REQUEST['origPrice'];
-	// }
 	$Image = $_REQUEST['Image'];
 
 	// $finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension

@@ -6,6 +6,8 @@
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
 	<script>
+		var popMap;
+		var popUpMapMarker;
 		function showPopup( dealID ) {
 			// var currentScrollHeight = document.documentElement.scrollTop || document.body.scrollTop;
 			// var contentsDiv = document.getElementById("contents");
@@ -16,6 +18,8 @@
 			// mainContentsDiv.style.overflow = "hidden";
 
 			// Fill in image attributes
+			
+
 			var dealDiv = document.getElementById( dealID );
 			var dealImage =  dealDiv.getElementsByTagName( "img" )[0];
 			var imageSrc = dealImage.getAttribute("src");
@@ -37,6 +41,14 @@
 
 			document.getElementById("cardBackgroundOverlay").style.display = 'block';
 			document.getElementById("clickedCard").style.display = 'block';
+
+			initPopMap();
+
+
+			popUpMapMarker.setPosition({lat: parseFloat(document.getElementById(dealID+'lat').getAttribute('value')), lng: parseFloat(document.getElementById(dealID+'long').getAttribute('value'))});
+			popMap.setCenter(popUpMapMarker.getPosition());
+
+
 		}
 
 		function hidePopup() {
@@ -62,7 +74,7 @@
 	<div id="sidebar">
 		<a href="index.php"><div class="sidebarButton" id="activeSidebarButton"><p>Deals</p></div></a>
 		<a href="#header"><div class="sidebarButton"><p>Favorites</p></div></a>
-		<a href="new_deal.php"><div class="sidebarButton"><p>Add a Deal</p></div></a>
+		<a href="#header"><div class="sidebarButton"><p>Add a Deal</p></div></a>
 	</div>
 
 	<div id="mainContents">
@@ -71,23 +83,23 @@
 <?php
 	$DEALS_PER_PAGE = 10;
 
-	$conn = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
+	// $conn = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
 
-	// $host = "staxsmysql.mysql.database.azure.com";
-	// $db_name = "stax_";
-	// $username = "master_stax@staxsmysql";
-	// $password = "dev2017softwareB0C@";
+	$host = "staxsmysql.mysql.database.azure.com";
+	$db_name = "stax_";
+	$username = "master_stax@staxsmysql";
+	$password = "dev2017softwareB0C@";
 
-	// $conn = mysqli_init();
-	// mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306);
-	// if(mysqli_connect_errno($conn)){
-	// 	die('Failed to connect to MySQL: '.mysqli_connect_error());
-	// }
+	$conn = mysqli_init();
+	mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306);
+	if(mysqli_connect_errno($conn)){
+		die('Failed to connect to MySQL: '.mysqli_connect_error());
+	}
 
 	$query = "SELECT * FROM deals LIMIT " . $DEALS_PER_PAGE . " OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 
 	$resultset = mysqli_query( $conn, $query );
-
+	
 	while( $row = mysqli_fetch_array($resultset, MYSQLI_NUM) ) {
 		$image = "baguette.jpeg";
 		$dealID = $row[0];
@@ -112,11 +124,13 @@
 				<div class="dealOldPrice"><p>Original Price: $' . $originalPrice . '</p></div>
 			</div>
 			<div class="dealStore">
-				<img src="' . $storeImage . '" alt="Store Logo" width="190" height="190">
+				<img src="" alt="Store Logo" width="190" height="190">
 			</div>
 		</div>
 ';
 	}
+
+	
 
 	// for( $i=0; $i<10; $i++ ) {
 	// 	$image = "baguette.jpeg";
@@ -146,7 +160,7 @@
 	$dealsResultSet = mysqli_query( $conn, $totalDealsQuery );
 	$totalDeals = mysqli_fetch_array( $dealsResultSet )[0];
 
-	if( empty($_GET['page']) || $page < 0 || $page > $totalDeals / $DEALS_PER_PAGE ) {
+	if( empty($_GET['page']) || $page < 0 || $page > (int)($totalDeals / $DEALS_PER_PAGE) ) {
 		$page = 0;
 	}
 	else { 
@@ -189,6 +203,31 @@
 		<div id="popupDealOldPrice"><p>Original Price</p></div>
 	</div>
 	<div id="popupMap"></div>
+
+	<script>
+
+	  
+      function initPopMap() {
+        var myLatLng = {lat: 0, lng: 180};
+
+        popMap = new google.maps.Map(document.getElementById("popupMap"), {
+          zoom: 8,
+          center: myLatLng,
+          gestureHandling: "cooperative"
+        });
+
+        popUpMapMarker = new google.maps.Marker({
+          position: myLatLng,
+          map: popMap,
+          title: "popUpMapMarker"
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA&callback=initPopMap">
+    </script>
+
+
 </div>
 </body>
 </html>
