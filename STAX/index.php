@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Your Deals</title>
+	<title>STAX Deals</title>
 	<link href="staxStyle.css" type="text/css" rel="stylesheet">
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
@@ -70,10 +70,65 @@
 		<a href="index.php"><div class="sidebarButton" id="activeSidebarButton"><p>Deals</p></div></a>
 		<a href="#header"><div class="sidebarButton"><p>Favorites</p></div></a>
 		<a href="new_deal.php"><div class="sidebarButton"><p>Add a Deal</p></div></a>
+		<div id="sidebarSpacer" style="height: 10px;"></div>
+
+		<h4>Sort By:</h4>
+		<a href="index.php?sortBy=newest"><div class="sidebarButton" id="newestSort"><p>Newest</p></div></a>
+		<a href="index.php?sortBy=oldest"><div class="sidebarButton" id="oldestSort"><p>Oldest</p></div></a>
+		<a href="index.php?sortBy=priceLowToHigh"><div class="sidebarButton" id="priceLowToHighSort"><p>Price Low to High</p></div></a>
+		<a href="index.php?sortBy=priceHighToLow"><div class="sidebarButton" id="priceHighToLowSort"><p>Price High to Low</p></div></a>
+		<a href=""><div class="sidebarButton" id="distanceSort"><p>Distance From Me</p></div></a>
 	</div>
 
+	<?php
+		$sortBy = $_GET['sortBy'];
+		if( empty( $sortBy ) || ($sortBy != "oldest" && $sortBy != "priceLowToHigh" && $sortBy != "priceHighToLow" && $sortBy != "distance" ) ) {
+			$sortBy = "newest";
+		}
+		echo '<input type="hidden" id="sortBy" value="' . $sortBy . '">
+';
+	?>
+	<script>
+		var sortBy = document.getElementById("sortBy").value;
+		if( sortBy == "newest" ) {
+			document.getElementById("newestSort").id = "activeSidebarButton";
+		}
+		if( sortBy == "oldest" ) {
+			document.getElementById("oldestSort").id = "activeSidebarButton";
+		}
+		else if( sortBy == "priceLowToHigh" ) {
+			document.getElementById("priceLowToHighSort").id = "activeSidebarButton";
+		}
+		else if( sortBy == "priceHighToLow" ) {
+			document.getElementById("priceHighToLowSort").id = "activeSidebarButton";
+		}
+		else if( sortBy == "distance" ) {
+			document.getElementById("distanceSort").id = "activeSidebarButton";
+		}
+
+		var dealsHeader = document.getElementById( "dealsHeader" );
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(setDistanceURL);
+		}
+		else {
+			dealsHeader.innerHTML = "Geolocation is not supported by this browser.";
+		}
+
+		function setDistanceURL(position) {
+			var latitude = position.coords.latitude;
+			var longitude = position.coords.longitude;
+			
+			var distURL = "index.php?sortBy=distance&latitude="+latitude+"&longitude="+longitude;
+			console.log(distURL);
+			var link = document.getElementById("sidebar").getElementsByTagName("a")[7];
+			link.href = distURL;
+			console.log( document.getElementById("sidebar").getElementsByTagName("a")[7].href );
+		}
+	</script>
+
 	<div id="mainContents">
-		<div style="padding: 5px; background-color: #FFFFFF; border: 1px solid #C0D6C0; border-radius: 5px;"><h3>Welcome Back, USER</h3>
+		<div id="dealsHeader" style="padding: 5px; background-color: #FFFFFF; border: 1px solid #C0D6C0; border-radius: 5px;">
+			<h3>Welcome Back, USER</h3>
 		</div>
 
 <?php
@@ -93,7 +148,41 @@
 		die('Failed to connect to MySQL: '.mysqli_connect_error());
 	}
 
-	$query = "SELECT * FROM deals LIMIT " . $DEALS_PER_PAGE . " OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+	if( $sortBy == "oldest" ) {
+		$query = "SELECT * FROM deals 
+			ORDER BY dealID 
+			LIMIT " . $DEALS_PER_PAGE . " 
+			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+	}
+	else if( $sortBy == "priceLowToHigh" ) {
+		$query = "SELECT * FROM deals 
+		ORDER BY salePrice 
+		LIMIT " . $DEALS_PER_PAGE . " 
+		OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+	}
+	else if( $sortBy == "priceHighToLow" ) {
+		$query = "SELECT * FROM deals 
+		ORDER BY salePrice DESC 
+		LIMIT " . $DEALS_PER_PAGE . " 
+		OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+	}
+
+	else if( $sortBy == "distance" ) {
+		$userLat = $_GET['latitude'];
+		$userLong = $_GET['longitude'];
+
+
+		$query = "SELECT * FROM deals
+			ORDER BY (POWER(geoLatitude - " . $userLat . " , 2) + POWER(geoLongitude - " . $userLong . " , 2))
+			LIMIT " . $DEALS_PER_PAGE . " 
+			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+	}
+	else {
+		$query = "SELECT * FROM deals 
+		ORDER BY dealID DESC 
+		LIMIT " . $DEALS_PER_PAGE . " 
+		OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+	}
 
 	$resultset = mysqli_query( $conn, $query );
 	
@@ -170,6 +259,7 @@
 	$totalDealsQuery = "SELECT COUNT(*) FROM deals;";
 	$dealsResultSet = mysqli_query( $conn, $totalDealsQuery );
 	$totalDeals = mysqli_fetch_array( $dealsResultSet )[0];
+	$currentURL = "index.php?sortBy=" . $sortBy;
 
 	if( empty($_GET['page']) || $page < 0 || $page > $totalDeals / $DEALS_PER_PAGE ) {
 		$page = 0;
@@ -181,7 +271,7 @@
 	if( $page != 0 ) {
 		$previousPage = (string)($page - 1);
 		echo "			<div id=\"prevPage\">
-				<form action=\"index.php\" method=\"get\">
+				<form action=\"" . $currentURL . "\" method=\"get\">
 					<input name=\"page\" type=\"hidden\" value=".$previousPage.">
 					<input type=\"submit\" value=\"Previous Page\">
 				</form>
@@ -190,7 +280,7 @@
 		$nextPage = (string)($page + 1);
 		echo "
 			<div id=\"nextPage\">
-				<form action=\"index.php\" method=\"get\">
+				<form action=\"" . $currentURL . "\" method=\"get\">
 					<input name=\"page\" type=\"hidden\" value=".$nextPage.">
 					<input type=\"submit\" value=\"Next Page\">
 				</form>
