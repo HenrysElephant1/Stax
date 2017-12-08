@@ -98,14 +98,14 @@ a {
 }
 
 #activeSidebarButton {
-	background: #F6FAF6;
+	background: #FFFFFF;
 	border: 1px solid #C0D6C0;
 	border-radius: 2px;
 	padding: 4px;
 }
 
 .sidebarButton:hover {
-	background: #F6FAF6;
+	background: #FFFFFF;
 	border: 1px solid #C0D6C0;
 	border-radius: 2px;
 	padding: 4px;
@@ -122,7 +122,7 @@ a {
 }
 
 .deal {
-	background: #F6FAF6;
+	background: #FFFFFF;
 	margin-top: 5px;
 	height: 200px;
 	border: 1px solid #C0D6C0;
@@ -135,8 +135,20 @@ a {
 	height: 190px;
 	width: 190px;
 	text-align: center;
-	line-height: 200px;
-	padding: 5px;
+    white-space: nowrap;
+    padding: 5px;
+}
+
+.imageHelper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.actualImage {
+    vertical-align: middle;
+    max-height: 190px;
+    max-width: 190px;
 }
 
 .dealInfo {
@@ -147,8 +159,13 @@ a {
 	padding: 5px;
 }
 
+.dealType {
+	float: left;
+}
+
 .dealItem {
 	float: left;
+	clear: left;
 }
 
 .dealNewPrice {
@@ -205,8 +222,14 @@ a {
 	width: 290px;
 	height: 290px;
 	padding: 5px;
-	border: 1px solid #C0D6C0;
-	border-radius: 1px;
+	text-align: center;
+    white-space: nowrap;
+}
+
+#actualPopupImage {
+    vertical-align: middle;
+    max-height: 290px;
+    max-width: 290px;
 }
 
 #popupInfo {
@@ -233,7 +256,7 @@ a {
 	float: left;
 	clear: left;
 	width: 790px;
-	height: 600px;
+	height: 590px;
 	padding: 5px;
 	border: 1px solid #C0D6C0;
 	border-radius: 1px;

@@ -29,7 +29,7 @@
 
 	$type = $_REQUEST['type'];
 	if($type == "buyXGetXFree") {
-		$type = "buy{$_REQUEST['itemsToBuy']}get{$_REQUEST['freeItems']}free";
+		$type = "Buy {$_REQUEST['itemsToBuy']}, Get {$_REQUEST['freeItems']} Free";
 	}
 
 	$salePrice = $_REQUEST['salePrice'];

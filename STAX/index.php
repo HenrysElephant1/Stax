@@ -18,8 +18,6 @@
 			// mainContentsDiv.style.overflow = "hidden";
 
 			// Fill in image attributes
-			
-
 			var dealDiv = document.getElementById( dealID );
 			var dealImage =  dealDiv.getElementsByTagName( "img" )[0];
 			var imageSrc = dealImage.getAttribute("src");
@@ -44,11 +42,8 @@
 
 			initPopMap();
 
-
 			popUpMapMarker.setPosition({lat: parseFloat(document.getElementById(dealID+'lat').getAttribute('value')), lng: parseFloat(document.getElementById(dealID+'long').getAttribute('value'))});
 			popMap.setCenter(popUpMapMarker.getPosition());
-
-
 		}
 
 		function hidePopup() {
@@ -74,24 +69,26 @@
 	<div id="sidebar">
 		<a href="index.php"><div class="sidebarButton" id="activeSidebarButton"><p>Deals</p></div></a>
 		<a href="#header"><div class="sidebarButton"><p>Favorites</p></div></a>
-		<a href="#header"><div class="sidebarButton"><p>Add a Deal</p></div></a>
+		<a href="new_deal.php"><div class="sidebarButton"><p>Add a Deal</p></div></a>
 	</div>
 
 	<div id="mainContents">
-		<div style="padding: 5px; background-color: #F6FAF6; border: 1px solid #C0D6C0; border-radius: 5px;"><h3>Welcome back, USER</h3></div>
+		<div style="padding: 5px; background-color: #FFFFFF; border: 1px solid #C0D6C0; border-radius: 5px;"><h3>Add a New Deal</h3>
+		</div>
 
 <?php
 	$DEALS_PER_PAGE = 10;
 
-	// $conn = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
+	$conn = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
 
-	$host = "staxsmysql.mysql.database.azure.com";
-	$db_name = "stax_";
-	$username = "master_stax@staxsmysql";
-	$password = "dev2017softwareB0C@";
+	// $host = "staxsmysql.mysql.database.azure.com";
+	// $db_name = "stax_";
+	// $username = "master_stax@staxsmysql";
+	// $password = "dev2017softwareB0C@";
 
-	$conn = mysqli_init();
-	mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306);
+	// $conn = mysqli_init();
+	// mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306);
+
 	if(mysqli_connect_errno($conn)){
 		die('Failed to connect to MySQL: '.mysqli_connect_error());
 	}
@@ -101,7 +98,6 @@
 	$resultset = mysqli_query( $conn, $query );
 	
 	while( $row = mysqli_fetch_array($resultset, MYSQLI_NUM) ) {
-		$image = "baguette.jpeg";
 		$dealID = $row[0];
 		$itemName = $row[1];
 		$dealType = $row[2];
@@ -115,43 +111,53 @@
 		$image = $row[10];
 		$memberID = $row[11];
 
-		echo '
+		list($width, $height, $type, $attr) = getimagesize( $image );
+		if( $height > $width ) {
+			$resizingValue = $height;
+		}
+		else {
+			$resizingValue = $width;
+		}
+		$imageDisplayHeight = $height * 190 / $resizingValue;
+		$imageDisplayWidth = $width * 190 / $resizingValue;
+
+		if( substr($dealType, 0, 4) == "Sale" ) {
+			echo '
 		<div class="deal" id="deal' . $dealID . '" onclick="showPopup(\'deal' . $dealID . '\')">
-			<div class="dealImage"><img src="' . $image . '" alt="Item Image" width="190" height="190"></div>
+			<div class="dealImage"><span class="imageHelper"></span><img class="actualImage" src="' . $image . '" alt="Item Image" width="' . $imageDisplayWidth . '" height="' . $imageDisplayHeight . '"></div>
 			<div class="dealInfo">
+				<div class="dealType"><h4>' . $dealType . '</h4></div>
 				<div class="dealItem"><h3>' . $itemName . '</h3></div>
-				<div class="dealNewPrice"><h2>Sale Price: $' . $salePrice . '</h2></div>
+				<div class="dealNewPrice"><h2>Price: $' . $salePrice . '</h2></div>
 				<div class="dealOldPrice"><p>Original Price: $' . $originalPrice . '</p></div>
+				<input type="hidden" id="deal'.$dealID.'lat" value='.$geoLatitude.' />
+				<input type="hidden" id="deal'.$dealID.'long" value='.$geoLongitude.' />
 			</div>
 			<div class="dealStore">
 				<img src="" alt="Store Logo" width="190" height="190">
 			</div>
 		</div>
-';
+			';
+		}
+		else if( substr($dealType, -4) == "Free" ){
+			echo '
+		<div class="deal" id="deal' . $dealID . '" onclick="showPopup(\'deal' . $dealID . '\')">
+			<div class="dealImage"><span class="imageHelper"></span><img class="actualImage"  src="' . $image . '" alt="Item Image" width="' . $imageDisplayWidth . '" height="' . $imageDisplayHeight . '"></div>
+			<div class="dealInfo">
+				<div class="dealType"><h4>' . $dealType . '</h4></div>
+				<div class="dealItem"><h3>' . $itemName . '</h3></div>
+				<div class="dealNewPrice"><h2>Price for One: $' . $salePrice . '</h2></div>
+				<input type="hidden" id="deal'.$dealID.'lat" value='.$geoLatitude.' />
+				<input type="hidden" id="deal'.$dealID.'long" value='.$geoLongitude.' />
+			</div>
+			<div class="dealStore">
+				<img src="" alt="Store Logo" width="190" height="190">
+			</div>
+		</div>
+			';
+		}
 	}
 
-	
-
-	// for( $i=0; $i<10; $i++ ) {
-	// 	$image = "baguette.jpeg";
-	// 	$itemName = "Baguette";
-	// 	$salePrice = "1" . $i . "0.00";
-	// 	$originalPrice = "German Invasion";
-	// 	$storeImage = "france.png";
-
-	// 	echo '
-	// 	<div class="deal" id="deal' . $i . '" onclick="showPopup(\'deal' . $i . '\')">
-	// 		<div class="dealImage"><img src="' . $image . '" alt="Item Image" width="190" height="190"></div>
-	// 		<div class="dealInfo">
-	// 			<div class="dealItem"><h3>' . $itemName . '</h3></div>
-	// 			<div class="dealNewPrice"><h2>Sale Price: $' . $salePrice . '</h2></div>
-	// 			<div class="dealOldPrice"><p>Original Price: $' . $originalPrice . '</p></div>
-	// 		</div>
-	// 		<div class="dealStore">
-	// 			<img src="' . $storeImage . '" alt="Store Logo" width="190" height="190">
-	// 		</div>
-	// 	</div>';
-	// }
 ?>
 
 		<div id="pageLinks">
@@ -160,7 +166,7 @@
 	$dealsResultSet = mysqli_query( $conn, $totalDealsQuery );
 	$totalDeals = mysqli_fetch_array( $dealsResultSet )[0];
 
-	if( empty($_GET['page']) || $page < 0 || $page > (int)($totalDeals / $DEALS_PER_PAGE) ) {
+	if( empty($_GET['page']) || $page < 0 || $page > $totalDeals / $DEALS_PER_PAGE ) {
 		$page = 0;
 	}
 	else { 
@@ -196,7 +202,7 @@
 
 <div id="cardBackgroundOverlay" onclick="hidePopup()"></div>
 <div id="clickedCard">
-	<div id="popupImage"><img src="" height="" width="" alt="No Image Available"></div>
+	<div id="popupImage"><span class="imageHelper"></span><img class="actualPopupImage" src="" height="" width="" alt="No Image Available"></div>
 	<div id="popupInfo">
 		<div id="popupDealItem"><h3>Item</h3></div>
 		<div id="popupDealNewPrice"><h2>New Price</h2></div>
