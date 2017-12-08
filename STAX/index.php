@@ -111,7 +111,7 @@
 		$image = $row[10];
 		$memberID = $row[11];
 
-		if( list($width, $height, $type, $attr) = getimagesize( $image ) ) {
+		if( list($width, $height, $type, $attr) = @getimagesize( $image ) ) {
 			if( $height > $width ) {
 				$resizingValue = $height;
 			}
