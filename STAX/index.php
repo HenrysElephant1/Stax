@@ -53,6 +53,8 @@
 			document.getElementById("popupDealNewPrice").innerHTML = "";
 			document.getElementById("popupDealOldPrice").innerHTML = "";
 		}
+
+		var followDistLink = false;
 	</script>
 </head>
 <body>
@@ -77,7 +79,7 @@
 		<a href="index.php?sortBy=oldest"><div class="sidebarButton" id="oldestSort"><p>Oldest</p></div></a>
 		<a href="index.php?sortBy=priceLowToHigh"><div class="sidebarButton" id="priceLowToHighSort"><p>Price Low to High</p></div></a>
 		<a href="index.php?sortBy=priceHighToLow"><div class="sidebarButton" id="priceHighToLowSort"><p>Price High to Low</p></div></a>
-		<a href=""><div class="sidebarButton" id="distanceSort"><p>Distance From Me</p></div></a>
+		<a href="" onclick="return followDistLink;"><div class="sidebarButton" id="distanceSort"><p>Distance From Me</p></div></a>
 	</div>
 
 	<?php
@@ -119,10 +121,9 @@
 			var longitude = position.coords.longitude;
 			
 			var distURL = "index.php?sortBy=distance&latitude="+latitude+"&longitude="+longitude;
-			console.log(distURL);
 			var link = document.getElementById("sidebar").getElementsByTagName("a")[7];
 			link.href = distURL;
-			console.log( document.getElementById("sidebar").getElementsByTagName("a")[7].href );
+			followDistLink = true;
 		}
 	</script>
 
@@ -215,41 +216,31 @@
 			$imageDisplayWidth = 0;
 		}
 
-		if( substr($dealType, 0, 4) == "Sale" ) {
-			echo '
+		
+		echo '
 		<div class="deal" id="deal' . $dealID . '" onclick="showPopup(\'deal' . $dealID . '\')">
 			<div class="dealImage"><span class="imageHelper"></span><img class="actualImage" src="' . $image . '" alt="Item Image" width="' . $imageDisplayWidth . '" height="' . $imageDisplayHeight . '"></div>
 			<div class="dealInfo">
 				<div class="dealType"><h4>' . $dealType . '</h4></div>
-				<div class="dealItem"><h3>' . $itemName . '</h3></div>
-				<div class="dealNewPrice"><h2>Price: $' . $salePrice . '</h2></div>
-				<div class="dealOldPrice"><p>Original Price: $' . $originalPrice . '</p></div>
+				<div class="dealItem"><h3>' . $itemName . '</h3></div>';
+		if( substr($dealType, 0, 4) == "Sale" ) {
+			echo' 
+				<div class="dealNewPrice"><h2>Price: $' . money_format('%i', $salePrice) . '</h2></div>
+				<div class="dealOldPrice"><p>Original Price: $' . money_format('%i', $originalPrice) . '</p></div>';
+		}
+		else if( substr($dealType, -4) == "Free" ) {
+			echo'
+				<div class="dealNewPrice"><h2>Price for One: $' . money_format('%i', $salePrice) . '</h2></div>';
+		}
+		echo'
 				<input type="hidden" id="deal'.$dealID.'lat" value='.$geoLatitude.' />
 				<input type="hidden" id="deal'.$dealID.'long" value='.$geoLongitude.' />
 			</div>
 			<div class="dealStore">
-				<img src="" alt="Store Logo" width="190" height="190">
+				<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $geoLatitude . ',' . $geoLongitude . '&zoom=14&size=190x190&maptype=roadmap&markers=color:red%7C' . $geoLatitude . ',' . $geoLongitude . '&key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA" alt="Store Location" width="190" height="190">
 			</div>
 		</div>
-			';
-		}
-		else if( substr($dealType, -4) == "Free" ){
-			echo '
-		<div class="deal" id="deal' . $dealID . '" onclick="showPopup(\'deal' . $dealID . '\')">
-			<div class="dealImage"><span class="imageHelper"></span><img class="actualImage"  src="' . $image . '" alt="Item Image" width="' . $imageDisplayWidth . '" height="' . $imageDisplayHeight . '"></div>
-			<div class="dealInfo">
-				<div class="dealType"><h4>' . $dealType . '</h4></div>
-				<div class="dealItem"><h3>' . $itemName . '</h3></div>
-				<div class="dealNewPrice"><h2>Price for One: $' . $salePrice . '</h2></div>
-				<input type="hidden" id="deal'.$dealID.'lat" value='.$geoLatitude.' />
-				<input type="hidden" id="deal'.$dealID.'long" value='.$geoLongitude.' />
-			</div>
-			<div class="dealStore">
-				<img src="" alt="Store Logo" width="190" height="190">
-			</div>
-		</div>
-			';
-		}
+		';
 	}
 
 ?>
