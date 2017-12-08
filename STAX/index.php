@@ -111,15 +111,20 @@
 		$image = $row[10];
 		$memberID = $row[11];
 
-		list($width, $height, $type, $attr) = getimagesize( $image );
-		if( $height > $width ) {
-			$resizingValue = $height;
+		if( list($width, $height, $type, $attr) = getimagesize( $image ) ) {
+			if( $height > $width ) {
+				$resizingValue = $height;
+			}
+			else {
+				$resizingValue = $width;
+			}
+			$imageDisplayHeight = $height * 190 / $resizingValue;
+			$imageDisplayWidth = $width * 190 / $resizingValue;
 		}
 		else {
-			$resizingValue = $width;
+			$imageDisplayHeight = 0;
+			$imageDisplayWidth = 0;
 		}
-		$imageDisplayHeight = $height * 190 / $resizingValue;
-		$imageDisplayWidth = $width * 190 / $resizingValue;
 
 		if( substr($dealType, 0, 4) == "Sale" ) {
 			echo '
