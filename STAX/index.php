@@ -47,8 +47,8 @@
 		}
 
 		function hidePopup() {
-			document.getElementById("cardBackgroundOverlay").style.display = 'none';
-			document.getElementById("clickedCard").style.display = 'none';
+			document.getElementById("cardBackgroundOverlay").style.display = "none";
+			document.getElementById("clickedCard").style.display = "none";
 			document.getElementById("popupDealItem").innerHTML = "";
 			document.getElementById("popupDealNewPrice").innerHTML = "";
 			document.getElementById("popupDealOldPrice").innerHTML = "";
@@ -73,7 +73,7 @@
 	</div>
 
 	<div id="mainContents">
-		<div style="padding: 5px; background-color: #FFFFFF; border: 1px solid #C0D6C0; border-radius: 5px;"><h3>Add a New Deal</h3>
+		<div style="padding: 5px; background-color: #FFFFFF; border: 1px solid #C0D6C0; border-radius: 5px;"><h3>Welcome Back, USER</h3>
 		</div>
 
 <?php
@@ -222,7 +222,7 @@
 			var myLatLng = {lat: 0, lng: 180};
 
 			popMap = new google.maps.Map(document.getElementById("popupMap"), {
-				zoom: 8,
+				zoom: 16,
 				center: myLatLng,
 				gestureHandling: "cooperative"
 			});

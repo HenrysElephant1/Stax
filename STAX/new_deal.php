@@ -4,7 +4,7 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 		<meta charset="utf-8">
-	<style>
+	<style type="text/css">
 		body {
 			background-color: #E6EAE6;
 			margin: 0px;
@@ -92,16 +92,14 @@
 			width: 1000px;
 			float: left;
 		}
-		/* Always set the map height explicitly to define the size of the div
-		 * element that contains the map. */
 
 		#mainContents {
 			/*background: #F6FAF6;*/
 			/*overflow: auto;*/
-			float: right;
-			width: 100%;
+			float: left;
+			width: calc( 100% );
 			margin: 0px;
-			padding: 5px;
+			padding: 0px;
 			padding-top: 0px;
 		}
 
@@ -222,7 +220,7 @@
 	<div id="contents">
 		<div id="spacer"></div>
 		<div id="mainContents">
-			<div style="margin-left: 5px; padding: 5px; background-color: #FFFFFF; border: 1px solid #C0D6C0; border-radius: 5px; width: calc( 100% - 16px);">
+			<div style="padding: 5px; background-color: #FFFFFF; border: 1px solid #C0D6C0; border-radius: 5px; width: calc( 100% - 12px);">
 				<h3>Add a Deal:</h3>
 				<p>Allow location services for this page, then use the search bar to find a store or enter an address, click the icon (not the red popup marker if you search a specific store), then click "Select Store" to go to the next step.</p>
 			</div>
