@@ -79,15 +79,15 @@
 <?php
 	$DEALS_PER_PAGE = 10;
 
-	$conn = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
+	//$conn = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
 
-	// $host = "staxsmysql.mysql.database.azure.com";
-	// $db_name = "stax_";
-	// $username = "master_stax@staxsmysql";
-	// $password = "dev2017softwareB0C@";
+	$host = "staxsmysql.mysql.database.azure.com";
+	$db_name = "stax_";
+	$username = "master_stax@staxsmysql";
+	$password = "dev2017softwareB0C@";
 
-	// $conn = mysqli_init();
-	// mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306);
+	$conn = mysqli_init();
+	mysqli_real_connect($conn, $host, $username, $password, $db_name, 3306);
 
 	if(mysqli_connect_errno($conn)){
 		die('Failed to connect to MySQL: '.mysqli_connect_error());
@@ -213,25 +213,25 @@
 	<script>
 
 	  
-      function initPopMap() {
-        var myLatLng = {lat: 0, lng: 180};
+		function initPopMap() {
+			var myLatLng = {lat: 0, lng: 180};
 
-        popMap = new google.maps.Map(document.getElementById("popupMap"), {
-          zoom: 8,
-          center: myLatLng,
-          gestureHandling: "cooperative"
-        });
+			popMap = new google.maps.Map(document.getElementById("popupMap"), {
+				zoom: 8,
+				center: myLatLng,
+				gestureHandling: "cooperative"
+			});
 
-        popUpMapMarker = new google.maps.Marker({
-          position: myLatLng,
-          map: popMap,
-          title: "popUpMapMarker"
-        });
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA&callback=initPopMap">
-    </script>
+			popUpMapMarker = new google.maps.Marker({
+				position: myLatLng,
+				map: popMap,
+				title: "popUpMapMarker"
+			});
+		}
+	</script>
+	<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA&callback=initPopMap">
+	</script>
 
 
 </div>

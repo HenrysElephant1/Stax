@@ -5,7 +5,16 @@
 	<body>
 		<?php
 	// Obtain a connection object by connecting to the db
-	$connection = @mysqli_connect ('127.0.0.1', 'root', 'root', 'stax');
+	// $connection = @mysqli_connect ('127.0.0.1', 'root', 'root', 'stax');
+
+	$host = "staxsmysql.mysql.database.azure.com";
+	$db_name = "stax_";
+	$username = "master_stax@staxsmysql";
+	$password = "dev2017softwareB0C@";
+
+	$connection = mysqli_init();
+	mysqli_real_connect($connection, $host, $username, $password, $db_name, 3306);
+
 	//please fill these parameters with the actual data
 	if(mysqli_connect_errno())
 	{
