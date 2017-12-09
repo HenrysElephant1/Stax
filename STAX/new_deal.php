@@ -5,7 +5,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name="google-signin-client_id" content="505886009165-tjniqhjeihi67b94cgiu0fe34ne7e0dg.apps.googleusercontent.com">
-		<meta charset="utf-8">
+	<meta charset="utf-8">
 	
 
 

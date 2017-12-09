@@ -6,8 +6,9 @@
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name="google-signin-client_id" content="505886009165-tjniqhjeihi67b94cgiu0fe34ne7e0dg.apps.googleusercontent.com">
+	<meta charset="utf-8">
 
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script>
 		var popMap;
 		var popUpMapMarker;
@@ -31,6 +32,9 @@
 			popupImage.setAttribute("height", imageHeight);
 			popupImage.setAttribute("width", imageWidth);
 
+			var dealType = document.getElementById(dealID).getElementsByClassName("dealType")[0].innerHTML;
+			document.getElementById("popupDealType").innerHTML = dealType;
+
 			var dealItem = document.getElementById(dealID).getElementsByClassName("dealItem")[0].innerHTML;
 			document.getElementById("popupDealItem").innerHTML = dealItem;
 
@@ -39,6 +43,9 @@
 
 			var dealOldPrice = document.getElementById(dealID).getElementsByClassName("dealOldPrice")[0].innerHTML;
 			document.getElementById("popupDealOldPrice").innerHTML = dealOldPrice;
+
+			var displayDealStore = document.getElementById(dealID).getElementsByClassName("displayDealStore")[0].innerHTML;
+			document.getElementById("popupDisplayDealStore").innerHTML = displayDealStore;
 
 			document.getElementById("cardBackgroundOverlay").style.display = 'block';
 			document.getElementById("clickedCard").style.display = 'block';
@@ -62,9 +69,9 @@
 		function signOut() {
     		var auth2 = gapi.auth2.getAuthInstance();
     		auth2.signOut().then(function () {
-      		console.log('User signed out.');
-      		auth2.disconnect();
-    	});
+	      		console.log('User signed out.');
+	      		auth2.disconnect();
+	    	});
     	}
 
 	</script>
@@ -79,6 +86,7 @@
 		<div id="accountTab" href="#" onclick="signOut()"><h4>Sign Out</h4></div>
 	</div> 
 </div>
+
 <div id="contentsSpacer"></div>
 <div id="contents">
 	<div id="spacer"></div>
@@ -104,6 +112,7 @@
 		echo '<input type="hidden" id="sortBy" value="' . $sortBy . '">
 ';
 	?>
+
 	<script>
 		var sortBy = document.getElementById("sortBy").value;
 		if( sortBy == "newest" ) {
@@ -141,6 +150,35 @@
 		}
 	</script>
 
+	<p></p>
+	<script type="text/javascript">
+		function callUpvote(inputDealID) {
+			$.ajax({
+			    type: 'POST',
+			    url: 'voting_scripts/upvote.php',
+			    dataType: 'html',
+			    data: {userID: 10, dealID: inputDealID},
+			});
+
+			var dealDiv = "deal" + inputDealID;
+			var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
+			document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes + 1;
+		}
+
+		function callDownvote(inputDealID) {
+			$.ajax({
+			    type: 'POST',
+			    url: 'voting_scripts/downvote.php',
+			    dataType: 'html',
+			    data: {userID: 10, dealID: inputDealID},
+			});
+
+			var dealDiv = "deal" + inputDealID;
+			var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
+			document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes - 1;
+		}
+	</script>
+
 	<div id="mainContents">
 		<div id="dealsHeader" style="padding: 5px; background-color: #FFFFFF; border: 1px solid #C0D6C0; border-radius: 5px;">
 			<h3>Welcome Back, USER</h3>
@@ -149,7 +187,7 @@
 <?php
 	$DEALS_PER_PAGE = 10;
 
-	//$conn = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
+	// $conn = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
 
 	$host = "staxsmysql.mysql.database.azure.com";
 	$db_name = "stax_";
@@ -232,25 +270,32 @@
 
 		
 		echo '
-		<div class="deal" id="deal' . $dealID . '" onclick="showPopup(\'deal' . $dealID . '\')">
-			<div class="dealImage"><span class="imageHelper"></span><img class="actualImage" src="' . $image . '" alt="Item Image" width="' . $imageDisplayWidth . '" height="' . $imageDisplayHeight . '"></div>
-			<div class="dealInfo">
+		<div class="deal" id="deal' . $dealID . '">
+			<div class="dealImage" onclick="showPopup(\'deal' . $dealID . '\')"><span class="imageHelper"></span><img class="actualImage" src="' . $image . '" alt="Item Image" width="' . $imageDisplayWidth . '" height="' . $imageDisplayHeight . '"></div>
+			<div class="dealInfo" onclick="showPopup(\'deal' . $dealID . '\')">
 				<div class="dealType"><h4>' . $dealType . '</h4></div>
 				<div class="dealItem"><h3>' . $itemName . '</h3></div>';
 		if( substr($dealType, 0, 4) == "Sale" ) {
 			echo' 
 				<div class="dealNewPrice"><h2>Price: $' . money_format('%i', $salePrice) . '</h2></div>
-				<div class="dealOldPrice"><p>Original Price: $' . money_format('%i', $originalPrice) . '</p></div>';
+				<div class="dealOldPrice"><h4>Original price: $' . money_format('%i', $originalPrice) . '</h4></div>';
 		}
 		else if( substr($dealType, -4) == "Free" ) {
 			echo'
-				<div class="dealNewPrice"><h2>Price for One: $' . money_format('%i', $salePrice) . '</h2></div>';
+				<div class="dealNewPrice"><h2>Price for One: $' . money_format('%i', $salePrice) . '</h2></div>
+				<div class="dealOldPrice style="display: hidden;"> </div>';
 		}
 		echo'
+				<div class="displayDealStore"><p>Location: ' . $storeName . '</p></div>
 				<input type="hidden" id="deal'.$dealID.'lat" value='.$geoLatitude.' />
 				<input type="hidden" id="deal'.$dealID.'long" value='.$geoLongitude.' />
 			</div>
-			<div class="dealStore">
+			<div class="votingColumn">
+				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><div class="upvoteButton"><p>Upvote</p></div></a>
+				<p><div class="totalVotes">'.($upVotes-$downVotes).'</div></p>
+				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><div class="downvoteButton"><p>Downvote</p></div></a>
+			</div>
+			<div class="dealStore" onclick="showPopup(\'deal' . $dealID . '\')">
 				<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $geoLatitude . ',' . $geoLongitude . '&zoom=14&size=190x190&maptype=roadmap&markers=color:red%7C' . $geoLatitude . ',' . $geoLongitude . '&key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA" alt="Store Location" width="190" height="190">
 			</div>
 		</div>
@@ -276,8 +321,9 @@
 	if( $page != 0 ) {
 		$previousPage = (string)($page - 1);
 		echo "			<div id=\"prevPage\">
-				<form action=\"" . $currentURL . "\" method=\"get\">
+				<form action=\"index.php\" method=\"get\">
 					<input name=\"page\" type=\"hidden\" value=".$previousPage.">
+					<input name=\"sortBy\" type=\"hidden\" value=".$sortBy.">
 					<input type=\"submit\" value=\"Previous Page\">
 				</form>
 			</div>";
@@ -285,8 +331,9 @@
 		$nextPage = (string)($page + 1);
 		echo "
 			<div id=\"nextPage\">
-				<form action=\"" . $currentURL . "\" method=\"get\">
+				<form action=\"index.php\" method=\"get\">
 					<input name=\"page\" type=\"hidden\" value=".$nextPage.">
+					<input name=\"sortBy\" type=\"hidden\" value=".$sortBy.">
 					<input type=\"submit\" value=\"Next Page\">
 				</form>
 			</div>";
@@ -304,9 +351,11 @@
 <div id="clickedCard">
 	<div id="popupImage"><span class="imageHelper"></span><img class="actualPopupImage" src="" height="" width="" alt="No Image Available"></div>
 	<div id="popupInfo">
+		<div id="popupDealType"><h4>Deal Type</h4></div>
 		<div id="popupDealItem"><h3>Item</h3></div>
 		<div id="popupDealNewPrice"><h2>New Price</h2></div>
 		<div id="popupDealOldPrice"><p>Original Price</p></div>
+		<div id="popupDisplayDealStore"><p>Deal Store</p></div>
 	</div>
 	<div id="popupMap"></div>
 

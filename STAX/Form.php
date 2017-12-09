@@ -6,12 +6,6 @@
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name="google-signin-client_id" content="505886009165-tjniqhjeihi67b94cgiu0fe34ne7e0dg.apps.googleusercontent.com">
 
-
-
-	
-
-
-
 	<style type="text/css">
 		#mainContents {
 			width: calc( 100% );
@@ -27,8 +21,14 @@
 			padding: 5px;
 		}
 
+		#storeName {
+			float: left;
+			padding-bottom: 5px;
+		}
+
 		#enterProductName {
 			float: left;
+			clear: left;
 			padding-bottom: 5px;
 			width: 300px;
 		}
@@ -67,9 +67,9 @@
 
 		#selectImageFile {
 			float: left;
-			width: 200px;
+			width: 300px;
 			height: 250px;
-			line-height: 20px;
+			line-height: 250px;
 			vertical-align: middle;
 		}
 
@@ -99,12 +99,19 @@
 	<script>
 		
 		function signOut() {
-    		var auth2 = gapi.auth2.getAuthInstance();
-    		auth2.signOut().then(function () {
-      		console.log('User signed out.');
-      		auth2.disconnect();
-    	});
-    	}
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+				console.log('User signed out.');
+				auth2.disconnect();
+			});
+		}
+
+		function isNumberKey(evt) {
+			var charCode = (evt.which) ? evt.which : evt.keyCode;
+			if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+				return false;
+			return true;
+	   }
 
 	</script>
 
@@ -135,6 +142,7 @@
 			<div id="dealForm">
 				<form method="POST" enctype="multipart/form-data" action="Send_To_Database.php">
 				<div id="leftColumn">
+					<div id="storeName"><p><b>Store:</b> <?php echo $_REQUEST['storeName']; ?></p></div>
 					<div id="enterProductName">	
 						<b>Product Name:</b>
 						<p><textarea name="productName" rows="3" cols="45" required style="resize: none; font-size: 16px;"></textarea></p>
@@ -142,24 +150,22 @@
 					<div id="selectDealType">
 						<b>Select Deal Type:</b><br>
 						<select name="type" size="2" style="font-size: 16px;" required> 
+							<option value="Sale" onclick='changeForm("Sale")' selected >Sale</option>
 							<option value="buyXGetXFree" onclick='changeForm("buyXGetXFree")'>Buy X get X free</option>
-							<option value="Sale" onclick='changeForm("Sale")'>Sale</option>
 						</select>
 					</div>
 					<div id="prices">
 						<p id="orgPrice"></p>
 						<p id="salePrice"></p>
-						<p id="memberID"></p>
 					</div>
 				</div>
 				<div id="rightColumn">
 					<div id="selectImageFile">
-						<p><b>Image:&nbsp </b><a href="javascript:openPicker()">Choose File</a></p>
+						<p><b>Image:&nbsp </b><input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" onchange="loadFile(event)" required ></p>
 					</div>
 					<div id="previewImage">
 						<span class="imageHelper"></span><img id="uploadedImage"/>
 					</div>
-
 					<script>
 						var loadFile = function(event) {
 							var uploadedImage = document.getElementById('uploadedImage');
@@ -169,10 +175,10 @@
 						var img = document.getElementById("uploadedImage");
 
 						img.onload = function() {
-						    var width  = img.naturalWidth;
-						    var height = img.naturalHeight;
-						    var resizingValue;
-						    if( height > width ) {
+							var width  = img.naturalWidth;
+							var height = img.naturalHeight;
+							var resizingValue;
+							if( height > width ) {
 								resizingValue = height;
 							}
 							else {
@@ -187,28 +193,6 @@
 							document.getElementById("previewImage").style.display = "block";
 						}
 					</script>
-
-					<script src="https://static.filestackapi.com/v3/filestack.js"></script>
-					<script type="text/javascript">
-						var fsClient = filestack.init('ArzLhFWrdQKcx6QBrQB1iz');
-						function openPicker() {
-							fsClient.pick({
-								fromSources:["local_file_system","imagesearch","facebook","instagram","dropbox"]
-							}).then(function(response) {
-						  		// declare this function to handle response
-								//handleFilestack(response);
-								response.filesUploaded.forEach(function(file) {
-									addLink(file)
-								});
-							});
-						}
-						function handleFilestack( response ) {
-							var urlInput = document.getElementById("imageURLField");
-							console.log(response);
-							var returnValue = JSON.parse(response);
-							console.log(returnValue['url']);
-						}
-					</script>
 				</div>
 
 				<?php
@@ -217,39 +201,36 @@
 					echo '<input type="hidden" name="Location" value="', $Location, '"/>';
 					echo '<input type="hidden" name="storeName" value="', $storeName, '"/>';
 				?>
-				<input type="hidden" name="imageURL" id="imageURLField" value="" />
 				<div id="submitButtons"> 
 					<input type="submit" value="Submit" /> &nbsp <input type="reset" />
 				</div>
 				</form>
+
 
 				<script>
 					function changeForm(option){
 						if(option == 'buyXGetXFree')
 						{
 							var oldHTML = document.getElementById('salePrice').innerHTML;
-							var newHTML = '<b>Price:</b>&nbsp <input type="int" name="salePrice" size="10" maxlength="30" required />';
+							var newHTML = '<b>Price:</b>&nbsp $<input type="int" name="salePrice" size="10" maxlength="30" required />';
 							document.getElementById('salePrice').innerHTML = newHTML;
 
 							oldHTML = document.getElementById('orgPrice').innerHTML;
-							newHTML = '<b>Buy </b><input type="int" name="itemsToBuy" size="10" maxlength="2" required /><b> items and get </b><input type="int" name="freeItems" size="10" maxlength="2" required /><b> items free</b>';
+							newHTML = '<b>Buy </b><input type="int" name="itemsToBuy" size="10" maxlength="2" onkeypress="return isNumberKey(event)" required /><b> items and get </b><input type="int" name="freeItems" size="10" maxlength="2" onkeypress="return isNumberKey(event)" required /><b> items free</b>';
 							document.getElementById('orgPrice').innerHTML = newHTML;
 						}
 						else{
 							var oldHTML = document.getElementById('salePrice').innerHTML;
-							var newHTML = '<b>Sale Price:&nbsp </b><input type="int" name="salePrice" size="10" maxlength="30" required />';
+							var newHTML = '<b>Sale Price:</b>&nbsp $<input type="int" name="salePrice" size="10" maxlength="30" onkeypress="return isNumberKey(event)" required />';
 							document.getElementById('salePrice').innerHTML = newHTML;
 
 							oldHTML = document.getElementById('orgPrice').innerHTML;
-							newHTML = '<b>Original Price:&nbsp </b><input type="int" name="orgPrice" size="10" maxlength="30" required />';
+							newHTML = '<b>Original Price:</b>&nbsp $<input type="int" name="orgPrice" size="10" maxlength="30" onkeypress="return isNumberKey(event)" required />';
 							document.getElementById('orgPrice').innerHTML = newHTML;
 						}
-
-						//add email to form as a memberID
-						var profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
-						var newHTML = '<input type="hidden" name="memberID" value="'+profile.getEmail()+'"/>';
-						document.getElementById('memberID').innerHTML = newHTML;
 					}
+
+					changeForm("Sale");
 				</script>
 			</div>
 		</div>

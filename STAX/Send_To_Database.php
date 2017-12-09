@@ -5,15 +5,15 @@
 	<body>
 		<?php
 		// Obtain a connection object by connecting to the db
-		// $connection = @mysqli_connect ('127.0.0.1', 'root', 'root', 'stax');
+		$connection = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
 
-		$host = "staxsmysql.mysql.database.azure.com";
-		$db_name = "stax_";
-		$username = "master_stax@staxsmysql";
-		$password = "dev2017softwareB0C@";
+		// $host = "staxsmysql.mysql.database.azure.com";
+		// $db_name = "stax_";
+		// $username = "master_stax@staxsmysql";
+		// $password = "dev2017softwareB0C@";
 
-		$connection = mysqli_init();
-		mysqli_real_connect($connection, $host, $username, $password, $db_name, 3306);
+		// $connection = mysqli_init();
+		// mysqli_real_connect($connection, $host, $username, $password, $db_name, 3306);
 
 		if(mysqli_connect_errno())
 		{
@@ -21,11 +21,11 @@
 		}
 
 
-		// $imagePathName = 'uploads/' . $_FILES['fileToUpload']['name'];
-		// //upload images to the server
-		// if(!move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $imagePathName)){
-	 //    	die('Error uploading file - check destination is writeable.');
-		// }
+		$imagePathName = 'uploads/' . $_FILES['fileToUpload']['name'];
+		//upload images to the server
+		if(!move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $imagePathName)){
+	    	die('Error uploading file - check destination is writeable.');
+		}
 
 		//collect information from the form
 		$name = $_REQUEST['productName'];
@@ -42,7 +42,7 @@
 
 		$storeName = $_REQUEST['storeName'];
 
-		$Image = $_REQUEST['imageURL'];
+		$Image = $_REQUEST['Image'];
 
 		$Location = $_REQUEST['Location'];
 		// echo '<p>' . $name . '</p>';
@@ -52,11 +52,10 @@
 		$commaPos = strpos( $Location, ',' );
 		$lat = (float)substr($Location, 1, $commaPos);
 		$long = (float)substr($Location, $commaPos + 1, strlen($Location) - $commaPos - 2);
-		$memberID = $_REQUEST("memberID");
 		// echo '<p>' . $lat . ',' . $long . '</p>';
 
 
-		$query = "INSERT INTO deals(item, dealType, upVotes, downVotes, geoLatitude, geoLongitude, orgPrice, salePrice, storeName, image, memberID) VALUES ('$name', '$type', 0, 0, $lat, $long, $orgPrice, $salePrice, '$storeName', '$imagePathName', '$memberID');";
+		$query = "INSERT INTO deals(item, dealType, upVotes, downVotes, geoLatitude, geoLongitude, orgPrice, salePrice, storeName, image, memberID) VALUES ('$name', '$type', 0, 0, $lat, $long, $orgPrice, $salePrice, '$storeName', '$imagePathName', 12321);";
 
 		if( !mysqli_query( $connection, $query ) ) {
 			echo("Error description: " . mysqli_error($connection));
