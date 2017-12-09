@@ -158,7 +158,7 @@
 					<div id="previewImage">
 						<span class="imageHelper"></span><img id="uploadedImage"/>
 					</div>
-					<script>
+					<!-- <script>
 						var loadFile = function(event) {
 							var uploadedImage = document.getElementById('uploadedImage');
 							uploadedImage.src = URL.createObjectURL(event.target.files[0]);
@@ -184,7 +184,7 @@
 
 							document.getElementById("previewImage").style.display = "block";
 						}
-					</script>
+					</script> -->
 				</div>
 
 				<?php

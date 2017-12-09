@@ -15,13 +15,11 @@
 		$connection = mysqli_init();
 		mysqli_real_connect($connection, $host, $username, $password, $db_name, 3306);
 
-		//please fill these parameters with the actual data
 		if(mysqli_connect_errno())
 		{
 			echo "<h4>Failed to connect to MySQL: </h4>". mysqli_connect_error();
 		}
 
-		//print_r($_FILES);
 
 		$imagePathName = 'uploads/' . $_FILES['fileToUpload']['name'];
 		//upload images to the server
@@ -31,7 +29,6 @@
 
 		//collect information from the form
 		$name = $_REQUEST['productName'];
-
 		$type = $_REQUEST['type'];
 		if($type == "buyXGetXFree") {
 			$type = "Buy {$_REQUEST['itemsToBuy']}, Get {$_REQUEST['freeItems']} Free";
@@ -46,11 +43,6 @@
 		$storeName = $_REQUEST['storeName'];
 
 		$Image = $_REQUEST['Image'];
-
-		// $finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension
-	 	// echo finfo_file($finfo, $Image) . "\n";
-		// finfo_close($finfo);
-
 
 		$Location = $_REQUEST['Location'];
 		// echo '<p>' . $name . '</p>';
