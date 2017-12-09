@@ -149,6 +149,7 @@
 					<div id="prices">
 						<p id="orgPrice"></p>
 						<p id="salePrice"></p>
+						<p id="memberID"></p>
 					</div>
 				</div>
 				<div id="rightColumn">
@@ -243,6 +244,11 @@
 							newHTML = '<b>Original Price:&nbsp </b><input type="int" name="orgPrice" size="10" maxlength="30" required />';
 							document.getElementById('orgPrice').innerHTML = newHTML;
 						}
+
+						//add email to form as a memberID
+						var profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
+						var newHTML = '<input type="hidden" name="memberID" value="'+profile.getEmail()+'"/>';
+						document.getElementById('memberID').innerHTML = newHTML;
 					}
 				</script>
 			</div>

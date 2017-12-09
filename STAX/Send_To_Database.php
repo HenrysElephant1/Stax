@@ -52,10 +52,11 @@
 		$commaPos = strpos( $Location, ',' );
 		$lat = (float)substr($Location, 1, $commaPos);
 		$long = (float)substr($Location, $commaPos + 1, strlen($Location) - $commaPos - 2);
+		$memberID = $_REQUEST("memberID");
 		// echo '<p>' . $lat . ',' . $long . '</p>';
 
 
-		$query = "INSERT INTO deals(item, dealType, upVotes, downVotes, geoLatitude, geoLongitude, orgPrice, salePrice, storeName, image, memberID) VALUES ('$name', '$type', 0, 0, $lat, $long, $orgPrice, $salePrice, '$storeName', '$imagePathName', 12321);";
+		$query = "INSERT INTO deals(item, dealType, upVotes, downVotes, geoLatitude, geoLongitude, orgPrice, salePrice, storeName, image, memberID) VALUES ('$name', '$type', 0, 0, $lat, $long, $orgPrice, $salePrice, '$storeName', '$imagePathName', '$memberID');";
 
 		if( !mysqli_query( $connection, $query ) ) {
 			echo("Error description: " . mysqli_error($connection));
