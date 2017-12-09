@@ -196,7 +196,7 @@
 							}).then(function(response) {
 						  		// declare this function to handle response
 								//handleFilestack(response);
-								response.filesUploaded.foreach(function(file) {
+								response.filesUploaded.forEach(function(file) {
 									addLink(file)
 								});
 							});
