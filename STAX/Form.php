@@ -3,6 +3,14 @@
 	<title>Add a Deal</title>
 	<link href="staxStyle.css" type="text/css" rel="stylesheet">
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<meta name="google-signin-client_id" content="505886009165-tjniqhjeihi67b94cgiu0fe34ne7e0dg.apps.googleusercontent.com">
+
+
+
+	
+
+
 
 	<style type="text/css">
 		#mainContents {
@@ -87,13 +95,32 @@
 		}
 	</style>
 
+
+	<script>
+		
+		function signOut() {
+    		var auth2 = gapi.auth2.getAuthInstance();
+    		auth2.signOut().then(function () {
+      		console.log('User signed out.');
+      		auth2.disconnect();
+    	});
+    	}
+
+	</script>
+
 </head>
 <body>
+
+
+
+
 	<div id="headerSpan">
 		<div id="header">
 			<a href="index.php"><div id="headerImage"><img src="logo2.png" alt="STAX" height="40" width="40"></div>
 			<div id="headerText"><h2>STAX</h2></div></a>
 			<div id="accountTab"><h4>Your Account</h4></div>
+			<div class="g-signin2" data-onsuccess="onSignIn"></div>
+			<div id="accountTab" href="#" onclick="signOut()"><h4>Sign Out</h4></div>
 		</div> 
 	</div>
 	<div id="contentsSpacer"></div>
