@@ -153,7 +153,7 @@
 				</div>
 				<div id="rightColumn">
 					<div id="selectImageFile">
-						<p><b>Image:&nbsp </b><input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" onchange="loadFile(event)"></p>
+						<p><b>Image:&nbsp </b><a href="javascript:openPicker()">Choose File</a></p>
 					</div>
 					<div id="previewImage">
 						<span class="imageHelper"></span><img id="uploadedImage"/>
@@ -196,6 +196,8 @@
 							}).then(function(response) {
 						  	// declare this function to handle response
 								handleFilestack(response);
+								var urlInput = document.getElementById("imageURLField");
+								urlInput.value = response;
 							});
 						}
 					</script>
@@ -207,11 +209,11 @@
 					echo '<input type="hidden" name="Location" value="', $Location, '"/>';
 					echo '<input type="hidden" name="storeName" value="', $storeName, '"/>';
 				?>
+				<input type="hidden" name="imageURL" id="imageURLField" value="" />
 				<div id="submitButtons"> 
 					<input type="submit" value="Submit" /> &nbsp <input type="reset" />
 				</div>
 				</form>
-
 
 				<script>
 					function changeForm(option){
