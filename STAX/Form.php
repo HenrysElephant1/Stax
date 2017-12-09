@@ -195,7 +195,6 @@
 								fromSources:["local_file_system","imagesearch","facebook","instagram","dropbox"]
 							}).then(function(response) {
 						  	// declare this function to handle response
-								handleFilestack(response);
 								var urlInput = document.getElementById("imageURLField");
 								urlInput.value = response;
 								console.log(response);
