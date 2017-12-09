@@ -193,6 +193,24 @@
 							document.getElementById("previewImage").style.display = "block";
 						}
 					</script>
+<!--
+
+					<script src="https://static.filestackapi.com/v3/filestack.js"></script>
+					<script type="text/javascript">
+						var fsClient = filestack.init('ArzLhFWrdQKcx6QBrQB1iz');
+						function openPicker() {
+							fsClient.pick({
+								accept: 'image/*',
+								fromSources:["local_file_system","imagesearch","facebook","instagram","dropbox"]
+							}).then(function(response) {
+						  		// declare this function to handle response
+								//handleFilestack(response);
+								var imageURL = result.filesUploaded[0].url; 
+  								link.href=imageURL; 
+  								link.innerHTML=imageURL;
+							});
+						}
+					</script>-->
 				</div>
 
 				<?php
