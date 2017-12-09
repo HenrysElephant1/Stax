@@ -193,20 +193,15 @@
 						var fsClient = filestack.init('ArzLhFWrdQKcx6QBrQB1iz');
 						function openPicker() {
 							fsClient.pick({
+								accept: 'image/*',
 								fromSources:["local_file_system","imagesearch","facebook","instagram","dropbox"]
 							}).then(function(response) {
 						  		// declare this function to handle response
 								//handleFilestack(response);
-								response.filesUploaded.forEach(function(file) {
-									addLink(file)
-								});
+								const fileUrl = result.filesUploaded[0].url; 
+  								link.href=fileUrl; 
+  								link.innerHTML=fileUrl;
 							});
-						}
-						function handleFilestack( response ) {
-							var urlInput = document.getElementById("imageURLField");
-							console.log(response);
-							var returnValue = JSON.parse(response);
-							console.log(returnValue['url']);
 						}
 					</script>
 				</div>
