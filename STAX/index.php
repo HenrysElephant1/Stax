@@ -92,12 +92,12 @@
 				if( userSignedIn ) {
 					document.getElementById("accountTab").style.display = "block";
 					document.getElementById("signOutButton").style.display = "block";
-					// document.getElementsByClassName("g-signin2")[0].style.display = "none";
+					document.getElementsByClassName("g-signin2")[0].style.display = "none";
 				}
 				else {
 					document.getElementById("accountTab").style.display = "none";
 					document.getElementById("signOutButton").style.display = "none";
-					// document.getElementsByClassName("g-signin2")[0].style.display = "block";
+					document.getElementsByClassName("g-signin2")[0].style.display = "block";
 				}
 			}
 		</script>
