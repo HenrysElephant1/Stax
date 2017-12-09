@@ -69,9 +69,13 @@
 		function signOut() {
     		var auth2 = gapi.auth2.getAuthInstance();
     		auth2.signOut().then(function () {
-	      		console.log('User signed out.');
-	      		auth2.disconnect();
-	    	});
+      		console.log('User signed out.');
+      		auth2.disconnect();
+    	});
+    	}
+
+    	function onSignIn(googleUser) {
+    		changeHeader();
     	}
 
 	</script>
@@ -81,9 +85,25 @@
 	<div id="header">
 		<a href="index.php"><div id="headerImage"><img src="logo2.png" alt="STAX" height="40" width="40"></div>
 		<div id="headerText"><h2>STAX</h2></div></a>
-		<div id="accountTab"><h4>Your Account</h4></div>
+		<script>
+			function changeHeader() {
+				var userSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
+
+				if( userSignedIn ) {
+					document.getElementById("accountTab").style.display = "block";
+					document.getElementById("signOutButton").style.display = "block";
+					// document.getElementsByClassName("g-signin2")[0].style.display = "none";
+				}
+				else {
+					document.getElementById("accountTab").style.display = "none";
+					document.getElementById("signOutButton").style.display = "none";
+					// document.getElementsByClassName("g-signin2")[0].style.display = "block";
+				}
+			}
+		</script>
 		<div class="g-signin2" data-onsuccess="onSignIn"></div>
-		<div id="accountTab" href="#" onclick="signOut()"><h4>Sign Out</h4></div>
+		<div id="accountTab" style="display:none;"><h4>Your Account</h4></div>
+		<div id="signOutButton" href="#" onclick="signOut()"><h4>Sign Out</h4></div>
 	</div> 
 </div>
 

@@ -97,15 +97,6 @@
 
 
 	<script>
-		
-		function signOut() {
-			var auth2 = gapi.auth2.getAuthInstance();
-			auth2.signOut().then(function () {
-				console.log('User signed out.');
-				auth2.disconnect();
-			});
-		}
-
 		function isNumberKey(evt) {
 			var charCode = (evt.which) ? evt.which : evt.keyCode;
 			if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
@@ -113,23 +104,57 @@
 			return true;
 	   }
 
-	</script>
+		function signOut() {
+    		var auth2 = gapi.auth2.getAuthInstance();
+    		auth2.signOut().then(function () {
+	      		console.log('User signed out.');
+	      		auth2.disconnect();
+	      		window.location.replace("index.php");
+	    	});
+    	}
 
+    	function onSignIn(googleUser) {
+    		changeHeader();
+			if (auth2.isSignedIn.get()) {
+			  var profile = auth2.currentUser.get().getBasicProfile();
+			  console.log('ID: ' + profile.getId());
+			  console.log('Full Name: ' + profile.getName());
+			  console.log('Given Name: ' + profile.getGivenName());
+			  console.log('Family Name: ' + profile.getFamilyName());
+			  console.log('Image URL: ' + profile.getImageUrl());
+			  console.log('Email: ' + profile.getEmail());
+			}
+    	}
+
+	</script>
 </head>
 <body>
-
-
-
-
 	<div id="headerSpan">
 		<div id="header">
 			<a href="index.php"><div id="headerImage"><img src="logo2.png" alt="STAX" height="40" width="40"></div>
 			<div id="headerText"><h2>STAX</h2></div></a>
-			<div id="accountTab"><h4>Your Account</h4></div>
+			<script>
+				function changeHeader() {
+					var userSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
+
+					if( userSignedIn ) {
+						document.getElementById("accountTab").style.display = "block";
+						document.getElementById("signOutButton").style.display = "block";
+						// document.getElementsByClassName("g-signin2")[0].style.display = "none";
+					}
+					else {
+						document.getElementById("accountTab").style.display = "none";
+						document.getElementById("signOutButton").style.display = "none";
+						// document.getElementsByClassName("g-signin2")[0].style.display = "block";
+					}
+				}
+			</script>
 			<div class="g-signin2" data-onsuccess="onSignIn"></div>
-			<div id="accountTab" href="#" onclick="signOut()"><h4>Sign Out</h4></div>
+			<div id="accountTab" style="display:none;"><h4>Your Account</h4></div>
+			<div id="signOutButton" href="#" onclick="signOut()" style="display:none;"><h4>Sign Out</h4></div>
 		</div> 
 	</div>
+
 	<div id="contentsSpacer"></div>
 	<div id="contents">
 		<div id="spacer"></div>
