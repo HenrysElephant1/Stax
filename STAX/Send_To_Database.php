@@ -21,11 +21,11 @@
 		}
 
 
-		$imagePathName = 'uploads/' . $_FILES['fileToUpload']['name'];
-		//upload images to the server
-		if(!move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $imagePathName)){
-	    	die('Error uploading file - check destination is writeable.');
-		}
+		// $imagePathName = 'uploads/' . $_FILES['fileToUpload']['name'];
+		// //upload images to the server
+		// if(!move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $imagePathName)){
+	 //    	die('Error uploading file - check destination is writeable.');
+		// }
 
 		//collect information from the form
 		$name = $_REQUEST['productName'];
@@ -42,7 +42,7 @@
 
 		$storeName = $_REQUEST['storeName'];
 
-		$Image = $_REQUEST['Image'];
+		$Image = $_REQUEST['imageURL'];
 
 		$Location = $_REQUEST['Location'];
 		// echo '<p>' . $name . '</p>';

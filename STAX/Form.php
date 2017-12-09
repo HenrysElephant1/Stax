@@ -198,6 +198,7 @@
 								handleFilestack(response);
 								var urlInput = document.getElementById("imageURLField");
 								urlInput.value = response;
+								console.log(response);
 							});
 						}
 					</script>
