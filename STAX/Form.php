@@ -237,7 +237,7 @@
 						}
 
 						//add email to form as a memberID
-						var profile = gapi.auth2.currentUser.get().getBasicProfile();
+						var profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile();
 						var newHTML = '<input type="hidden" name="memberID" value="'+profile.getEmail()+'"/>';
 						document.getElementById('memberID').innerHTML = newHTML;
 					}
