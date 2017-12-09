@@ -203,6 +203,26 @@ a {
 	cursor: default;
 }
 
+.upvotes {
+	float: left;
+	clear: left;
+}
+
+.totalVotes {
+	float: left;
+	clear: left;
+}
+
+.downvotes {
+	float: left;
+	clear: left;
+}
+
+.favorites {
+	float: left;
+	clear: left;
+}
+
 .dealStore {
 	float: right;
 	width: 190px;
