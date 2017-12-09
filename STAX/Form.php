@@ -67,7 +67,7 @@
 
 		#selectImageFile {
 			float: left;
-			width: 300px;
+			width: 200px;
 			height: 250px;
 			line-height: 250px;
 			vertical-align: middle;
