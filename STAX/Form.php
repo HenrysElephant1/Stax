@@ -67,9 +67,9 @@
 
 		#selectImageFile {
 			float: left;
-			width: 300px;
+			width: 200px;
 			height: 250px;
-			line-height: 250px;
+			line-height: 20px;
 			vertical-align: middle;
 		}
 
@@ -79,19 +79,19 @@
 			height: 250px;
 			border: 1px solid gray;
 			text-align: center;
-		    white-space: nowrap;
+			white-space: nowrap;
 		}
 
 		.imageHelper {
-		    display: inline-block;
-		    height: 100%;
-		    vertical-align: middle;
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
 		}
 
 		.uploadedImage {
-		    vertical-align: middle;
-		    max-height: 250px;
-		    max-width: 250px;
+			vertical-align: middle;
+			max-height: 250px;
+			max-width: 250px;
 		}
 	</style>
 
@@ -158,7 +158,8 @@
 					<div id="previewImage">
 						<span class="imageHelper"></span><img id="uploadedImage"/>
 					</div>
-					<!-- <script>
+
+					<script>
 						var loadFile = function(event) {
 							var uploadedImage = document.getElementById('uploadedImage');
 							uploadedImage.src = URL.createObjectURL(event.target.files[0]);
@@ -184,7 +185,20 @@
 
 							document.getElementById("previewImage").style.display = "block";
 						}
-					</script> -->
+					</script>
+
+					<script src="https://static.filestackapi.com/v3/filestack.js"></script>
+					<script type="text/javascript">
+						var fsClient = filestack.init('ArzLhFWrdQKcx6QBrQB1iz');
+						function openPicker() {
+							fsClient.pick({
+								fromSources:["local_file_system","imagesearch","facebook","instagram","dropbox"]
+							}).then(function(response) {
+						  	// declare this function to handle response
+								handleFilestack(response);
+							});
+						}
+					</script>
 				</div>
 
 				<?php
