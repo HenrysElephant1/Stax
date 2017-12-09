@@ -198,9 +198,9 @@
 							}).then(function(response) {
 						  		// declare this function to handle response
 								//handleFilestack(response);
-								const fileUrl = result.filesUploaded[0].url; 
-  								link.href=fileUrl; 
-  								link.innerHTML=fileUrl;
+								const imageURL = result.filesUploaded[0].url; 
+  								link.href=imageURL; 
+  								link.innerHTML=imageURL;
 							});
 						}
 					</script>
