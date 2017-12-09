@@ -69,7 +69,7 @@
 			float: left;
 			width: 200px;
 			height: 250px;
-			line-height: 250px;
+			line-height: 20px;
 			vertical-align: middle;
 		}
 
