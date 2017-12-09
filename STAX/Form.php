@@ -196,6 +196,7 @@
 							}).then(function(response) {
 						  	// declare this function to handle response
 								var urlInput = document.getElementById("imageURLField");
+								console.log(response);
 								var returnValue = JSON.parse(response);
 								console.log(returnValue['url']);
 							});
