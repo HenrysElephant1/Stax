@@ -194,12 +194,18 @@
 							fsClient.pick({
 								fromSources:["local_file_system","imagesearch","facebook","instagram","dropbox"]
 							}).then(function(response) {
-						  	// declare this function to handle response
-								var urlInput = document.getElementById("imageURLField");
-								console.log(response);
-								var returnValue = JSON.parse(response);
-								console.log(returnValue['url']);
+						  		// declare this function to handle response
+								//handleFilestack(response);
+								response.filesUploaded.foreach(function(file) {
+									addLink(file)
+								});
 							});
+						}
+						function handleFilestack( response ) {
+							var urlInput = document.getElementById("imageURLField");
+							console.log(response);
+							var returnValue = JSON.parse(response);
+							console.log(returnValue['url']);
 						}
 					</script>
 				</div>
