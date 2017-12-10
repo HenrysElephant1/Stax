@@ -71,6 +71,7 @@
     		auth2.signOut().then(function () {
       		console.log('User signed out.');
       		auth2.disconnect();
+      		window.location.replace('index.php');
     	});
     	}
 
@@ -103,7 +104,7 @@
 		</script>
 		<div class="g-signin2" data-onsuccess="onSignIn"></div>
 		<div id="accountTab" style="display:none;"><h4>Your Account</h4></div>
-		<div id="signOutButton" href="#" onclick="signOut()"><h4>Sign Out</h4></div>
+		<div id="signOutButton" href="#" onclick="signOut()" style="display:none;"><h4>Sign Out</h4></div>
 	</div> 
 </div>
 
