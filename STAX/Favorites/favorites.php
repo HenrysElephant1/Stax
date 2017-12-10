@@ -11,8 +11,8 @@ if(mysqli_connect_errno($conn)){
 	die('Failed to connect to MySQL: '.mysqli_connect_error());
 }
 
-$userID = $_POST['userID'];
-$dealID = $_POST['dealID'];
+$userID = $_GET['userID'];
+$dealID = $_GET['dealID'];
 
 if( !empty( $userID ) && !empty( $dealID ) ) {
 	$getUserFavoriteFromTable = "SELECT * FROM favorites WHERE memberID = $userID AND dealID = $dealID;";
@@ -20,13 +20,19 @@ if( !empty( $userID ) && !empty( $dealID ) ) {
 
 	if ( mysqli_num_rows($userVoteResult) == 0 ) {
 		//Put user into votes table
-		$addUserToFavoriteTable = "INSERT INTO votes( memberID, dealID, value ) VALUES ('$userID', $dealID, 1);";
+		$addUserToFavoriteTable = "INSERT INTO favorites( memberID, dealID ) VALUES ('$userID', $dealID);";
 		mysqli_query( $conn, $addUserToFavoriteTable );
 
-		//Increment upvotes in deals table
-		$addFavoriteQuery = "UPDATE deals SET upvotes = upvotes + 1 WHERE dealID = $dealID;";
-		mysqli_query( $conn, $addFavoriteQuery );
+		echo $addUserToFavoriteTable;
 	}
+	
+	else {
+			$changeUserFavoritesQuery = "DELETE FROM favorites WHERE memberID = $userID AND dealID = $dealID;";
+			mysqli_query( $conn, $changeUserFavoritesQuery );
+			
+		echo $changeUserFavoritesQuery;
+	}
+}
 	
 	
 ?>
