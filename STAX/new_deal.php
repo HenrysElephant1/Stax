@@ -3,6 +3,7 @@
 	<title>Add a Deal</title>
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+	<link href="staxStyle.css" type="text/css" rel="stylesheet">
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	<meta name="google-signin-client_id" content="505886009165-tjniqhjeihi67b94cgiu0fe34ne7e0dg.apps.googleusercontent.com">
 	<meta charset="utf-8">
@@ -10,7 +11,7 @@
 
 
 	<style type="text/css">
-		body {
+		/*body {
 			background-color: #E6EAE6;
 			margin: 0px;
 			padding: 0px;
@@ -96,7 +97,7 @@
 			height: 5px;
 			width: 1000px;
 			float: left;
-		}
+		}*/
 
 		#mainContents {
 			/*background: #F6FAF6;*/
