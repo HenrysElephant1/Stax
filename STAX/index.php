@@ -71,6 +71,7 @@
     		auth2.signOut().then(function () {
       		console.log('User signed out.');
       		auth2.disconnect();
+      		window.location.replace('index.php');
     	});
     	}
 
@@ -92,18 +93,18 @@
 				if( userSignedIn ) {
 					document.getElementById("accountTab").style.display = "block";
 					document.getElementById("signOutButton").style.display = "block";
-					// document.getElementsByClassName("g-signin2")[0].style.display = "none";
+					document.getElementsByClassName("g-signin2")[0].style.display = "none";
 				}
 				else {
 					document.getElementById("accountTab").style.display = "none";
 					document.getElementById("signOutButton").style.display = "none";
-					// document.getElementsByClassName("g-signin2")[0].style.display = "block";
+					document.getElementsByClassName("g-signin2")[0].style.display = "block";
 				}
 			}
 		</script>
 		<div class="g-signin2" data-onsuccess="onSignIn"></div>
 		<div id="accountTab" style="display:none;"><h4>Your Account</h4></div>
-		<div id="signOutButton" href="#" onclick="signOut()"><h4>Sign Out</h4></div>
+		<div id="signOutButton" href="#" onclick="signOut()" style="display:none;"><h4>Sign Out</h4></div>
 	</div> 
 </div>
 
@@ -112,7 +113,7 @@
 	<div id="spacer"></div>
 	<div id="sidebar">
 		<a href="index.php"><div class="sidebarButton" id="activeSidebarButton"><p>Deals</p></div></a>
-		<a href="#header"><div class="sidebarButton"><p>Favorites</p></div></a>
+		<a href="favorites.php"><div class="sidebarButton"><p>Favorites</p></div></a>
 		<a href="new_deal.php"><div class="sidebarButton"><p>Add a Deal</p></div></a>
 		<div id="sidebarSpacer" style="height: 10px;"></div>
 
