@@ -199,6 +199,20 @@
 			document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes - 1;
 		}
 	</script>
+	 
+	<script type="text/javascript">
+		function callFavorites(inputuserID){
+			$.ajax({
+				type: 'POST',
+				url: 'Favorites/favorites.php',
+				datatype: 'html',
+				data: {userID: 10, dealID: inputuserID},				
+			});
+		
+		}
+	</script>
+	
+	
 
 	<div id="mainContents">
 		<div id="dealsHeader" style="padding: 5px; background-color: #FFFFFF; border: 1px solid #C0D6C0; border-radius: 5px;">
@@ -314,8 +328,18 @@
 			<div class="votingColumn">
 				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><div class="upvoteButton"><p>Upvote</p></div></a>
 				<p><div class="totalVotes">'.($upVotes-$downVotes).'</div></p>
-				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><div class="downvoteButton"><p>Downvote</p></div></a>
+				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><div class="downvoteButton"><p>Downvote</p></div></a> 
+			
+				<div class "favorites">
+					<a href="javascript:void(0);" onclick="callFavorites('.$memberID.')"><p>Favorite</p></a>
+				</div>
 			</div>
+			
+			
+			';
+			
+			
+		echo'	
 			<div class="dealStore" onclick="showPopup(\'deal' . $dealID . '\')">
 				<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $geoLatitude . ',' . $geoLongitude . '&zoom=14&size=190x190&maptype=roadmap&markers=color:red%7C' . $geoLatitude . ',' . $geoLongitude . '&key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA" alt="Store Location" width="190" height="190">
 			</div>
