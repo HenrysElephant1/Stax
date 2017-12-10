@@ -113,7 +113,7 @@
 	<div id="spacer"></div>
 	<div id="sidebar">
 		<a href="index.php"><div class="sidebarButton" id="activeSidebarButton"><p>Deals</p></div></a>
-		<a href="#header"><div class="sidebarButton"><p>Favorites</p></div></a>
+		<a href="favorites.php"><div class="sidebarButton"><p>Favorites</p></div></a>
 		<a href="new_deal.php"><div class="sidebarButton"><p>Add a Deal</p></div></a>
 		<div id="sidebarSpacer" style="height: 10px;"></div>
 
