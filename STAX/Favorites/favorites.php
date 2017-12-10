@@ -20,13 +20,18 @@ $host = "staxsmysql.mysql.database.azure.com";
 
 		if ( mysqli_num_rows($userVoteResult) == 0 ) {
 			//Put user into votes table
-			$addUserToFavoriteTable = "INSERT INTO votes( memberID, dealID, value ) VALUES ('$userID', $dealID, 1);";
+			$addUserToFavoriteTable = "INSERT INTO votes( memberID, dealID ) VALUES ('$userID', $dealID);";
 			mysqli_query( $conn, $addUserToFavoriteTable );
-
-			//Increment upvotes in deals table
-			$addFavoriteQuery = "UPDATE deals SET upvotes = upvotes + 1 WHERE dealID = $dealID;";
-			mysqli_query( $conn, $addFavoriteQuery );
 		}
+		
+		else {
+				$changeUserVoteQuery = "DELETE FROM favorites WHERE memberID = $userID AND dealID = $dealID;";
+				mysqli_query( $conn, $changeUserVoteQuery );
+				
+		}
+			
+			
+		
 	
 	
 ?>
