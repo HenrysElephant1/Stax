@@ -177,6 +177,22 @@
 	</script>
 
 	<script type="text/javascript">
+		function updateVoteColors() {
+			for( var i=0; i<10; i++ ) {
+				var currentTotalVotesDiv = document.getElementsByClassName[i];
+				var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );
+				if( currentTotalVotes < 0 ) {
+					currentTotalVotesDiv.style.text-color = "#3C7F3F";
+				}
+				else if( currentTotalVotes  > 0 ) {
+					currentTotalVotesDiv.style.text-color = "9B372A";
+				}
+				else {
+					currentTotalVotesDiv.style.text-color = "A0A0A0";
+				}
+			}
+		}
+
 		var allowVote = true;
 		var allowFavorite = true;
 
@@ -204,6 +220,7 @@
 					upVoteValue.value = "false";
 					totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) - 1;
 				}
+				updateVoteColors();
 				var downVoteImg = document.getElementById("downvote"+inputDealID);
 				downVoteImg.src = "gray_down_arrow.png?t=" + new Date().getTime();
 				downVoteValue.value = "false";
@@ -243,6 +260,7 @@
 					downVoteValue.value = "false";
 					totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) + 1;
 				}
+				updateVoteColors();
 				var upVoteImg = document.getElementById("upvote"+inputDealID);
 				upVoteImg.src = "gray_up_arrow.png?t=" + new Date().getTime();
 				upVoteValue.value = "false";
@@ -336,6 +354,7 @@
 								}
 							}
 							votesString = votesString.substring( nextComma + 1 );
+							updateVoteColors();
 						}
 					}
 				});
