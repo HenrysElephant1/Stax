@@ -184,14 +184,19 @@
 			if( allowVote && USER_EMAIL != "" ) {
 				allowVote = false;
 				upVoteImg = document.getElementById("upvote"+inputDealID);
-				if( upVoteImg.src == "gray_up_arrow.png" ) {
-					upVoteImg.src = "green_up_arrow.png";
+				upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
+				if( upVoteValue.value == "gray_up_arrow.png?t=" + new Date().getTime() ) {
+					upVoteImg.src = "green_up_arrow.png?t=" + new Date().getTime();
+					upVoteValue.value = "true";
 				}
 				else {
-					upVoteImg.src = "gray_up_arrow.png";
+					upVoteImg.src = "gray_up_arrow.png?t=" + new Date().getTime();
+					upVoteValue.value = "false";
 				}
 				downVoteImg = document.getElementById("downvote"+inputDealID);
-				downVoteImg.src = "gray_down_arrow.png";
+				downVoteValue = document.getElementById("downvote"+inputDealID+"Value");
+				downVoteImg.src = "gray_down_arrow.png?t=" + new Date().getTime();
+				downVoteValue.value = "true";
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/upvote.php',
@@ -208,14 +213,19 @@
 			if( allowVote && USER_EMAIL != "" ) {
 				allowVote = false;
 				downVoteImg = document.getElementById("downvote"+inputDealID);
-				if( downVoteImg.src == "gray_down_arrow.png" ) {
-					downVoteImg.src = "red_down_arrow.png";
+				downVoteValue = document.getElementById("downvote"+inputDealID+"Value");
+				if( downVoteValue.value == "false" ) {
+					downVoteImg.src = "red_down_arrow.png?t=" + new Date().getTime();
+					downVoteValue.value = "true";
 				}
 				else {
-					downVoteImg.src = "gray_down_arrow.png";
+					downVoteImg.src = "gray_down_arrow.png?t=" + new Date().getTime();
+					downVoteValue.value = "false";
 				}
 				upVoteImg = document.getElementById("upvote"+inputDealID);
-				upVoteImg.src = "gray_up_arrow.png";
+				upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
+				upVoteImg.src = "gray_up_arrow.png?t=" + new Date().getTime();
+				upVoteValue.value = true;
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/downvote.php',
@@ -287,20 +297,20 @@
 							var nextPeriod = votesString.indexOf('.');
 							var nextVoteId = votesString.substring(0,nextPeriod);
 							var nextVoteValue = votesString.substring(nextPeriod+1,nextComma);
-							console.log("deal"+nextVoteId);
-							console.log(nextVoteValue);
+							// console.log("deal"+nextVoteId);
+							// console.log(nextVoteValue);
 							if( nextVoteValue == "1" ) {
-								var thisDiv = document.getElementById("deal"+nextVoteId);
-								if( thisDiv === null ) {}
+								var thisImg = document.getElementById("upvote"+nextVoteId);
+								if( thisImg === null ) {}
 								else {
-									thisDiv.getElementsByClassName("upvoteButton")[0].innerHTML = "Upvoted";
+									thisImg.src = "green_up_arrow.png?t=" + new Date().getTime();
 								}
 							}
 							else if( nextVoteValue == "-1" ) {
-								var thisDiv = document.getElementById("deal"+nextVoteId);
-								if( thisDiv === null ) {}
+								var thisImg = document.getElementById("downvote"+nextVoteId);
+								if( thisImg === null ) {}
 								else {
-									thisDiv.getElementsByClassName("downvoteButton")[0].innerHTML = "Downvoted";
+									thisImg.src = "red_down_arrow.png?t=" + new Date().getTime();
 								}
 							}
 							votesString = votesString.substring( nextComma + 1 );
@@ -430,12 +440,14 @@
 			<div class="votingColumn">
 				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')">
 					<div class="upvoteButton">
+						<input type="hidden" id="upvote'.$dealID.'Value" value="false" >
 						<img src="gray_up_arrow.png" id="upvote'.$dealID.'" height="20" width="20">
 					</div>
 				</a>
 				<div class="totalVotes">'.($upVotes-$downVotes).'</div>
 				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')">
 					<div class="downvoteButton">
+						<input type="hidden" id="downvote'.$dealID.'Value" value="false" >
 						<img src="gray_down_arrow.png" id="downvote'.$dealID.'" height="20" width="20">
 					</div>
 				</a> 
