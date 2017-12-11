@@ -261,16 +261,16 @@
 					success: function(data) {
 						var favoritesString = data;
 
-						var completed = false;
-						while( !completed ) {
+						while( favoritesString != "" ) {
 							var nextComma = favoritesString.indexOf(',');
 							var nextFavoriteId = favoritesString.substring(0,nextComma);
-							document.getElementById("deal"+nextFavoriteId).getElementsByClassName("favorites")[0].innerHTML = "Unfavorite";
-							favoritesString = favoritesString.substring( nextComma + 1 );
-
-							if( favoritesString == "" ) {
-								completed = true;
+							console.log("deal"+nextFavorite);
+							var thisDiv = document.getElementById("deal"+nextFavoriteId).getElementsByClassName("favorites")[0]
+							if( thisDiv === null ) {}
+							else {
+								thisDiv.innerHTML = "Unfavorite";
 							}
+							favoritesString = favoritesString.substring( nextComma + 1 );
 						}
 					}
 				});
@@ -283,8 +283,7 @@
 					success: function(data) {
 						var votesString = data;
 
-						var completed = false;
-						//while( !completed ) {
+						//while( votesString != "" ) {
 							var nextComma = votesString.indexOf(',');
 							var nextPeriod = votesString.indexOf('.');
 							var nextVoteId = votesString.substring(0,nextComma);
@@ -298,9 +297,6 @@
 							// 	document.getElementById("deal"+nextVoteId).getElementsByClassName("downvoteButton")[0].innerHTML = "Downvoted";
 							// }
 							votesString = votesString.substring( nextComma + 1 );
-							if( votesString == "" ) {
-								completed = true;
-							}
 						//}
 					}
 				});
