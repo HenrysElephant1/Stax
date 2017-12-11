@@ -192,7 +192,8 @@
 
 	<script type="text/javascript">
 		<?php
-			$totalDealsQuery = "SELECT * FROM favorites WHERE memberID = '".$_GET['userID']."';";
+			$totalDealsQuery = "SELECT COUNT(*) FROM favorites WHERE memberID = '".$_GET['userID']."';";
+			echo mysqli_error();
 			$dealsResultSet = mysqli_query( $conn, $totalDealsQuery );
 			$totalDeals = mysqli_fetch_array( $dealsResultSet )[0];
 			echo "var totalDeals = " . $totalDeals . ";";
