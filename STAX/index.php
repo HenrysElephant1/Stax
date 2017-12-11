@@ -185,7 +185,7 @@
 				allowVote = false;
 				upVoteImg = document.getElementById("upvote"+inputDealID);
 				upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
-				if( upVoteValue.value == "gray_up_arrow.png?t=" + new Date().getTime() ) {
+				if( upVoteValue.value == "false" ) {
 					upVoteImg.src = "green_up_arrow.png?t=" + new Date().getTime();
 					upVoteValue.value = "true";
 				}
@@ -304,6 +304,7 @@
 								if( thisImg === null ) {}
 								else {
 									thisImg.src = "green_up_arrow.png?t=" + new Date().getTime();
+									document.getElementById("upvote"+newVoteId+"Value").value = "true";
 								}
 							}
 							else if( nextVoteValue == "-1" ) {
@@ -311,6 +312,7 @@
 								if( thisImg === null ) {}
 								else {
 									thisImg.src = "red_down_arrow.png?t=" + new Date().getTime();
+									document.getElementById("downvote"+newVoteId+"Value").value = "true";
 								}
 							}
 							votesString = votesString.substring( nextComma + 1 );
