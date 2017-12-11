@@ -178,6 +178,7 @@
 				<div id="rightColumn">
 					<div id="selectImageFile">
 						<a href="#" onclick="openPicker()">Select File</a>
+						<input type="hidden" id="imageFileToUpload" name="Image" value="">
 						<!-- <p><b>Image:&nbsp </b><input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" onchange="loadFile(event)" required ></p> -->
 					</div>
 					<div id="previewImage">
@@ -226,8 +227,10 @@
 								// var imageURL = result.filesUploaded[0].url; 
   								// link.href=imageURL; 
   								// link.innerHTML=imageURL;
-  								console.log( response );
-  								console.log( response['filesUploaded'][0]['url'] );
+  								var imageURL = response['filesUploaded'][0]['url'];
+  								var uploadedImage = document.getElementById('uploadedImage');
+								uploadedImage.src = imageURL;
+								document.getElementById("imageFileToUpload").value = imageURL;
 							});
 						}
 					</script>-
