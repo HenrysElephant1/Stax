@@ -286,8 +286,8 @@
 						//while( votesString != "" ) {
 							var nextComma = votesString.indexOf(',');
 							var nextPeriod = votesString.indexOf('.');
-							var nextVoteId = votesString.substring(0,nextComma);
-							var nextVoteValue = votesString.substring(nextComma+1,nextPeriod);
+							var nextVoteId = votesString.substring(0,nextPeriod);
+							var nextVoteValue = votesString.substring(nextPeriod+1,nextComma);
 							console.log("deal"+nextVoteId);
 							console.log(nextVoteValue);
 							// if( nextVoteValue == "1" ) {
@@ -424,7 +424,7 @@
 				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><p><div class="upvoteButton">Upvote</div></p></a>
 				<p><div class="totalVotes">'.($upVotes-$downVotes).'</div></p>
 				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><p><div class="downvoteButton">Downvote</div></p></a> 
-				<div class "favorites">
+				<div class="favorites">
 					<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')"><p>Favorite</p></a>
 				</div>
 			</div>
