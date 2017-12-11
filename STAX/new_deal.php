@@ -25,6 +25,11 @@
 			width: 100%;
 		}
 
+		#map a {
+			color: blue;
+			text-decoration: underline;
+		}
+
 		#description {
 			font-family: Roboto;
 			font-size: 15px;
