@@ -27,22 +27,15 @@
 	}
 	echo "</table>";
 
-
-
+	echo "<br><br><br>";
 
 	$query2 = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
-			INNER JOIN favorites
-			ON deals.dealID = favorites.dealID
-			WHERE favorites.memberID = 10
-			ORDER BY deals.dealID DESC
-			LIMIT " . $DEALS_PER_PAGE . ";";
+		INNER JOIN favorites
+		ON deals.dealID = favorites.dealID
+		WHERE favorites.memberID = 'jason@the-cummings.com'
+		ORDER BY deals.salePrice;";
 
-	$query3 = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM favorites INNER JOIN deals ON deals.dealID = favorites.dealID
-		WHERE favorites.memberID = 10
-		ORDER BY deals.dealID DESC
-		LIMIT 10;";
-
-	$result2 = mysqli_query( $conn, $query3 );
+	$result2 = mysqli_query( $conn, $query2 );
 	while($row = mysqli_fetch_array($result2)) {
 		echo $row[0] . "<br/>";
 	}

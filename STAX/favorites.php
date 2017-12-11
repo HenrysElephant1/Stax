@@ -116,7 +116,7 @@
 	<div id="spacer"></div>
 	<div id="sidebar">
 		<a href="index.php"><div class="sidebarButton"><p>Deals</p></div></a>
-		<a href="favorites.php"><div class="sidebarButton" id="activeSidebarButton"><p>Favorites</p></div></a>
+		<a id="favoritesLink" href="favorites.php"><div class="sidebarButton" id="activeSidebarButton"><p>Favorites</p></div></a>
 		<a href="new_deal.php"><div class="sidebarButton"><p>Add a Deal</p></div></a>
 		<div id="sidebarSpacer" style="height: 10px;"></div>
 
@@ -246,26 +246,23 @@
 	if( $sortBy == "oldest" ) {
 		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
 			INNER JOIN favorites
-			ON deals.memberID = favorites.memberID
+			ON deals.dealID = favorites.dealID
 			WHERE favorites.memberID = '".$userEmail."'
-			ORDER BY deals.dealID 
-			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+			ORDER BY deals.dealID ;";
 	}
 	else if( $sortBy == "priceLowToHigh" ) {
 		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
 			INNER JOIN favorites
-			ON deals.memberID = favorites.memberID
+			ON deals.dealID = favorites.dealID
 			WHERE favorites.memberID = '".$userEmail."'
-			ORDER BY deals.salePrice 
-			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+			ORDER BY deals.salePrice ;";
 	}
 	else if( $sortBy == "priceHighToLow" ) {
 		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
 			INNER JOIN favorites
-			ON deals.memberID = favorites.memberID
+			ON deals.dealID = favorites.dealID
 			WHERE favorites.memberID = '".$userEmail."'
-			ORDER BY deals.salePrice DESC 
-			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+			ORDER BY deals.salePrice DESC;";
 	}
 
 	else if( $sortBy == "distance" ) {
@@ -275,18 +272,16 @@
 			
 		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
 			INNER JOIN favorites
-			ON deals.memberID = favorites.memberID
+			ON deals.dealID = favorites.dealID
 			WHERE favorites.memberID = '".$userEmail."'
-			ORDER BY (POWER(deals.geoLatitude - " . $userLat . " , 2) + POWER(deals.geoLongitude - " . $userLong . " , 2))
-			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+			ORDER BY (POWER(deals.geoLatitude - " . $userLat . " , 2) + POWER(deals.geoLongitude - " . $userLong . " , 2));";
 	}
 	else {
 		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
 			INNER JOIN favorites
 			ON deals.dealID = favorites.dealID
 			WHERE favorites.memberID = '".$userEmail."'
-			ORDER BY deals.dealID DESC
-			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+			ORDER BY deals.dealID DESC;";
 	}
 
 	$resultset = mysqli_query( $conn, $query );
