@@ -22,5 +22,5 @@
 		$echostring .= $row[0] . ",";
 	}
 
-	echo substr($echostring, 0, strlen($echostring)-1);
+	echo $echostring;
 ?>

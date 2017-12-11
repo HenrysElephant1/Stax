@@ -267,6 +267,10 @@
 							var nextFavoriteId = favoritesString.substring(0,nextComma);
 							document.getElementById("deal"+nextFavoriteId).getElementsByClassName("favorites")[0].innerHTML = "Unfavorite";
 							favoritesString = favoritesString.substring( nextComma + 1 );
+
+							if( favoritesString == "" ) {
+								completed = true;
+							}
 						}
 					}
 				});
@@ -294,6 +298,9 @@
 							// 	document.getElementById("deal"+nextVoteId).getElementsByClassName("downvoteButton")[0].innerHTML = "Downvoted";
 							// }
 							votesString = votesString.substring( nextComma + 1 );
+							if( votesString == "" ) {
+								completed = true;
+							}
 						//}
 					}
 				});
