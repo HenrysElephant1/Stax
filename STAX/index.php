@@ -17,10 +17,10 @@
 				if( currentTotalVotesDiv === null ) {}
 				else {
 					var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );
-					if( currentTotalVotes < 0 ) {
+					if( currentTotalVotes > 0 ) {
 						currentTotalVotesDiv.style.color = "#3C7F3F";
 					}
-					else if( currentTotalVotes  > 0 ) {
+					else if( currentTotalVotes  < 0 ) {
 						currentTotalVotesDiv.style.color = "9B372A";
 					}
 					else {
