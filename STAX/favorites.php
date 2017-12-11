@@ -177,29 +177,65 @@
 	</script>
 
 	<script type="text/javascript">
+		function updateVoteColors() {
+			for( var i=0; i<10; i++ ) {
+				var currentTotalVotesDiv = document.getElementsByClassName("totalVotes")[i];
+				if( currentTotalVotesDiv === null ) {
+				}
+				else {
+					var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );
+					if( currentTotalVotes > 0 ) {
+						currentTotalVotesDiv.style.color = "#3C7F3F";
+					}
+					if( currentTotalVotes < 0 ) {
+						currentTotalVotesDiv.style.color = "#9B372A";
+					}
+					if( currentTotalVotes == 0 ) {
+						currentTotalVotesDiv.style.color = "#A0A0A0";
+					}
+				}
+			}
+		}
+
 		var allowVote = true;
 		var allowFavorite = true;
 
 		function callUpvote(inputDealID) {
 			if( allowVote && USER_EMAIL != "" ) {
 				allowVote = false;
-				upVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("upvoteButton")[0];
-				if( upVoteDiv.innerHTML == "Upvote" ) {
-					upVoteDiv.innerHTML = "Upvoted";
+				var upVoteImg = document.getElementById("upvote"+inputDealID);
+				var upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
+
+				var downVoteValue = document.getElementById("downvote"+inputDealID+"Value");
+				var totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("totalVotes")[0];
+
+				if( upVoteValue.value == "false" ) {
+					upVoteImg.src = "green_up_arrow.png?t=" + new Date().getTime();
+					upVoteValue.value = "true";
+					if( downVoteValue.value == "true" ) {
+						totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) + 2;
+					}
+					else {
+						totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) + 1;
+					}
 				}
 				else {
-					upVoteDiv.innerHTML = "Upvote";
+					upVoteImg.src = "gray_up_arrow.png?t=" + new Date().getTime();
+					upVoteValue.value = "false";
+					totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) - 1;
 				}
-				downVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("downvoteButton")[0];
-				downVoteDiv.innerHTML = "Downvote";
+				updateVoteColors();
+				var downVoteImg = document.getElementById("downvote"+inputDealID);
+				downVoteImg.src = "gray_down_arrow.png?t=" + new Date().getTime();
+				downVoteValue.value = "false";
 				$.ajax({
-				    type: 'POST',
-				    url: 'voting_scripts/upvote.php',
-				    dataType: 'html',
-				    data: {userID: USER_EMAIL, dealID: inputDealID},
-				    success: function() {
-				    	allowVote = true;
-				    }
+					type: 'POST',
+					url: 'voting_scripts/upvote.php',
+					dataType: 'html',
+					data: {userID: USER_EMAIL, dealID: inputDealID},
+					success: function() {
+						allowVote = true;
+					}
 				});
 			}
 		}
@@ -207,35 +243,54 @@
 		function callDownvote(inputDealID) {
 			if( allowVote && USER_EMAIL != "" ) {
 				allowVote = false;
-				downVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("downvoteButton")[0];
-				if( downVoteDiv.innerHTML == "Downvote" ) {
-					downVoteDiv.innerHTML = "Downvoted";
+				var downVoteImg = document.getElementById("downvote"+inputDealID);
+				var downVoteValue = document.getElementById("downvote"+inputDealID+"Value");
+
+				var upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
+				var totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("totalVotes")[0];
+
+				if( downVoteValue.value == "false" ) {
+					downVoteImg.src = "red_down_arrow.png?t=" + new Date().getTime();
+					downVoteValue.value = "true";
+					if( upVoteValue.value == "true" ) {
+						totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) - 2;
+					}
+					else {
+						totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) - 1;
+					}
 				}
 				else {
-					downVoteDiv.innerHTML = "Downvote";
+					downVoteImg.src = "gray_down_arrow.png?t=" + new Date().getTime();
+					downVoteValue.value = "false";
+					totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) + 1;
 				}
-				upVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("upvoteButton")[0];
-				upVoteDiv.innerHTML = "Upvote";
+				updateVoteColors();
+				var upVoteImg = document.getElementById("upvote"+inputDealID);
+				upVoteImg.src = "gray_up_arrow.png?t=" + new Date().getTime();
+				upVoteValue.value = "false";
 				$.ajax({
-				    type: 'POST',
-				    url: 'voting_scripts/downvote.php',
-				    dataType: 'html',
-				    data: {userID: USER_EMAIL, dealID: inputDealID},
-				    success: function() {
-				    	allowVote = true;
-				    }
+					type: 'POST',
+					url: 'voting_scripts/downvote.php',
+					dataType: 'html',
+					data: {userID: USER_EMAIL, dealID: inputDealID},
+					success: function() {
+						allowVote = true;
+					}
 				});
 			}
 		}
 
 		function callFavorites(inputDealID){
 			if( allowFavorite && USER_EMAIL != "" ) {
-				favoritesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("favorites")[0];
-				if( favoritesDiv.innerHTML == "Favorite" ) {
-					favoritesDiv.innerHTML = "Unfavorite";
+				var favoritesImg = document.getElementById("favorites"+inputDealID);
+				var favoritesValue = document.getElementById("favorites"+inputDealID+"Value");
+				if( favoritesValue.value == "false" ) {
+					favoritesImg.src = "red_heart.png?t=" + new Date().getTime();
+					favoritesValue.value = "true";
 				}
 				else {
-					favoritesDiv.innerHTML = "Favorite";
+					favoritesImg.src = "black_heart.png?t=" + new Date().getTime();
+					favoritesValue.value = "false";
 				}
 				allowFavorite = false;
 				$.ajax({
@@ -263,11 +318,13 @@
 						while( favoritesString != "" ) {
 							var nextComma = favoritesString.indexOf(',');
 							var nextFavoriteId = favoritesString.substring(0,nextComma);
-							console.log("deal"+nextFavoriteId);
 							var thisDiv = document.getElementById("deal"+nextFavoriteId);
 							if( thisDiv === null ) {}
 							else {
-								thisDiv.getElementsByClassName("favorites")[0].innerHTML = "Unfavorite";
+								var favoritesImg = document.getElementById("favorites"+nextFavoriteId);
+								var favoritesValue = document.getElementById("favorites"+nextFavoriteId+"Value");
+								favoritesImg.src = "red_heart.png?t=" + new Date().getTime();
+								favoritesValue.value = "true";
 							}
 							favoritesString = favoritesString.substring( nextComma + 1 );
 						}
@@ -287,23 +344,24 @@
 							var nextPeriod = votesString.indexOf('.');
 							var nextVoteId = votesString.substring(0,nextPeriod);
 							var nextVoteValue = votesString.substring(nextPeriod+1,nextComma);
-							console.log("deal"+nextVoteId);
-							console.log(nextVoteValue);
 							if( nextVoteValue == "1" ) {
-								var thisDiv = document.getElementById("deal"+nextVoteId);
-								if( thisDiv === null ) {}
+								var thisImg = document.getElementById("upvote"+nextVoteId);
+								if( thisImg === null ) {}
 								else {
-									thisDiv.getElementsByClassName("upvoteButton")[0].innerHTML = "Upvoted";
+									thisImg.src = "green_up_arrow.png?t=" + new Date().getTime();
+									document.getElementById("upvote"+nextVoteId+"Value").value = "true";
 								}
 							}
 							else if( nextVoteValue == "-1" ) {
-								var thisDiv = document.getElementById("deal"+nextVoteId);
-								if( thisDiv === null ) {}
+								var thisImg = document.getElementById("downvote"+nextVoteId);
+								if( thisImg === null ) {}
 								else {
-									thisDiv.getElementsByClassName("downvoteButton")[0].innerHTML = "Downvoted";
+									thisImg.src = "red_down_arrow.png?t=" + new Date().getTime();
+									document.getElementById("downvote"+nextVoteId+"Value").value = "true";
 								}
 							}
 							votesString = votesString.substring( nextComma + 1 );
+							updateVoteColors();
 						}
 					}
 				});
@@ -434,10 +492,25 @@
 				<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $geoLatitude . ',' . $geoLongitude . '&zoom=14&size=190x190&maptype=roadmap&markers=color:red%7C' . $geoLatitude . ',' . $geoLongitude . '&key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA" alt="Store Location" width="190" height="190">
 			</div>
 			<div class="votingColumn">
-				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><div class="upvoteButton">Upvote</div></a>
-				<p><div class="totalVotes">'.($upVotes-$downVotes).'</div></p>
-				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><div class="downvoteButton">Downvote</div></a> 
-				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')"><div class="favorites">Favorite</div></a>
+				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')">
+					<div class="upvoteButton">
+						<input type="hidden" id="upvote'.$dealID.'Value" value="false" >
+						<img src="gray_up_arrow.png" id="upvote'.$dealID.'" height="20" width="20">
+					</div>
+				</a>
+				<div class="totalVotes">'.($upVotes-$downVotes).'</div>
+				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')">
+					<div class="downvoteButton">
+						<input type="hidden" id="downvote'.$dealID.'Value" value="false" >
+						<img src="gray_down_arrow.png" id="downvote'.$dealID.'" height="20" width="20">
+					</div>
+				</a> 
+				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')">
+					<div class="favorites">
+						<input type="hidden" id="favorites'.$dealID.'Value" value="false" >
+						<img src="black_heart.png" id="favorites'.$dealID.'" height="20" width="20">
+					</div>
+				</a>
 			</div>
 		</div>
 		';
