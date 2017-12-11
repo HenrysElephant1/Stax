@@ -227,7 +227,7 @@
   								// link.href=imageURL; 
   								// link.innerHTML=imageURL;
   								console.log( response );
-  								console.log( response['url'] );
+  								console.log( response['filesUploaded'][0] );
 							});
 						}
 					</script>-
