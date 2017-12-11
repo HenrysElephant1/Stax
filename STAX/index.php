@@ -283,21 +283,29 @@
 					success: function(data) {
 						var votesString = data;
 
-						//while( votesString != "" ) {
+						while( votesString != "" ) {
 							var nextComma = votesString.indexOf(',');
 							var nextPeriod = votesString.indexOf('.');
 							var nextVoteId = votesString.substring(0,nextPeriod);
 							var nextVoteValue = votesString.substring(nextPeriod+1,nextComma);
 							console.log("deal"+nextVoteId);
 							console.log(nextVoteValue);
-							// if( nextVoteValue == "1" ) {
-							// 	document.getElementById("deal"+nextVoteId).getElementsByClassName("upvoteButton")[0].innerHTML = "Upvoted";
-							// }
-							// else if( nextVoteValue == "-1" ) {
-							// 	document.getElementById("deal"+nextVoteId).getElementsByClassName("downvoteButton")[0].innerHTML = "Downvoted";
-							// }
+							if( nextVoteValue == "1" ) {
+								var thisDiv = document.getElementById("deal"+nextVoteId).getElementsByClassName("upvoteButton")[0];
+								if( thisDiv === null ) {}
+								else {
+									thisDiv.innerHTML = "Upvoted";
+								}
+							}
+							else if( nextVoteValue == "-1" ) {
+								var thisDiv = document.getElementById("deal"+nextVoteId).getElementsByClassName("downvoteButton")[0];
+								if( thisDiv === null ) {}
+								else {
+									thisDiv.innerHTML = "Downvoted";
+								}
+							}
 							votesString = votesString.substring( nextComma + 1 );
-						//}
+						}
 					}
 				});
 			}
