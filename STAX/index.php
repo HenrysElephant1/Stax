@@ -313,16 +313,10 @@
 							var thisDiv = document.getElementById("deal"+nextFavoriteId);
 							if( thisDiv === null ) {}
 							else {
-								var favoritesImg = document.getElementById("favorites"+inputDealID);
-								var favoritesValue = document.getElementById("favorites"+inputDealID+"Value");
-								if( favoritesValue.value == "false" ) {
-									favoritesImg.src = "red_heart.png?t=" + new Date().getTime();
-									favoritesValue.value == "true";
-								}
-								else {
-									favoritesImg.src = "black_heart.png?t=" + new Date().getTime();
-									favoritesValue.value == "false";
-								}
+								var favoritesImg = document.getElementById("favorites"+nextFavoriteId);
+								var favoritesValue = document.getElementById("favorites"+nextFavoriteId+"Value");
+								favoritesImg.src = "red_heart.png?t=" + new Date().getTime();
+								favoritesValue.value == "true";
 							}
 							favoritesString = favoritesString.substring( nextComma + 1 );
 						}
