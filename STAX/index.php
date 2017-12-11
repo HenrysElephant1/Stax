@@ -12,6 +12,8 @@
 	<script>
 		var popMap;
 		var popUpMapMarker;
+
+		// Fills in popup data and makes it visible
 		function showPopup( dealID ) {
 			// Fill in image attributes
 			var dealDiv = document.getElementById( dealID );
@@ -365,7 +367,7 @@
 				});
 			}
 		}
-		
+
 		updateVoteColors();
 	</script>
 	
