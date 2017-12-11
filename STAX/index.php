@@ -169,7 +169,7 @@
 		function updateVoteColors() {
 			for( var i=0; i<10; i++ ) {
 				var currentTotalVotesDiv = document.getElementsByClassName("totalVotes")[i];
-				if( currentTotalVotesDiv === null || | !currentTotalVotesDiv ) {
+				if( currentTotalVotesDiv === null || !currentTotalVotesDiv ) {
 				}
 				else {
 					var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );

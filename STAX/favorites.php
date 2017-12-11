@@ -201,7 +201,7 @@
 		function updateVoteColors() {
 			for( var i=0; i<totalDeals; i++ ) {
 				var currentTotalVotesDiv = document.getElementsByClassName("totalVotes")[i];
-				if( currentTotalVotesDiv === null ) {
+				if( currentTotalVotesDiv === null || !currentTotalVotesDiv ) {
 				}
 				else {
 					var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );
@@ -349,7 +349,7 @@
 							var nextComma = favoritesString.indexOf(',');
 							var nextFavoriteId = favoritesString.substring(0,nextComma);
 							var thisDiv = document.getElementById("deal"+nextFavoriteId);
-							if( thisDiv === null || | !thisDiv ) {}
+							if( thisDiv === null || !thisDiv ) {}
 							else {
 								var favoritesImg = document.getElementById("favorites"+nextFavoriteId);
 								var favoritesValue = document.getElementById("favorites"+nextFavoriteId+"Value");
@@ -376,7 +376,7 @@
 							var nextVoteValue = votesString.substring(nextPeriod+1,nextComma);
 							if( nextVoteValue == "1" ) {
 								var thisImg = document.getElementById("upvote"+nextVoteId);
-								if( thisImg === null || | !thisImg ) {}
+								if( thisImg === null || !thisImg ) {}
 								else {
 									thisImg.src = "green_up_arrow.png?t=" + new Date().getTime();
 									document.getElementById("upvote"+nextVoteId+"Value").value = "true";
@@ -384,7 +384,7 @@
 							}
 							else if( nextVoteValue == "-1" ) {
 								var thisImg = document.getElementById("downvote"+nextVoteId);
-								if( thisImg === null || | !thisImg ) {}
+								if( thisImg === null || !thisImg ) {}
 								else {
 									thisImg.src = "red_down_arrow.png?t=" + new Date().getTime();
 									document.getElementById("downvote"+nextVoteId+"Value").value = "true";
