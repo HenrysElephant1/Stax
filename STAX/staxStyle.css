@@ -196,7 +196,8 @@ a {
 
 .votingColumn {
 	float: right;
-	width: 70px;
+	width: 80px;
+	padding: 5px;
 	cursor: default;
 }
 
