@@ -213,7 +213,7 @@
 
 		var allowVote = true;
 		var allowFavorite = true;
-		function getVotesAndFavorites(){
+		function getVotesAndFavorites() {
 			if( USER_EMAIL != "" ) {
 				allowFavorite = false;
 				$.ajax({
@@ -224,7 +224,7 @@
 					success: function(data) {
 						allowFavorite = true;
 						console.log(data);
-					}
+					},
 				});
 
 				$.ajax({
@@ -236,7 +236,7 @@
 					success: function(data) {
 						allowVote = true;
 						console.log(data);
-					}			
+					},
 				});
 			}
 		}
