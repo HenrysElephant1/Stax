@@ -183,15 +183,15 @@
 		function callUpvote(inputDealID) {
 			if( allowVote && USER_EMAIL != "" ) {
 				allowVote = false;
-				upVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("upvoteButton")[0];
-				if( upVoteDiv.innerHTML == "Upvote" ) {
-					upVoteDiv.innerHTML = "Upvoted";
+				upVoteImg = document.getElementById("upvote"+inputDealID);
+				if( upVoteImg.src == "gray_up_arrow.png" ) {
+					upVoteImg.src = "green_up_arrow.png";
 				}
 				else {
-					upVoteDiv.innerHTML = "Upvote";
+					upVoteImg.src = "gray_up_arrow.png";
 				}
-				downVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("downvoteButton")[0];
-				downVoteDiv.innerHTML = "Downvote";
+				downVoteImg = document.getElementById("downvote"+inputDealID);
+				downVoteImg.src = "gray_down_arrow.png";
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/upvote.php',
@@ -207,15 +207,15 @@
 		function callDownvote(inputDealID) {
 			if( allowVote && USER_EMAIL != "" ) {
 				allowVote = false;
-				downVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("downvoteButton")[0];
-				if( downVoteDiv.innerHTML == "Downvote" ) {
-					downVoteDiv.innerHTML = "Downvoted";
+				downVoteImg = document.getElementById("downvote"+inputDealID);
+				if( downVoteImg.src == "gray_down_arrow.png" ) {
+					downVoteImg.src = "red_down_arrow.png";
 				}
 				else {
-					downVoteDiv.innerHTML = "Downvote";
+					downVoteImg.src = "gray_down_arrow.png";
 				}
-				upVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("upvoteButton")[0];
-				upVoteDiv.innerHTML = "Upvote";
+				upVoteImg = document.getElementById("upvote"+inputDealID);
+				upVoteImg.src = "gray_up_arrow.png";
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/downvote.php',
@@ -428,10 +428,22 @@
 				<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $geoLatitude . ',' . $geoLongitude . '&zoom=14&size=190x190&maptype=roadmap&markers=color:red%7C' . $geoLatitude . ',' . $geoLongitude . '&key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA" alt="Store Location" width="190" height="190">
 			</div>
 			<div class="votingColumn">
-				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><p><div class="upvoteButton">Upvote</div></p></a>
-				<p><div class="totalVotes">'.($upVotes-$downVotes).'</div></p>
-				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><p><div class="downvoteButton">Downvote</div></p></a> 
-				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')"><p><div class="favorites">Favorite</div></p></a>
+				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')">
+					<div class="upvoteButton">
+						<img src="gray_up_arrow.png" id="upvote'.$dealID.'" height="20" width="20">
+					</div>
+				</a>
+				<div class="totalVotes">'.($upVotes-$downVotes).'</div>
+				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')">
+					<div class="downvoteButton">
+						<img src="gray_down_arrow.png" id="downvote'.$dealID.'" height="20" width="20">
+					</div>
+				</a> 
+				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')">
+					<div class="favorites">
+						Favorite
+					</div>
+				</a>
 			</div>
 		</div>
 		';

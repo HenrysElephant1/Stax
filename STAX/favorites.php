@@ -434,10 +434,10 @@
 				<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $geoLatitude . ',' . $geoLongitude . '&zoom=14&size=190x190&maptype=roadmap&markers=color:red%7C' . $geoLatitude . ',' . $geoLongitude . '&key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA" alt="Store Location" width="190" height="190">
 			</div>
 			<div class="votingColumn">
-				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><p><div class="upvoteButton">Upvote</div></p></a>
+				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><div class="upvoteButton">Upvote</div></a>
 				<p><div class="totalVotes">'.($upVotes-$downVotes).'</div></p>
-				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><p><div class="downvoteButton">Downvote</div></p></a> 
-				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')"><p><div class="favorites">Favorite</div></p></a>
+				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><div class="downvoteButton">Downvote</div></a> 
+				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')"><div class="favorites">Favorite</div></a>
 			</div>
 		</div>
 		';
