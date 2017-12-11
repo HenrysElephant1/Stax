@@ -78,8 +78,6 @@ a {
 .g-signin2 {
 	float: right;
 	margin-top: 2px;
-	height: 40px;
-	width: 100px;
 	padding: 0px;
 }
 
@@ -197,8 +195,8 @@ a {
 }
 
 .votingColumn {
-	float: left;
-	width: 60px;
+	float: right;
+	width: 70px;
 	cursor: default;
 }
 

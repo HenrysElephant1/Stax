@@ -1,3 +1,4 @@
+
 <?php
 $host = "staxsmysql.mysql.database.azure.com";
 $db_name = "stax_";
@@ -11,8 +12,8 @@ if(mysqli_connect_errno($conn)){
 	die('Failed to connect to MySQL: '.mysqli_connect_error());
 }
 
-$userID = $_GET['userID'];
-$dealID = $_GET['dealID'];
+$userID = $_POST['userID'];
+$dealID = $_POST['dealID'];
 
 if( !empty( $userID ) && !empty( $dealID ) ) {
 	$getUserFavoriteFromTable = "SELECT * FROM favorites WHERE memberID = $userID AND dealID = $dealID;";

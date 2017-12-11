@@ -75,8 +75,10 @@
     	});
     	}
 
+    	var USER_EMAIL = "";
     	function onSignIn(googleUser) {
     		changeHeader();
+    		USER_EMAIL = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
     	}
 
 	</script>
@@ -112,16 +114,16 @@
 <div id="contents">
 	<div id="spacer"></div>
 	<div id="sidebar">
-		<a href="index.php"><div class="sidebarButton" id="activeSidebarButton"><p>Deals</p></div></a>
-		<a href="#header"><div class="sidebarButton"><p>Favorites</p></div></a>
+		<a href="index.php"><div class="sidebarButton"><p>Deals</p></div></a>
+		<a href="favorites.php"><div class="sidebarButton" id="activeSidebarButton"><p>Favorites</p></div></a>
 		<a href="new_deal.php"><div class="sidebarButton"><p>Add a Deal</p></div></a>
 		<div id="sidebarSpacer" style="height: 10px;"></div>
 
 		<h4>Sort By:</h4>
-		<a href="index.php?sortBy=newest"><div class="sidebarButton" id="newestSort"><p>Newest</p></div></a>
-		<a href="index.php?sortBy=oldest"><div class="sidebarButton" id="oldestSort"><p>Oldest</p></div></a>
-		<a href="index.php?sortBy=priceLowToHigh"><div class="sidebarButton" id="priceLowToHighSort"><p>Price Low to High</p></div></a>
-		<a href="index.php?sortBy=priceHighToLow"><div class="sidebarButton" id="priceHighToLowSort"><p>Price High to Low</p></div></a>
+		<a href="favorites.php?sortBy=newest"><div class="sidebarButton" id="newestSort"><p>Newest</p></div></a>
+		<a href="favorites.php?sortBy=oldest"><div class="sidebarButton" id="oldestSort"><p>Oldest</p></div></a>
+		<a href="favorites.php?sortBy=priceLowToHigh"><div class="sidebarButton" id="priceLowToHighSort"><p>Price Low to High</p></div></a>
+		<a href="favorites.php?sortBy=priceHighToLow"><div class="sidebarButton" id="priceHighToLowSort"><p>Price High to Low</p></div></a>
 		<a href="" onclick="return followDistLink;"><div class="sidebarButton" id="distanceSort"><p>Distance From Me</p></div></a>
 	</div>
 
@@ -164,7 +166,7 @@
 			var latitude = position.coords.latitude;
 			var longitude = position.coords.longitude;
 			
-			var distURL = "index.php?sortBy=distance&latitude="+latitude+"&longitude="+longitude;
+			var distURL = "favorites.php?sortBy=distance&latitude="+latitude+"&longitude="+longitude;
 			var link = document.getElementById("sidebar").getElementsByTagName("a")[7];
 			link.href = distURL;
 			followDistLink = true;
@@ -174,31 +176,48 @@
 	<p></p>
 	<script type="text/javascript">
 		function callUpvote(inputDealID) {
-			$.ajax({
-			    type: 'POST',
-			    url: 'voting_scripts/upvote.php',
-			    dataType: 'html',
-			    data: {userID: 10, dealID: inputDealID},
-			});
+			if( USER_EMAIL != "" ) {
+				$.ajax({
+				    type: 'POST',
+				    url: 'voting_scripts/upvote.php',
+				    dataType: 'html',
+				    data: {userID: USER_EMAIL, dealID: inputDealID}
+				});
 
-			var dealDiv = "deal" + inputDealID;
-			var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
-			document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes + 1;
+				var dealDiv = "deal" + inputDealID;
+				var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
+				document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes + 1;
+			}
 		}
 
 		function callDownvote(inputDealID) {
-			$.ajax({
-			    type: 'POST',
-			    url: 'voting_scripts/downvote.php',
-			    dataType: 'html',
-			    data: {userID: 10, dealID: inputDealID},
-			});
+			if( USER_EMAIL != "" ) {
+				$.ajax({
+				    type: 'POST',
+				    url: 'voting_scripts/downvote.php',
+				    dataType: 'html',
+				    data: {userID: USER_EMAIL, dealID: inputDealID}
+				});
 
-			var dealDiv = "deal" + inputDealID;
-			var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
-			document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes - 1;
+				var dealDiv = "deal" + inputDealID;
+				var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
+				document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes - 1;
+			}
+		}
+
+		function callFavorites(inputDealID){
+			if( USER_EMAIL != "" ) {
+				$.ajax({
+					type: 'POST',
+					url: 'Favorites/favorites.php',
+					datatype: 'html',
+					data: {userID: USER_EMAIL, dealID: inputDealID},			
+				});
+			}
 		}
 	</script>
+	
+	
 
 	<div id="mainContents">
 		<div id="dealsHeader" style="padding: 5px; background-color: #FFFFFF; border: 1px solid #C0D6C0; border-radius: 5px;">
@@ -227,39 +246,40 @@
 			INNER JOIN favorites
 			ON deals.memberID = favorites.memberID
 			ORDER BY deals.dealID 
-			LIMIT " . $DEALS_PER_PAGE . " 
 			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 	}
 	else if( $sortBy == "priceLowToHigh" ) {
-		$query = "SELECT * FROM deals 
-		ORDER BY salePrice 
-		LIMIT " . $DEALS_PER_PAGE . " 
-		OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
+			INNER JOIN favorites
+			ON deals.memberID = favorites.memberID
+			ORDER BY deals.salePrice 
+			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 	}
 	else if( $sortBy == "priceHighToLow" ) {
-		$query = "SELECT * FROM deals 
-		ORDER BY salePrice DESC 
-		LIMIT " . $DEALS_PER_PAGE . " 
-		OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
+		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
+			INNER JOIN favorites
+			ON deals.memberID = favorites.memberID
+			ORDER BY deals.salePrice DESC 
+			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 	}
 
 	else if( $sortBy == "distance" ) {
 		$userLat = $_GET['latitude'];
 		$userLong = $_GET['longitude'];
-
-
-		$query = "SELECT * FROM deals
-			ORDER BY (POWER(geoLatitude - " . $userLat . " , 2) + POWER(geoLongitude - " . $userLong . " , 2))
-			LIMIT " . $DEALS_PER_PAGE . " 
+			
+			
+		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
+			INNER JOIN favorites
+			ON deals.memberID = favorites.memberID
+			ORDER BY (POWER(deals.geoLatitude - " . $userLat . " , 2) + POWER(deals.geoLongitude - " . $userLong . " , 2))
 			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 	}
 	else {
 		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
 			INNER JOIN favorites
-			ON deals.memberID = favorites.memberID
+			ON deals.dealID = favorites.dealID
 			WHERE favorites.memberID = 10
 			ORDER BY deals.dealID DESC
-			LIMIT " . $DEALS_PER_PAGE . " 
 			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 	}
 
@@ -316,13 +336,16 @@
 				<input type="hidden" id="deal'.$dealID.'lat" value='.$geoLatitude.' />
 				<input type="hidden" id="deal'.$dealID.'long" value='.$geoLongitude.' />
 			</div>
+			<div class="dealStore" onclick="showPopup(\'deal' . $dealID . '\')">
+				<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $geoLatitude . ',' . $geoLongitude . '&zoom=14&size=190x190&maptype=roadmap&markers=color:red%7C' . $geoLatitude . ',' . $geoLongitude . '&key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA" alt="Store Location" width="190" height="190">
+			</div>
 			<div class="votingColumn">
 				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><div class="upvoteButton"><p>Upvote</p></div></a>
 				<p><div class="totalVotes">'.($upVotes-$downVotes).'</div></p>
-				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><div class="downvoteButton"><p>Downvote</p></div></a>
-			</div>
-			<div class="dealStore" onclick="showPopup(\'deal' . $dealID . '\')">
-				<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $geoLatitude . ',' . $geoLongitude . '&zoom=14&size=190x190&maptype=roadmap&markers=color:red%7C' . $geoLatitude . ',' . $geoLongitude . '&key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA" alt="Store Location" width="190" height="190">
+				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><div class="downvoteButton"><p>Downvote</p></div></a> 
+				<div class "favorites">
+					<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')"><p>Favorite</p></a>
+				</div>
 			</div>
 		</div>
 		';
@@ -332,40 +355,6 @@
 
 		<div id="pageLinks">
 <?php
-	$totalDealsQuery = "SELECT COUNT(*) FROM deals;";
-	$dealsResultSet = mysqli_query( $conn, $totalDealsQuery );
-	$totalDeals = mysqli_fetch_array( $dealsResultSet )[0];
-	$currentURL = "index.php?sortBy=" . $sortBy;
-
-	if( empty($_GET['page']) || $page < 0 || $page > $totalDeals / $DEALS_PER_PAGE ) {
-		$page = 0;
-	}
-	else { 
-		$page = $_GET['page'];
-	}
-
-	if( $page != 0 ) {
-		$previousPage = (string)($page - 1);
-		echo "			<div id=\"prevPage\">
-				<form action=\"index.php\" method=\"get\">
-					<input name=\"page\" type=\"hidden\" value=".$previousPage.">
-					<input name=\"sortBy\" type=\"hidden\" value=".$sortBy.">
-					<input type=\"submit\" value=\"Previous Page\">
-				</form>
-			</div>";
-	}	if( $totalDeals > $DEALS_PER_PAGE * ($page + 1) ) {
-		$nextPage = (string)($page + 1);
-		echo "
-			<div id=\"nextPage\">
-				<form action=\"index.php\" method=\"get\">
-					<input name=\"page\" type=\"hidden\" value=".$nextPage.">
-					<input name=\"sortBy\" type=\"hidden\" value=".$sortBy.">
-					<input type=\"submit\" value=\"Next Page\">
-				</form>
-			</div>";
-	}
-
-
 	mysqli_close( $conn );
 ?>
 		

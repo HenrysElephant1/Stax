@@ -75,8 +75,10 @@
     	});
     	}
 
+    	var USER_EMAIL = "";
     	function onSignIn(googleUser) {
     		changeHeader();
+    		USER_EMAIL = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
     	}
 
 	</script>
@@ -174,41 +176,44 @@
 	<p></p>
 	<script type="text/javascript">
 		function callUpvote(inputDealID) {
-			$.ajax({
-			    type: 'POST',
-			    url: 'voting_scripts/upvote.php',
-			    dataType: 'html',
-			    data: {userID: 10, dealID: inputDealID},
-			});
+			if( USER_EMAIL != "" ) {
+				$.ajax({
+				    type: 'POST',
+				    url: 'voting_scripts/upvote.php',
+				    dataType: 'html',
+				    data: {userID: USER_EMAIL, dealID: inputDealID}
+				});
 
-			var dealDiv = "deal" + inputDealID;
-			var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
-			document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes + 1;
+				var dealDiv = "deal" + inputDealID;
+				var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
+				document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes + 1;
+			}
 		}
 
 		function callDownvote(inputDealID) {
-			$.ajax({
-			    type: 'POST',
-			    url: 'voting_scripts/downvote.php',
-			    dataType: 'html',
-			    data: {userID: 10, dealID: inputDealID},
-			});
+			if( USER_EMAIL != "" ) {
+				$.ajax({
+				    type: 'POST',
+				    url: 'voting_scripts/downvote.php',
+				    dataType: 'html',
+				    data: {userID: USER_EMAIL, dealID: inputDealID}
+				});
 
-			var dealDiv = "deal" + inputDealID;
-			var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
-			document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes - 1;
+				var dealDiv = "deal" + inputDealID;
+				var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
+				document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes - 1;
+			}
 		}
-	</script>
-	 
-	<script type="text/javascript">
-		function callFavorites(inputuserID){
-			$.ajax({
-				type: 'POST',
-				url: 'Favorites/favorites.php',
-				datatype: 'html',
-				data: {userID: 10, dealID: inputuserID},				
-			});
-		
+
+		function callFavorites(inputDealID){
+			if( USER_EMAIL != "" ) {
+				$.ajax({
+					type: 'POST',
+					url: 'Favorites/favorites.php',
+					datatype: 'html',
+					data: {userID: USER_EMAIL, dealID: inputDealID},			
+				});
+			}
 		}
 	</script>
 	
@@ -325,23 +330,16 @@
 				<input type="hidden" id="deal'.$dealID.'lat" value='.$geoLatitude.' />
 				<input type="hidden" id="deal'.$dealID.'long" value='.$geoLongitude.' />
 			</div>
+			<div class="dealStore" onclick="showPopup(\'deal' . $dealID . '\')">
+				<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $geoLatitude . ',' . $geoLongitude . '&zoom=14&size=190x190&maptype=roadmap&markers=color:red%7C' . $geoLatitude . ',' . $geoLongitude . '&key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA" alt="Store Location" width="190" height="190">
+			</div>
 			<div class="votingColumn">
 				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><div class="upvoteButton"><p>Upvote</p></div></a>
 				<p><div class="totalVotes">'.($upVotes-$downVotes).'</div></p>
 				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><div class="downvoteButton"><p>Downvote</p></div></a> 
-			
 				<div class "favorites">
-					<a href="javascript:void(0);" onclick="callFavorites('.$memberID.')"><p>Favorite</p></a>
+					<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')"><p>Favorite</p></a>
 				</div>
-			</div>
-			
-			
-			';
-			
-			
-		echo'	
-			<div class="dealStore" onclick="showPopup(\'deal' . $dealID . '\')">
-				<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $geoLatitude . ',' . $geoLongitude . '&zoom=14&size=190x190&maptype=roadmap&markers=color:red%7C' . $geoLatitude . ',' . $geoLongitude . '&key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA" alt="Store Location" width="190" height="190">
 			</div>
 		</div>
 		';
