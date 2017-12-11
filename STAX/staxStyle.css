@@ -203,21 +203,25 @@ a {
 
 .upvotes {
 	float: left;
+	width: 80px;
 }
 
 .totalVotes {
 	float: left;
 	clear: left;
+	width: 80px;
 }
 
 .downvotes {
 	float: left;
 	clear: left;
+	width: 80px;
 }
 
 .favorites {
 	float: left;
 	clear: left;
+	width: 80px;
 }
 
 .dealStore {
