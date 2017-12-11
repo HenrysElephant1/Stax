@@ -502,7 +502,7 @@
 				</a> 
 				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')">
 					<div class="favorites">
-						<input type="hidden" id="favorite'.$dealID.'Value" value="false" >
+						<input type="hidden" id="favorites'.$dealID.'Value" value="false" >
 						<img src="black_heart.png" id="favorite'.$dealID.'" height="20" width="20">
 					</div>
 				</a>
