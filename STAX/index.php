@@ -23,11 +23,11 @@
 						console.log("Set "+i+" green");
 					}
 					if( currentTotalVotes < 0 ) {
-						currentTotalVotesDiv.style.color = "9B372A";
+						currentTotalVotesDiv.style.color = "#9B372A";
 						console.log("Set "+i+" red");
 					}
 					if( currentTotalVotes == 0 ) {
-						currentTotalVotesDiv.style.color = "A0A0A0";
+						currentTotalVotesDiv.style.color = "#A0A0A0";
 						console.log("Set "+i+" gray");
 					}
 				}
