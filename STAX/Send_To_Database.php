@@ -24,7 +24,7 @@
 		// $imagePathName = 'uploads/' . $_FILES['fileToUpload']['name'];
 		// //upload images to the server
 		// if(!move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $imagePathName)){
-	 //    	die('Error uploading file - check destination is writeable.');
+	 	//    die('Error uploading file - check destination is writeable.');
 		// }
 
 		//collect information from the form
@@ -57,15 +57,13 @@
 
 
 		$query = "INSERT INTO deals(item, dealType, upVotes, downVotes, geoLatitude, geoLongitude, orgPrice, salePrice, storeName, image, memberID) VALUES ('$name', '$type', 0, 0, $lat, $long, $orgPrice, $salePrice, '$storeName', '$Image', '$userName');";
-
+		echo $query;
 		if( !mysqli_query( $connection, $query ) ) {
 			echo("Error description: " . mysqli_error($connection));
 	 	}
 
 		mysqli_close( $connection );
 		?>
-		<meta http-equiv="refresh" content="0;URL=index.php" />
+		<!-- <meta http-equiv="refresh" content="0;URL=index.php" /> -->
   	</body>
  </html>
-
-<!--  -->
