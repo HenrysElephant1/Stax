@@ -178,7 +178,6 @@
 
 	<p></p>
 	<script type="text/javascript">
-		//ASDF
 		var allowVote = true;
 		var allowFavorite = true;
 
@@ -260,7 +259,15 @@
 					datatype: 'html',
 					data: {userID: USER_EMAIL},
 					success: function(data) {
-						console.log(data);
+						var favoritesString = data;
+
+						var completed = false;
+						while( !completed ) {
+							var nextComma = favoritesString.indexOf(',');
+							var nextFavoriteId = favoritesString.substring(0,nextComma);
+							document.getElementById("deal"+nextFavoriteId).getElementsByClassName("favorites")[0].innerHTML = "Unfavorite";
+							favoritesString = favoritesString.substring( nextComma + 1 );
+						}
 					}
 				});
 				
@@ -270,7 +277,22 @@
 					datatype: 'html',
 					data: {userID: USER_EMAIL},
 					success: function(data) {
-						console.log(data);
+						var votesString = data;
+
+						var completed = false;
+						while( !completed ) {
+							var nextComma = votesString.indexOf(',');
+							var nextPeriod = votesString.indexOf('.');
+							var nextVoteId = votesString.substring(0,nextComma);
+							var nextVoteValue = votesString.substring(nextComma+1,nextPeriod);
+							if( nextVoteValue == "1" ) {
+								document.getElementById("deal"+nextVoteId).getElementsByClassName("upvoteButton")[0].innerHTML = "Upvoted";
+							}
+							else if( nextVoteValue == "-1" ) {
+								document.getElementById("deal"+nextVoteId).getElementsByClassName("downvoteButton")[0].innerHTML = "Downvoted";
+							}
+							votesString = votesString.substring( nextComma + 1 );
+						}
 					}
 				});
 			}

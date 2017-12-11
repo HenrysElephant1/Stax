@@ -80,7 +80,7 @@
     		changeHeader();
     		USER_EMAIL = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
     		document.getElementById("favoritesLink").href = "favorites.php?userName=" + USER_EMAIL;
-			document.getElementById("dealsHeaderText").innerHTML = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getGivenName();
+			document.getElementById("dealsHeaderText").innerHTML = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getGivenName( + "'s Favorites";
     	}
 
 	</script>
