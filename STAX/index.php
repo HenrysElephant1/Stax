@@ -365,6 +365,8 @@
 				});
 			}
 		}
+		
+		updateVoteColors();
 	</script>
 	
 	
