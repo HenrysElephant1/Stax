@@ -13,6 +13,7 @@
 		function updateVoteColors() {
 			for( var i=0; i<10; i++ ) {
 				var currentTotalVotesDiv = document.getElementsByClassName[i];
+				console.log(i);
 				var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );
 				if( currentTotalVotes < 0 ) {
 					currentTotalVotesDiv.style.color = "#3C7F3F";
