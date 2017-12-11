@@ -113,8 +113,11 @@
     	});
     	}
 
+    	var USER_EMAIL = "";
     	function onSignIn(googleUser) {
     		changeHeader();
+    		USER_EMAIL = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
+    		document.getElementById("userNamePost").value = USER_EMAIL;
     	}
 
 	</script>
@@ -157,6 +160,7 @@
 			<div id="spacer"></div>
 			<div id="dealForm">
 				<form method="POST" enctype="multipart/form-data" action="Send_To_Database.php">
+				<input type="hidden" id="userNamePost" name="userName" value="">
 				<div id="leftColumn">
 					<div id="storeName"><p><b>Store:</b> <?php echo $_REQUEST['storeName']; ?></p></div>
 					<div id="enterProductName">	
