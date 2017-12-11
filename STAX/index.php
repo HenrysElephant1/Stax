@@ -88,19 +88,16 @@
 				var userSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
 
 				if( userSignedIn ) {
-					document.getElementById("accountTab").style.display = "block";
 					document.getElementById("signOutButton").style.display = "block";
 					document.getElementsByClassName("g-signin2")[0].style.display = "none";
 				}
 				else {
-					document.getElementById("accountTab").style.display = "none";
 					document.getElementById("signOutButton").style.display = "none";
 					document.getElementsByClassName("g-signin2")[0].style.display = "block";
 				}
 			}
 		</script>
 		<div class="g-signin2" data-onsuccess="onSignIn"></div>
-		<div id="accountTab" style="display:none;"><h4>Your Account</h4></div>
 		<div id="signOutButton" href="#" onclick="signOut()" style="display:none;"><h4>Sign Out</h4></div>
 	</div> 
 </div>
@@ -230,6 +227,9 @@
 					}
 				});
 			}
+			else if( USER_EMAIL == "" ) {
+				alert("Please sign in to vote and favorite");
+			}
 		}
 
 		function callDownvote(inputDealID) {
@@ -270,6 +270,9 @@
 					}
 				});
 			}
+			else if( USER_EMAIL == "" ) {
+				alert("Please sign in to vote and favorite");
+			}
 		}
 
 		function callFavorites(inputDealID){
@@ -294,6 +297,9 @@
 						allowFavorite = true;
 					}		
 				});
+			}
+			else if( USER_EMAIL == "" ) {
+				alert("Please sign in to vote and favorite");
 			}
 		}
 

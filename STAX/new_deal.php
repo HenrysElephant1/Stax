@@ -11,97 +11,7 @@
 
 
 	<style type="text/css">
-		/*body {
-			background-color: #E6EAE6;
-			margin: 0px;
-			padding: 0px;
-			font-family: "Arial";
-		}
-
-		h1, h2, h3, h4, p {
-			margin: 0px;
-		}
-
-		a {
-			text-decoration: none;
-			color: black;
-			padding: 0px;
-			margin: 0px;
-		}
-
-		#map a {
-			text-decoration: underline;
-			color: blue;
-			padding: 0px;
-			margin: 0px;
-		}
-
-		#contents {
-			overflow: auto;
-			margin: auto;
-			margin-bottom: 10px;
-			padding: 0px;
-			width: 1000px;
-		}
-
-		#headerSpan {
-			position: fixed;
-			width: 100%;
-			height: 40px;
-			margin: auto;
-			padding: 0px;
-			background-color: #70c972;
-		    border-bottom: 2px solid #377738;
-		}
-
-		#header {
-			width: 990px;
-			padding: 0px;
-			margin: auto;
-			padding-left: 5px;
-			padding-right: 5px;
-		}
-
-		#headerImage {
-			float: left;
-			height: 36px;
-			width: 40px;
-			margin: 0px;
-			padding: 0px;
-		}
-
-		#headerText {
-			float: left;
-			margin: 0px;
-			padding: 0px;
-			padding-left: 10px;
-			margin-top: 8px;
-		}
-
-		#accountTab {
-			float: right;
-			height: 40px;
-			margin: 0px;
-			padding: 0px;
-			line-height: 40px;
-		}
-
-		#contentsSpacer {
-			float: left;
-			height: 40px;
-			width: 100%;
-			margin: 0px;
-		}
-
-		#spacer {
-			height: 5px;
-			width: 1000px;
-			float: left;
-		}*/
-
 		#mainContents {
-			/*background: #F6FAF6;*/
-			/*overflow: auto;*/
 			float: left;
 			width: calc( 100% );
 			margin: 0px;
@@ -241,19 +151,16 @@
 				var userSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
 
 				if( userSignedIn ) {
-					document.getElementById("accountTab").style.display = "block";
 					document.getElementById("signOutButton").style.display = "block";
 					document.getElementsByClassName("g-signin2")[0].style.display = "none";
 				}
 				else {
-					document.getElementById("accountTab").style.display = "none";
 					document.getElementById("signOutButton").style.display = "none";
 					document.getElementsByClassName("g-signin2")[0].style.display = "block";
 				}
 			}
 		</script>
 		<div class="g-signin2" data-onsuccess="onSignIn"></div>
-		<div id="accountTab" style="display:none;"><h4>Your Account</h4></div>
 		<div id="signOutButton" href="#" onclick="signOut()" style="display:none;"><h4>Sign Out</h4></div>
 	</div> 
 </div>
