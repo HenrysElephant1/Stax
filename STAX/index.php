@@ -80,6 +80,8 @@
     		changeHeader();
     		USER_EMAIL = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
     		document.getElementById("favoritesLink").href = "favorites.php?userName=" + USER_EMAIL;
+			document.getElementById("dealsHeaderText").innerHTML = "Welcome Back, " + gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getGivenName();
+			getVotesAndFavorites();
     	}
 
 	</script>
@@ -177,42 +179,64 @@
 	<p></p>
 	<script type="text/javascript">
 		function callUpvote(inputDealID) {
-			if( USER_EMAIL != "" ) {
+			if( allowVote && USER_EMAIL != "" ) {
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/upvote.php',
 				    dataType: 'html',
 				    data: {userID: USER_EMAIL, dealID: inputDealID}
 				});
-
-				var dealDiv = "deal" + inputDealID;
-				var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
-				document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes + 1;
 			}
 		}
 
 		function callDownvote(inputDealID) {
-			if( USER_EMAIL != "" ) {
+			if( allowVote && USER_EMAIL != "" ) {
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/downvote.php',
 				    dataType: 'html',
 				    data: {userID: USER_EMAIL, dealID: inputDealID}
 				});
-
-				var dealDiv = "deal" + inputDealID;
-				var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
-				document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes - 1;
 			}
 		}
 
 		function callFavorites(inputDealID){
-			if( USER_EMAIL != "" ) {
+			if( allowFavorite && USER_EMAIL != "" ) {
 				$.ajax({
 					type: 'POST',
 					url: 'Favorites/favorites.php',
 					datatype: 'html',
 					data: {userID: USER_EMAIL, dealID: inputDealID},			
+				});
+			}
+		}
+
+		var allowVote = true;
+		var allowFavorite = true;
+		function getVotesAndFavorites(){
+			if( USER_EMAIL != "" ) {
+				allowFavorite = false;
+				$.ajax({
+					type: 'POST',
+					url: 'Favorites/getUserFavorites.php',
+					datatype: 'html',
+					data: {userID: USER_EMAIL},
+					success: function(data) {
+						allowFavorite = true;
+						console.log(data);
+					}
+				});
+
+				$.ajax({
+					allowVote = false;
+					type: 'POST',
+					url: 'voting_scripts/getUserVotes.php',
+					datatype: 'html',
+					data: {userID: USER_EMAIL},
+					success: function(data) {
+						allowVote = true;
+						console.log(data);
+					}			
 				});
 			}
 		}
@@ -222,7 +246,7 @@
 
 	<div id="mainContents">
 		<div id="dealsHeader" style="padding: 5px; background-color: #FFFFFF; border: 1px solid #C0D6C0; border-radius: 5px;">
-			<h3>Welcome Back, USER</h3>
+			<h3 id="dealsHeaderText">Welcome Back</h3>
 		</div>
 
 <?php

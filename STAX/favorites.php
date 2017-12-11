@@ -80,6 +80,7 @@
     		changeHeader();
     		USER_EMAIL = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
     		document.getElementById("favoritesLink").href = "favorites.php?userName=" + USER_EMAIL;
+			document.getElementById("dealsHeaderText").innerHTML = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getGivenName();
     	}
 
 	</script>
@@ -122,9 +123,9 @@
 
 		<h4>Sort By:</h4>
 		<a href="favorites.php?userName=<?php echo $_GET['userName']?>&sortBy=newest"><div class="sidebarButton" id="newestSort"><p>Newest</p></div></a>
-		<a href="favorites.php?<?php echo $_GET['userName']?>&sortBy=oldest"><div class="sidebarButton" id="oldestSort"><p>Oldest</p></div></a>
-		<a href="favorites.php?<?php echo $_GET['userName']?>&sortBy=priceLowToHigh"><div class="sidebarButton" id="priceLowToHighSort"><p>Price Low to High</p></div></a>
-		<a href="favorites.php?<?php echo $_GET['userName']?>&sortBy=priceHighToLow"><div class="sidebarButton" id="priceHighToLowSort"><p>Price High to Low</p></div></a>
+		<a href="favorites.php?userName=<?php echo $_GET['userName']?>&sortBy=oldest"><div class="sidebarButton" id="oldestSort"><p>Oldest</p></div></a>
+		<a href="favorites.php?userName=<?php echo $_GET['userName']?>&sortBy=priceLowToHigh"><div class="sidebarButton" id="priceLowToHighSort"><p>Price Low to High</p></div></a>
+		<a href="favorites.php?userName=<?php echo $_GET['userName']?>&sortBy=priceHighToLow"><div class="sidebarButton" id="priceHighToLowSort"><p>Price High to Low</p></div></a>
 		<a href="" onclick="return followDistLink;"><div class="sidebarButton" id="distanceSort"><p>Distance From Me</p></div></a>
 	</div>
 
@@ -167,7 +168,7 @@
 			var latitude = position.coords.latitude;
 			var longitude = position.coords.longitude;
 			
-			var distURL = "favorites.php?sortBy=distance&latitude="+latitude+"&longitude="+longitude;
+			var distURL = "favorites.php?userName=<?php echo $_GET['userName']?>&sortBy=distance&latitude="+latitude+"&longitude="+longitude;
 			var link = document.getElementById("sidebar").getElementsByTagName("a")[7];
 			link.href = distURL;
 			followDistLink = true;
@@ -222,7 +223,7 @@
 
 	<div id="mainContents">
 		<div id="dealsHeader" style="padding: 5px; background-color: #FFFFFF; border: 1px solid #C0D6C0; border-radius: 5px;">
-			<h3>Welcome Back, USER</h3>
+			<h3 id="dealsHeaderText">Sign in and click the Favorites tab again to see your favorites</h3>
 		</div>
 
 <?php
