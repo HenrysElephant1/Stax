@@ -283,13 +283,16 @@
 
 		function callFavorites(inputDealID){
 			if( allowFavorite && USER_EMAIL != "" ) {
-				favoritesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("favorites")[0];
-				if( favoritesDiv.innerHTML == "Favorite" ) {
-					favoritesDiv.innerHTML = "Unfavorite";
+				var favoritesImg = document.getElementById("favorites"+inputDealID);
+				var favoritesValue = document.getElementById("favorites"+inputDealID+"Value");
+				if( favoritesValue.value == "false" ) {
+					favoritesImg.src = "red_heart.png";
+					favoritesValue.value == "true";
 				}
 				else {
-					favoritesDiv.innerHTML = "Favorite";
-				}
+					favoritesImg.src = "black_heart.png";
+					favoritesValue.value == "false";
+					}
 				allowFavorite = false;
 				$.ajax({
 					type: 'POST',
@@ -499,7 +502,8 @@
 				</a> 
 				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')">
 					<div class="favorites">
-						Favorite
+						<input type="hidden" id="favorite'.$dealID.'Value" value="false" >
+						<img src="black_heart.png" id="favorite'.$dealID.'" height="20" width="20">
 					</div>
 				</a>
 			</div>
