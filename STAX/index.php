@@ -10,29 +10,6 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script>
-		function updateVoteColors() {
-			for( var i=0; i<10; i++ ) {
-				var currentTotalVotesDiv = document.getElementsByClassName("totalVotes")[i];
-				if( currentTotalVotesDiv === null ) {
-				}
-				else {
-					var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );
-					console.log( currentTotalVotes );
-					if( currentTotalVotes > 0 ) {
-						currentTotalVotesDiv.style.color = "#3C7F3F";
-						console.log("Set "+i+" green");
-					}
-					if( currentTotalVotes < 0 ) {
-						currentTotalVotesDiv.style.color = "#9B372A";
-						console.log("Set "+i+" red");
-					}
-					if( currentTotalVotes == 0 ) {
-						currentTotalVotesDiv.style.color = "#A0A0A0";
-						console.log("Set "+i+" gray");
-					}
-				}
-			}
-		}
 
 		var popMap;
 		var popUpMapMarker;
@@ -201,6 +178,25 @@
 	</script>
 
 	<script type="text/javascript">
+		function updateVoteColors() {
+			for( var i=0; i<10; i++ ) {
+				var currentTotalVotesDiv = document.getElementsByClassName("totalVotes")[i];
+				if( currentTotalVotesDiv === null ) {
+				}
+				else {
+					var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );
+					if( currentTotalVotes > 0 ) {
+						currentTotalVotesDiv.style.color = "#3C7F3F";
+					}
+					if( currentTotalVotes < 0 ) {
+						currentTotalVotesDiv.style.color = "#9B372A";
+					}
+					if( currentTotalVotes == 0 ) {
+						currentTotalVotesDiv.style.color = "#A0A0A0";
+					}
+				}
+			}
+		}
 
 		var allowVote = true;
 		var allowFavorite = true;
