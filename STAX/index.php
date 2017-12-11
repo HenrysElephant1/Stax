@@ -211,6 +211,8 @@
 			}
 		}
 
+
+		//ASDF
 		var allowVote = true;
 		var allowFavorite = true;
 		function getVotesAndFavorites() {
