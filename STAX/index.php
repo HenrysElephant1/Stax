@@ -79,6 +79,7 @@
     	function onSignIn(googleUser) {
     		changeHeader();
     		USER_EMAIL = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
+    		document.getElementById("favoritesLink").href = "favorites.php?userName=" + USER_EMAIL;
     	}
 
 	</script>
@@ -115,7 +116,7 @@
 	<div id="spacer"></div>
 	<div id="sidebar">
 		<a href="index.php"><div class="sidebarButton" id="activeSidebarButton"><p>Deals</p></div></a>
-		<a href="favorites.php"><div class="sidebarButton"><p>Favorites</p></div></a>
+		<a id="favoritesLink" href="favorites.php"><div class="sidebarButton"><p>Favorites</p></div></a>
 		<a href="new_deal.php"><div class="sidebarButton"><p>Add a Deal</p></div></a>
 		<div id="sidebarSpacer" style="height: 10px;"></div>
 

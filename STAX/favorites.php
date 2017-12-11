@@ -79,6 +79,7 @@
     	function onSignIn(googleUser) {
     		changeHeader();
     		USER_EMAIL = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
+    		document.getElementById("favoritesLink").href = "favorites.php?userName=" + USER_EMAIL;
     	}
 
 	</script>
@@ -120,10 +121,10 @@
 		<div id="sidebarSpacer" style="height: 10px;"></div>
 
 		<h4>Sort By:</h4>
-		<a href="favorites.php?sortBy=newest"><div class="sidebarButton" id="newestSort"><p>Newest</p></div></a>
-		<a href="favorites.php?sortBy=oldest"><div class="sidebarButton" id="oldestSort"><p>Oldest</p></div></a>
-		<a href="favorites.php?sortBy=priceLowToHigh"><div class="sidebarButton" id="priceLowToHighSort"><p>Price Low to High</p></div></a>
-		<a href="favorites.php?sortBy=priceHighToLow"><div class="sidebarButton" id="priceHighToLowSort"><p>Price High to Low</p></div></a>
+		<a href="favorites.php?userName=<?php echo $_GET['userName']?>&sortBy=newest"><div class="sidebarButton" id="newestSort"><p>Newest</p></div></a>
+		<a href="favorites.php?<?php echo $_GET['userName']?>&sortBy=oldest"><div class="sidebarButton" id="oldestSort"><p>Oldest</p></div></a>
+		<a href="favorites.php?<?php echo $_GET['userName']?>&sortBy=priceLowToHigh"><div class="sidebarButton" id="priceLowToHighSort"><p>Price Low to High</p></div></a>
+		<a href="favorites.php?<?php echo $_GET['userName']?>&sortBy=priceHighToLow"><div class="sidebarButton" id="priceHighToLowSort"><p>Price High to Low</p></div></a>
 		<a href="" onclick="return followDistLink;"><div class="sidebarButton" id="distanceSort"><p>Distance From Me</p></div></a>
 	</div>
 
@@ -241,10 +242,12 @@
 		die('Failed to connect to MySQL: '.mysqli_connect_error());
 	}
 
+	$userEmail = $_GET['userName'];
 	if( $sortBy == "oldest" ) {
 		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
 			INNER JOIN favorites
 			ON deals.memberID = favorites.memberID
+			WHERE favorites.memberID = '".$userEmail."'
 			ORDER BY deals.dealID 
 			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 	}
@@ -252,6 +255,7 @@
 		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
 			INNER JOIN favorites
 			ON deals.memberID = favorites.memberID
+			WHERE favorites.memberID = '".$userEmail."'
 			ORDER BY deals.salePrice 
 			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 	}
@@ -259,6 +263,7 @@
 		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
 			INNER JOIN favorites
 			ON deals.memberID = favorites.memberID
+			WHERE favorites.memberID = '".$userEmail."'
 			ORDER BY deals.salePrice DESC 
 			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 	}
@@ -271,6 +276,7 @@
 		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
 			INNER JOIN favorites
 			ON deals.memberID = favorites.memberID
+			WHERE favorites.memberID = '".$userEmail."'
 			ORDER BY (POWER(deals.geoLatitude - " . $userLat . " , 2) + POWER(deals.geoLongitude - " . $userLong . " , 2))
 			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 	}
@@ -278,7 +284,7 @@
 		$query = "SELECT deals.dealID, deals.item, deals.dealType, deals.upvotes, deals.downvotes, deals.geoLatitude, deals.geoLongitude, deals.orgPrice, deals.salePrice, deals.storeName, deals.image, deals.memberID FROM deals 
 			INNER JOIN favorites
 			ON deals.dealID = favorites.dealID
-			WHERE favorites.memberID = 10
+			WHERE favorites.memberID = '".$userEmail."'
 			ORDER BY deals.dealID DESC
 			OFFSET " . ($_GET['page'] * $DEALS_PER_PAGE) . ";";
 	}
