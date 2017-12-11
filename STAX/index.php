@@ -10,18 +10,9 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script>
-
 		var popMap;
 		var popUpMapMarker;
 		function showPopup( dealID ) {
-			// var currentScrollHeight = document.documentElement.scrollTop || document.body.scrollTop;
-			// var contentsDiv = document.getElementById("contents");
-			// var mainContentsDiv = document.getElementById("mainContents");
-			// mainContentsDiv.setAttribute( "-webkit-transform", "translateY(-" + currentScrollHeight + ")");
-			// mainContentsDiv.setAttribute( "-ms-transform", "translateY(-" + currentScrollHeight + ")");
-			// mainContentsDiv.style.top = "-" + currentScrollHeight + "px";
-			// mainContentsDiv.style.overflow = "hidden";
-
 			// Fill in image attributes
 			var dealDiv = document.getElementById( dealID );
 			var dealImage =  dealDiv.getElementsByTagName( "img" )[0];
@@ -67,23 +58,23 @@
 
 		var followDistLink = false;
 
-		function signOut() {
-    		var auth2 = gapi.auth2.getAuthInstance();
-    		auth2.signOut().then(function () {
-      		console.log('User signed out.');
-      		auth2.disconnect();
-      		window.location.replace('index.php');
-    	});
-    	}
-
-    	var USER_EMAIL = "";
-    	function onSignIn(googleUser) {
-    		changeHeader();
-    		USER_EMAIL = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
-    		document.getElementById("favoritesLink").href = "favorites.php?userName=" + USER_EMAIL;
+		var USER_EMAIL = "";
+		function onSignIn(googleUser) {
+			changeHeader();
+			USER_EMAIL = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
+			document.getElementById("favoritesLink").href = "favorites.php?userName=" + USER_EMAIL;
 			document.getElementById("dealsHeaderText").innerHTML = "Welcome Back, " + gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getGivenName();
 			getVotesAndFavorites();
-    	}
+		}
+
+		function signOut() {
+			var auth2 = gapi.auth2.getAuthInstance();
+				auth2.signOut().then(function () {
+				console.log('User signed out.');
+				auth2.disconnect();
+				window.location.replace('index.php');
+			});
+		}
 
 	</script>
 </head>
@@ -230,13 +221,13 @@
 				downVoteImg.src = "gray_down_arrow.png?t=" + new Date().getTime();
 				downVoteValue.value = "false";
 				$.ajax({
-				    type: 'POST',
-				    url: 'voting_scripts/upvote.php',
-				    dataType: 'html',
-				    data: {userID: USER_EMAIL, dealID: inputDealID},
-				    success: function() {
-				    	allowVote = true;
-				    }
+					type: 'POST',
+					url: 'voting_scripts/upvote.php',
+					dataType: 'html',
+					data: {userID: USER_EMAIL, dealID: inputDealID},
+					success: function() {
+						allowVote = true;
+					}
 				});
 			}
 		}
@@ -270,13 +261,13 @@
 				upVoteImg.src = "gray_up_arrow.png?t=" + new Date().getTime();
 				upVoteValue.value = "false";
 				$.ajax({
-				    type: 'POST',
-				    url: 'voting_scripts/downvote.php',
-				    dataType: 'html',
-				    data: {userID: USER_EMAIL, dealID: inputDealID},
-				    success: function() {
-				    	allowVote = true;
-				    }
+					type: 'POST',
+					url: 'voting_scripts/downvote.php',
+					dataType: 'html',
+					data: {userID: USER_EMAIL, dealID: inputDealID},
+					success: function() {
+						allowVote = true;
+					}
 				});
 			}
 		}
@@ -503,7 +494,7 @@
 				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')">
 					<div class="favorites">
 						<input type="hidden" id="favorites'.$dealID.'Value" value="false" >
-						<img src="black_heart.png" id="favorite'.$dealID.'" height="20" width="20">
+						<img src="black_heart.png" id="favorites'.$dealID.'" height="20" width="20">
 					</div>
 				</a>
 			</div>
@@ -548,7 +539,6 @@
 			</div>";
 	}
 
-
 	mysqli_close( $conn );
 ?>
 		
@@ -569,10 +559,8 @@
 	<div id="popupMap"></div>
 
 	<script>
-
-	  
 		function initPopMap() {
-			var myLatLng = {lat: 0, lng: 180};
+			var myLatLng = {lat: 0, lng: 0};
 
 			popMap = new google.maps.Map(document.getElementById("popupMap"), {
 				zoom: 16,
