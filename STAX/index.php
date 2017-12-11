@@ -284,7 +284,7 @@
 					favoritesValue.value = "true";
 				}
 				else {
-					favoritesImg.src = "black_heart.png?t=" + new Date().getTime();
+					favoritesImg.src = "gray_heart.png?t=" + new Date().getTime();
 					favoritesValue.value = "false";
 				}
 				allowFavorite = false;
@@ -500,7 +500,7 @@
 				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')">
 					<div class="favorites">
 						<input type="hidden" id="favorites'.$dealID.'Value" value="false" >
-						<img src="black_heart.png" id="favorites'.$dealID.'" height="20" width="20">
+						<img src="gray_heart.png" id="favorites'.$dealID.'" height="20" width="20">
 					</div>
 				</a>
 			</div>
