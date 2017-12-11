@@ -361,11 +361,11 @@
 								}
 							}
 							votesString = votesString.substring( nextComma + 1 );
-							updateVoteColors();
 						}
 					}
 				});
 			}
+			updateVoteColors()
 		}
 	</script>
 	
