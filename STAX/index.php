@@ -225,7 +225,7 @@
 				upVoteImg = document.getElementById("upvote"+inputDealID);
 				upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
 				upVoteImg.src = "gray_up_arrow.png?t=" + new Date().getTime();
-				upVoteValue.value = true;
+				upVoteValue.value = "true";
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/downvote.php',
