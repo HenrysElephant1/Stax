@@ -304,7 +304,7 @@
 								if( thisImg === null ) {}
 								else {
 									thisImg.src = "green_up_arrow.png?t=" + new Date().getTime();
-									document.getElementById("upvote"+newVoteId+"Value").value = "true";
+									document.getElementById("upvote"+nextVoteId+"Value").value = "true";
 								}
 							}
 							else if( nextVoteValue == "-1" ) {
@@ -312,7 +312,7 @@
 								if( thisImg === null ) {}
 								else {
 									thisImg.src = "red_down_arrow.png?t=" + new Date().getTime();
-									document.getElementById("downvote"+newVoteId+"Value").value = "true";
+									document.getElementById("downvote"+nextVoteId+"Value").value = "true";
 								}
 							}
 							votesString = votesString.substring( nextComma + 1 );
