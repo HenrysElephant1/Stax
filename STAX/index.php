@@ -15,17 +15,17 @@
 				var currentTotalVotesDiv = document.getElementsByClassName[i];
 				var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );
 				if( currentTotalVotes < 0 ) {
-					currentTotalVotesDiv.style.text-color = "#3C7F3F";
+					currentTotalVotesDiv.style.color = "#3C7F3F";
 				}
 				else if( currentTotalVotes  > 0 ) {
-					currentTotalVotesDiv.style.text-color = "9B372A";
+					currentTotalVotesDiv.style.color = "9B372A";
 				}
 				else {
-					currentTotalVotesDiv.style.text-color = "A0A0A0";
+					currentTotalVotesDiv.style.color = "A0A0A0";
 				}
 			}
 		}
-		
+
 		var popMap;
 		var popUpMapMarker;
 		function showPopup( dealID ) {
