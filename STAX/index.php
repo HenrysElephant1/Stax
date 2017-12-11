@@ -192,14 +192,14 @@
 				    data: {userID: USER_EMAIL, dealID: inputDealID},
 				    success: function() {
 				    	allowVote = true;
-						upVoteDiv = document.getElementById("deal"+dealID).getElementsByClassName("upvoteButton")[0];
+						upVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("upvoteButton")[0];
 						if( upVoteDiv.innerHTML == "Upvote" ) {
 							upVoteDiv.innerHTML = "Upvoted";
 						}
 						else {
 							upVoteDiv.innerHTML = "Upvote";
 						}
-						downVoteDiv = document.getElementById("deal"+dealID).getElementsByClassName("downvoteButton")[0];
+						downVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("downvoteButton")[0];
 						downVoteDiv.innerHTML = "Downvote";
 				    }
 				});
@@ -216,14 +216,14 @@
 				    data: {userID: USER_EMAIL, dealID: inputDealID},
 				    success: function() {
 				    	allowVote = true;
-						downVoteDiv = document.getElementById("deal"+dealID).getElementsByClassName("downvoteButton")[0];
+						downVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("downvoteButton")[0];
 						if( downVoteDiv.innerHTML == "Downvote" ) {
 							downVoteDiv.innerHTML = "Downvoted";
 						}
 						else {
 							downVoteDiv.innerHTML = "Downvote";
 						}
-						upVoteDiv = document.getElementById("deal"+dealID).getElementsByClassName("upvoteButton")[0];
+						upVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("upvoteButton")[0];
 						upVoteDiv.innerHTML = "Upvote";
 				    }
 				});
@@ -240,7 +240,7 @@
 					data: {userID: USER_EMAIL, dealID: inputDealID},	
 					success: function() {
 						allowFavorite = true;
-						totalVotesDiv = document.getElementById("deal"+dealID).getElementsByClassName("totalVotes")[0];
+						totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("totalVotes")[0];
 						if( totalVotesDiv.innerHTML == "Favorite" ) {
 							totalVotesDiv.innerHTML = "Unfavorite";
 						}
