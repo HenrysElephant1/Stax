@@ -432,9 +432,7 @@
 				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><p><div class="upvoteButton">Upvote</div></p></a>
 				<p><div class="totalVotes">'.($upVotes-$downVotes).'</div></p>
 				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><p><div class="downvoteButton">Downvote</div></p></a> 
-				<div class="favorites">
-					<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')"><p>Favorite</p></a>
-				</div>
+				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')"><p><div class="favorites">Favorite</div></p></a>
 			</div>
 		</div>
 		';
