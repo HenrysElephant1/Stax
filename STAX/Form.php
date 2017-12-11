@@ -237,7 +237,17 @@
 								document.getElementById("imageFileToUpload").value = imageURL;
 							});
 						}
-					</script>-
+
+						function checkImageUploaded() {
+							if( document.getElementById("imageFileToUpload").value == "" ) {
+								alert("Please select an image to upload");
+								return false;
+							}
+							else {
+								return true;
+							}
+						}
+					</script>
 				</div>
 
 				<?php
@@ -247,7 +257,7 @@
 					echo '<input type="hidden" name="storeName" value="', $storeName, '"/>';
 				?>
 				<div id="submitButtons"> 
-					<input type="submit" value="Submit" /> &nbsp <input type="reset" />
+					<input type="submit" onclick="return checkImageUploaded()" value="Submit" /> &nbsp <input type="reset" />
 				</div>
 				</form>
 
