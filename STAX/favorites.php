@@ -514,7 +514,7 @@
 						<img src="gray_up_arrow.png" id="upvote'.$dealID.'" height="20" width="20">
 					</div>
 				</a>
-				<div class="totalVotes">'.($upVotes-$downVotes).'</div>
+				<div class="totalVotes" style="color: #A0A0A0;">'.($upVotes-$downVotes).'</div>
 				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')">
 					<div class="downvoteButton">
 						<input type="hidden" id="downvote'.$dealID.'Value" value="false" >
