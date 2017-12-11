@@ -1,6 +1,8 @@
 # Stax
 The Official GitHub Repository for StaxHQ
 
+WebsiteURL: https://stax-sof-dev-2017.herokuapp.com/STAX/index.php
+
 NOTE: Any commits from Jason Cummings were to update the Heroku app for testing, hence the undescriptive commit messages. Disregard any of these commits.
 
 Members:
