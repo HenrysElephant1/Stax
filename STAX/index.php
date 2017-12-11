@@ -231,12 +231,12 @@
 
 		function callFavorites(inputDealID){
 			if( allowFavorite && USER_EMAIL != "" ) {
-				totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("favorites")[0];
-				if( totalVotesDiv.innerHTML == "Favorite" ) {
-					totalVotesDiv.innerHTML = "Unfavorite";
+				favoritesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("favorites")[0];
+				if( favoritesDiv.innerHTML == "Favorite" ) {
+					favoritesDiv.innerHTML = "Unfavorite";
 				}
 				else {
-					totalVotesDiv.innerHTML = "Favorite";
+					favoritesDiv.innerHTML = "Favorite";
 				}
 				allowFavorite = false;
 				$.ajax({
