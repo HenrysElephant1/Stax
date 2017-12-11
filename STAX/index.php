@@ -10,6 +10,38 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<script>
+		//ASDF
+		var allowVote = true;
+		var allowFavorite = true;
+		function getVotesAndFavorites() {
+			if( USER_EMAIL != "" ) {
+				allowFavorite = false;
+				$.ajax({
+					type: 'POST',
+					url: 'Favorites/getUserFavorites.php',
+					datatype: 'html',
+					data: {userID: USER_EMAIL},
+					success: function(data) {
+						allowFavorite = true;
+						console.log(data);
+					},
+				});
+
+				$.ajax({
+					allowVote = false;
+					type: 'POST',
+					url: 'voting_scripts/getUserVotes.php',
+					datatype: 'html',
+					data: {userID: USER_EMAIL},
+					success: function(data) {
+						allowVote = true;
+						console.log(data);
+					},
+				});
+			}
+		}
+
+		
 		var popMap;
 		var popUpMapMarker;
 		function showPopup( dealID ) {
@@ -207,38 +239,6 @@
 					url: 'Favorites/favorites.php',
 					datatype: 'html',
 					data: {userID: USER_EMAIL, dealID: inputDealID},			
-				});
-			}
-		}
-
-
-		//ASDF
-		var allowVote = true;
-		var allowFavorite = true;
-		function getVotesAndFavorites() {
-			if( USER_EMAIL != "" ) {
-				allowFavorite = false;
-				$.ajax({
-					type: 'POST',
-					url: 'Favorites/getUserFavorites.php',
-					datatype: 'html',
-					data: {userID: USER_EMAIL},
-					success: function(data) {
-						allowFavorite = true;
-						console.log(data);
-					},
-				});
-
-				$.ajax({
-					allowVote = false;
-					type: 'POST',
-					url: 'voting_scripts/getUserVotes.php',
-					datatype: 'html',
-					data: {userID: USER_EMAIL},
-					success: function(data) {
-						allowVote = true;
-						console.log(data);
-					},
 				});
 			}
 		}
