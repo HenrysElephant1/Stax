@@ -283,7 +283,7 @@
 				else {
 					favoritesImg.src = "black_heart.png?t=" + new Date().getTime();
 					favoritesValue.value == "false";
-					}
+				}
 				allowFavorite = false;
 				$.ajax({
 					type: 'POST',
@@ -310,11 +310,19 @@
 						while( favoritesString != "" ) {
 							var nextComma = favoritesString.indexOf(',');
 							var nextFavoriteId = favoritesString.substring(0,nextComma);
-							console.log("deal"+nextFavoriteId);
 							var thisDiv = document.getElementById("deal"+nextFavoriteId);
 							if( thisDiv === null ) {}
 							else {
-								thisDiv.getElementsByClassName("favorites")[0].innerHTML = "Unfavorite";
+								var favoritesImg = document.getElementById("favorites"+inputDealID);
+								var favoritesValue = document.getElementById("favorites"+inputDealID+"Value");
+								if( favoritesValue.value == "false" ) {
+									favoritesImg.src = "red_heart.png?t=" + new Date().getTime();
+									favoritesValue.value == "true";
+								}
+								else {
+									favoritesImg.src = "black_heart.png?t=" + new Date().getTime();
+									favoritesValue.value == "false";
+								}
 							}
 							favoritesString = favoritesString.substring( nextComma + 1 );
 						}
@@ -334,8 +342,6 @@
 							var nextPeriod = votesString.indexOf('.');
 							var nextVoteId = votesString.substring(0,nextPeriod);
 							var nextVoteValue = votesString.substring(nextPeriod+1,nextComma);
-							// console.log("deal"+nextVoteId);
-							// console.log(nextVoteValue);
 							if( nextVoteValue == "1" ) {
 								var thisImg = document.getElementById("upvote"+nextVoteId);
 								if( thisImg === null ) {}
