@@ -178,58 +178,67 @@
 
 	<p></p>
 	<script type="text/javascript">
+		//ASDF
+		var allowVote = true;
+		var allowFavorite = true;
+
 		function callUpvote(inputDealID) {
 			if( allowVote && USER_EMAIL != "" ) {
+				allowVote = false;
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/upvote.php',
 				    dataType: 'html',
-				    data: {userID: USER_EMAIL, dealID: inputDealID}
+				    data: {userID: USER_EMAIL, dealID: inputDealID},
+				    success: function() {
+				    	allowVote = true;
+				    }
 				});
 			}
 		}
 
 		function callDownvote(inputDealID) {
 			if( allowVote && USER_EMAIL != "" ) {
+				allowVote = false;
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/downvote.php',
 				    dataType: 'html',
-				    data: {userID: USER_EMAIL, dealID: inputDealID}
+				    data: {userID: USER_EMAIL, dealID: inputDealID},
+				    success: function() {
+				    	allowVote = true;
+				    }
 				});
 			}
 		}
 
 		function callFavorites(inputDealID){
 			if( allowFavorite && USER_EMAIL != "" ) {
+				allowFavorite = false;
 				$.ajax({
 					type: 'POST',
 					url: 'Favorites/favorites.php',
 					datatype: 'html',
-					data: {userID: USER_EMAIL, dealID: inputDealID},			
+					data: {userID: USER_EMAIL, dealID: inputDealID},	
+					success: function {
+						allowFavorite = true;
+					}		
 				});
 			}
 		}
 
-
-		//ASDF
-		var allowVote = true;
-		var allowFavorite = true;
 		function getVotesAndFavorites() {
 			if( USER_EMAIL != "" ) {
-				allowFavorite = false;
 				$.ajax({
 					type: 'POST',
 					url: 'Favorites/getUserFavorites.php',
 					datatype: 'html',
 					data: {userID: USER_EMAIL},
 					success: function(data) {
-						allowFavorite = true;
 						console.log(data);
 					},
 				});
 				
-				allowVote = false;
 				$.ajax({
 					type: 'POST',
 					url: 'voting_scripts/getUserVotes.php',
