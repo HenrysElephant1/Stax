@@ -177,7 +177,8 @@
 				</div>
 				<div id="rightColumn">
 					<div id="selectImageFile">
-						<p><b>Image:&nbsp </b><input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" onchange="loadFile(event)" required ></p>
+						<a href="#" onclick="openPicker()">Select File</a>
+						<!-- <p><b>Image:&nbsp </b><input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" onchange="loadFile(event)" required ></p> -->
 					</div>
 					<div id="previewImage">
 						<span class="imageHelper"></span><img id="uploadedImage"/>
@@ -209,7 +210,7 @@
 							document.getElementById("previewImage").style.display = "block";
 						}
 					</script>
-<!--
+
 
 					<script src="https://static.filestackapi.com/v3/filestack.js"></script>
 					<script type="text/javascript">
@@ -217,16 +218,19 @@
 						function openPicker() {
 							fsClient.pick({
 								accept: 'image/*',
-								fromSources:["local_file_system","imagesearch","facebook","instagram","dropbox"]
+								fromSources:["local_file_system","imagesearch","facebook","instagram","dropbox"],
+								maxFiles: 1
 							}).then(function(response) {
 						  		// declare this function to handle response
 								//handleFilestack(response);
-								var imageURL = result.filesUploaded[0].url; 
-  								link.href=imageURL; 
-  								link.innerHTML=imageURL;
+								// var imageURL = result.filesUploaded[0].url; 
+  								// link.href=imageURL; 
+  								// link.innerHTML=imageURL;
+  								console.log( response );
+  								console.log( response['url'] );
 							});
 						}
-					</script>-->
+					</script>-
 				</div>
 
 				<?php
