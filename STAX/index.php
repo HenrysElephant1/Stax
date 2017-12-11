@@ -176,7 +176,6 @@
 		}
 	</script>
 
-	<p></p>
 	<script type="text/javascript">
 		var allowVote = true;
 		var allowFavorite = true;

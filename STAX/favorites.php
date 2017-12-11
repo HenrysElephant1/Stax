@@ -80,7 +80,8 @@
     		changeHeader();
     		USER_EMAIL = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail();
     		document.getElementById("favoritesLink").href = "favorites.php?userName=" + USER_EMAIL;
-			document.getElementById("dealsHeaderText").innerHTML = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getGivenName() + "'s Favorites";
+			document.getElementById("dealsHeaderText").innerHTML = "Welcome Back, " + gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getGivenName();
+			getVotesAndFavorites();
     	}
 
 	</script>
@@ -175,45 +176,136 @@
 		}
 	</script>
 
-	<p></p>
 	<script type="text/javascript">
+		var allowVote = true;
+		var allowFavorite = true;
+
 		function callUpvote(inputDealID) {
-			if( USER_EMAIL != "" ) {
+			if( allowVote && USER_EMAIL != "" ) {
+				allowVote = false;
+				upVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("upvoteButton")[0];
+				if( upVoteDiv.innerHTML == "Upvote" ) {
+					upVoteDiv.innerHTML = "Upvoted";
+				}
+				else {
+					upVoteDiv.innerHTML = "Upvote";
+				}
+				downVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("downvoteButton")[0];
+				downVoteDiv.innerHTML = "Downvote";
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/upvote.php',
 				    dataType: 'html',
-				    data: {userID: USER_EMAIL, dealID: inputDealID}
+				    data: {userID: USER_EMAIL, dealID: inputDealID},
+				    success: function() {
+				    	allowVote = true;
+				    }
 				});
-
-				var dealDiv = "deal" + inputDealID;
-				var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
-				document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes + 1;
 			}
 		}
 
 		function callDownvote(inputDealID) {
-			if( USER_EMAIL != "" ) {
+			if( allowVote && USER_EMAIL != "" ) {
+				allowVote = false;
+				downVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("downvoteButton")[0];
+				if( downVoteDiv.innerHTML == "Downvote" ) {
+					downVoteDiv.innerHTML = "Downvoted";
+				}
+				else {
+					downVoteDiv.innerHTML = "Downvote";
+				}
+				upVoteDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("upvoteButton")[0];
+				upVoteDiv.innerHTML = "Upvote";
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/downvote.php',
 				    dataType: 'html',
-				    data: {userID: USER_EMAIL, dealID: inputDealID}
+				    data: {userID: USER_EMAIL, dealID: inputDealID},
+				    success: function() {
+				    	allowVote = true;
+				    }
 				});
-
-				var dealDiv = "deal" + inputDealID;
-				var curVotes = Number(document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML);
-				document.getElementById( dealDiv ).getElementsByClassName("totalVotes")[0].innerHTML = curVotes - 1;
 			}
 		}
 
 		function callFavorites(inputDealID){
-			if( USER_EMAIL != "" ) {
+			if( allowFavorite && USER_EMAIL != "" ) {
+				favoritesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("favorites")[0];
+				if( favoritesDiv.innerHTML == "Favorite" ) {
+					favoritesDiv.innerHTML = "Unfavorite";
+				}
+				else {
+					favoritesDiv.innerHTML = "Favorite";
+				}
+				allowFavorite = false;
 				$.ajax({
 					type: 'POST',
 					url: 'Favorites/favorites.php',
 					datatype: 'html',
-					data: {userID: USER_EMAIL, dealID: inputDealID},			
+					data: {userID: USER_EMAIL, dealID: inputDealID},	
+					success: function() {
+						allowFavorite = true;
+					}		
+				});
+			}
+		}
+
+		function getVotesAndFavorites() {
+			if( USER_EMAIL != "" ) {
+				$.ajax({
+					type: 'POST',
+					url: 'Favorites/getUserFavorites.php',
+					datatype: 'html',
+					data: {userID: USER_EMAIL},
+					success: function(data) {
+						var favoritesString = data;
+
+						while( favoritesString != "" ) {
+							var nextComma = favoritesString.indexOf(',');
+							var nextFavoriteId = favoritesString.substring(0,nextComma);
+							console.log("deal"+nextFavoriteId);
+							var thisDiv = document.getElementById("deal"+nextFavoriteId);
+							if( thisDiv === null ) {}
+							else {
+								thisDiv.getElementsByClassName("favorites")[0].innerHTML = "Unfavorite";
+							}
+							favoritesString = favoritesString.substring( nextComma + 1 );
+						}
+					}
+				});
+				
+				$.ajax({
+					type: 'POST',
+					url: 'voting_scripts/getUserVotes.php',
+					datatype: 'html',
+					data: {userID: USER_EMAIL},
+					success: function(data) {
+						var votesString = data;
+
+						while( votesString != "" ) {
+							var nextComma = votesString.indexOf(',');
+							var nextPeriod = votesString.indexOf('.');
+							var nextVoteId = votesString.substring(0,nextPeriod);
+							var nextVoteValue = votesString.substring(nextPeriod+1,nextComma);
+							console.log("deal"+nextVoteId);
+							console.log(nextVoteValue);
+							if( nextVoteValue == "1" ) {
+								var thisDiv = document.getElementById("deal"+nextVoteId);
+								if( thisDiv === null ) {}
+								else {
+									thisDiv.getElementsByClassName("upvoteButton")[0].innerHTML = "Upvoted";
+								}
+							}
+							else if( nextVoteValue == "-1" ) {
+								var thisDiv = document.getElementById("deal"+nextVoteId);
+								if( thisDiv === null ) {}
+								else {
+									thisDiv.getElementsByClassName("downvoteButton")[0].innerHTML = "Downvoted";
+								}
+							}
+							votesString = votesString.substring( nextComma + 1 );
+						}
+					}
 				});
 			}
 		}
@@ -342,12 +434,10 @@
 				<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $geoLatitude . ',' . $geoLongitude . '&zoom=14&size=190x190&maptype=roadmap&markers=color:red%7C' . $geoLatitude . ',' . $geoLongitude . '&key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA" alt="Store Location" width="190" height="190">
 			</div>
 			<div class="votingColumn">
-				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><div class="upvoteButton"><p>Upvote</p></div></a>
+				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><p><div class="upvoteButton">Upvote</div></p></a>
 				<p><div class="totalVotes">'.($upVotes-$downVotes).'</div></p>
-				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><div class="downvoteButton"><p>Downvote</p></div></a> 
-				<div class="favorites">
-					<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')"><p>Favorite</p></a>
-				</div>
+				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><p><div class="downvoteButton">Downvote</div></p></a> 
+				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')"><p><div class="favorites">Favorite</div></p></a>
 			</div>
 		</div>
 		';

@@ -198,6 +198,7 @@ a {
 	width: 80px;
 	padding: 5px;
 	cursor: default;
+	text-align: center;
 }
 
 .upvotes {
