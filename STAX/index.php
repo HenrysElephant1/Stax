@@ -17,15 +17,16 @@
 				}
 				else {
 					var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );
+					console.log( currentTotalVotes );
 					if( currentTotalVotes > 0 ) {
 						currentTotalVotesDiv.style.color = "#3C7F3F";
 						console.log("Set "+i+" green");
 					}
-					else if( currentTotalVotes  < 0 ) {
+					if( currentTotalVotes < 0 ) {
 						currentTotalVotesDiv.style.color = "9B372A";
 						console.log("Set "+i+" red");
 					}
-					else {
+					if( currentTotalVotes == 0 ) {
 						currentTotalVotesDiv.style.color = "A0A0A0";
 						console.log("Set "+i+" gray");
 					}
