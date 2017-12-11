@@ -29,7 +29,7 @@
 
 		//collect information from the form
 		$userName = $_REQUEST['userName'];
-		$name = htmlspecialchars( $_REQUEST['productName'] );
+		$name = addslashes( $_REQUEST['productName'] );
 		$type = $_REQUEST['type'];
 		if($type == "buyXGetXFree") {
 			$type = "Buy {$_REQUEST['itemsToBuy']}, Get {$_REQUEST['freeItems']} Free";
@@ -41,7 +41,7 @@
 			$orgPrice = 0;
 		}
 
-		$storeName = htmlspecialchars( $_REQUEST['storeName'] );
+		$storeName = addslashes( $_REQUEST['storeName'] );
 
 		$Image = $_REQUEST['Image'];
 
