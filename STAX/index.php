@@ -277,11 +277,11 @@
 				var favoritesImg = document.getElementById("favorites"+inputDealID);
 				var favoritesValue = document.getElementById("favorites"+inputDealID+"Value");
 				if( favoritesValue.value == "false" ) {
-					favoritesImg.src = "red_heart.png";
+					favoritesImg.src = "red_heart.png?t=" + new Date().getTime();
 					favoritesValue.value == "true";
 				}
 				else {
-					favoritesImg.src = "black_heart.png";
+					favoritesImg.src = "black_heart.png?t=" + new Date().getTime();
 					favoritesValue.value == "false";
 					}
 				allowFavorite = false;
