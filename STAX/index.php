@@ -278,11 +278,11 @@
 				var favoritesValue = document.getElementById("favorites"+inputDealID+"Value");
 				if( favoritesValue.value == "false" ) {
 					favoritesImg.src = "red_heart.png?t=" + new Date().getTime();
-					favoritesValue.value == "true";
+					favoritesValue.value = "true";
 				}
 				else {
 					favoritesImg.src = "black_heart.png?t=" + new Date().getTime();
-					favoritesValue.value == "false";
+					favoritesValue.value = "false";
 				}
 				allowFavorite = false;
 				$.ajax({
@@ -316,7 +316,7 @@
 								var favoritesImg = document.getElementById("favorites"+nextFavoriteId);
 								var favoritesValue = document.getElementById("favorites"+nextFavoriteId+"Value");
 								favoritesImg.src = "red_heart.png?t=" + new Date().getTime();
-								favoritesValue.value == "true";
+								favoritesValue.value = "true";
 							}
 							favoritesString = favoritesString.substring( nextComma + 1 );
 						}
