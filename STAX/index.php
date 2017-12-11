@@ -192,7 +192,7 @@
 				if( upVoteValue.value == "false" ) {
 					upVoteImg.src = "green_up_arrow.png?t=" + new Date().getTime();
 					upVoteValue.value = "true";
-					if( downVoteValue == "true" ) {
+					if( downVoteValue.value == "true" ) {
 						totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) + 2;
 					}
 					else {
@@ -231,7 +231,7 @@
 				if( downVoteValue.value == "false" ) {
 					downVoteImg.src = "red_down_arrow.png?t=" + new Date().getTime();
 					downVoteValue.value = "true";
-					if( upVoteValue == "true" ) {
+					if( upVoteValue.value == "true" ) {
 						totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) - 2;
 					}
 					else {
