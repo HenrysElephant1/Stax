@@ -192,6 +192,15 @@
 				    data: {userID: USER_EMAIL, dealID: inputDealID},
 				    success: function() {
 				    	allowVote = true;
+						upVoteDiv = document.getElementById("deal"+dealID).getElementsByClassName("upvoteButton")[0];
+						if( upVoteDiv.innerHTML == "Upvote" ) {
+							upVoteDiv.innerHTML = "Upvoted";
+						}
+						else {
+							upVoteDiv.innerHTML = "Upvote";
+						}
+						downVoteDiv = document.getElementById("deal"+dealID).getElementsByClassName("downvoteButton")[0];
+						downVoteDiv.innerHTML = "Downvote";
 				    }
 				});
 			}
@@ -207,6 +216,15 @@
 				    data: {userID: USER_EMAIL, dealID: inputDealID},
 				    success: function() {
 				    	allowVote = true;
+						downVoteDiv = document.getElementById("deal"+dealID).getElementsByClassName("downvoteButton")[0];
+						if( downVoteDiv.innerHTML == "Downvote" ) {
+							downVoteDiv.innerHTML = "Downvoted";
+						}
+						else {
+							downVoteDiv.innerHTML = "Downvote";
+						}
+						upVoteDiv = document.getElementById("deal"+dealID).getElementsByClassName("upvoteButton")[0];
+						upVoteDiv.innerHTML = "Upvote";
 				    }
 				});
 			}
@@ -222,6 +240,13 @@
 					data: {userID: USER_EMAIL, dealID: inputDealID},	
 					success: function() {
 						allowFavorite = true;
+						totalVotesDiv = document.getElementById("deal"+dealID).getElementsByClassName("totalVotes")[0];
+						if( totalVotesDiv.innerHTML == "Favorite" ) {
+							totalVotesDiv.innerHTML = "Unfavorite";
+						}
+						else {
+							totalVotesDiv.innerHTML = "Favorite";
+						}
 					}		
 				});
 			}
@@ -369,9 +394,9 @@
 				<img src="https://maps.googleapis.com/maps/api/staticmap?center=' . $geoLatitude . ',' . $geoLongitude . '&zoom=14&size=190x190&maptype=roadmap&markers=color:red%7C' . $geoLatitude . ',' . $geoLongitude . '&key=AIzaSyB97Z4tKehfoZONpSyFERNZKtTPkxdeDXA" alt="Store Location" width="190" height="190">
 			</div>
 			<div class="votingColumn">
-				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><div class="upvoteButton"><p>Upvote</p></div></a>
+				<a href="javascript:void(0);" onclick="callUpvote('.$dealID.')"><p><div class="upvoteButton">Upvote</div></p></a>
 				<p><div class="totalVotes">'.($upVotes-$downVotes).'</div></p>
-				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><div class="downvoteButton"><p>Downvote</p></div></a> 
+				<a href="javascript:void(0);" onclick="callDownvote('.$dealID.')"><p><div class="downvoteButton">Downvote</div></p></a> 
 				<div class "favorites">
 					<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')"><p>Favorite</p></a>
 				</div>
