@@ -280,7 +280,7 @@
 						var votesString = data;
 
 						var completed = false;
-						while( !completed ) {
+						//while( !completed ) {
 							var nextComma = votesString.indexOf(',');
 							var nextPeriod = votesString.indexOf('.');
 							var nextVoteId = votesString.substring(0,nextComma);
@@ -294,7 +294,7 @@
 							// 	document.getElementById("deal"+nextVoteId).getElementsByClassName("downvoteButton")[0].innerHTML = "Downvoted";
 							// }
 							votesString = votesString.substring( nextComma + 1 );
-						}
+						//}
 					}
 				});
 			}
