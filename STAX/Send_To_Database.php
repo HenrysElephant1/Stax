@@ -56,7 +56,7 @@
 		// echo '<p>' . $lat . ',' . $long . '</p>';
 
 
-		$query = "INSERT INTO deals(item, dealType, upVotes, downVotes, geoLatitude, geoLongitude, orgPrice, salePrice, storeName, image, memberID) VALUES ('$name', '$type', 0, 0, $lat, $long, $orgPrice, $salePrice, '$storeName', '$imagePathName', '$userName');";
+		$query = "INSERT INTO deals(item, dealType, upVotes, downVotes, geoLatitude, geoLongitude, orgPrice, salePrice, storeName, image, memberID) VALUES ('$name', '$type', 0, 0, $lat, $long, $orgPrice, $salePrice, '$storeName', '$Image', '$userName');";
 
 		if( !mysqli_query( $connection, $query ) ) {
 			echo("Error description: " . mysqli_error($connection));
