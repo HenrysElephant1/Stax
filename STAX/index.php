@@ -196,7 +196,7 @@
 				downVoteImg = document.getElementById("downvote"+inputDealID);
 				downVoteValue = document.getElementById("downvote"+inputDealID+"Value");
 				downVoteImg.src = "gray_down_arrow.png?t=" + new Date().getTime();
-				downVoteValue.value = "true";
+				downVoteValue.value = "false";
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/upvote.php',
@@ -225,7 +225,7 @@
 				upVoteImg = document.getElementById("upvote"+inputDealID);
 				upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
 				upVoteImg.src = "gray_up_arrow.png?t=" + new Date().getTime();
-				upVoteValue.value = "true";
+				upVoteValue.value = "false";
 				$.ajax({
 				    type: 'POST',
 				    url: 'voting_scripts/downvote.php',
