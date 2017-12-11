@@ -13,18 +13,21 @@
 		function updateVoteColors() {
 			for( var i=0; i<10; i++ ) {
 				var currentTotalVotesDiv = document.getElementsByClassName("totalVotes")[i];
-				console.log(i);
-				if( currentTotalVotesDiv === null ) {}
+				if( currentTotalVotesDiv === null ) {
+				}
 				else {
 					var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );
 					if( currentTotalVotes > 0 ) {
 						currentTotalVotesDiv.style.color = "#3C7F3F";
+						console.log("Set "+i+" green");
 					}
 					else if( currentTotalVotes  < 0 ) {
 						currentTotalVotesDiv.style.color = "9B372A";
+						console.log("Set "+i+" red");
 					}
 					else {
 						currentTotalVotesDiv.style.color = "A0A0A0";
+						console.log("Set "+i+" gray");
 					}
 				}
 			}
