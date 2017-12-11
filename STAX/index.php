@@ -264,7 +264,7 @@
 						while( favoritesString != "" ) {
 							var nextComma = favoritesString.indexOf(',');
 							var nextFavoriteId = favoritesString.substring(0,nextComma);
-							console.log("deal"+nextFavorite);
+							console.log("deal"+nextFavoriteId);
 							var thisDiv = document.getElementById("deal"+nextFavoriteId).getElementsByClassName("favorites")[0]
 							if( thisDiv === null ) {}
 							else {
