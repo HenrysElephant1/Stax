@@ -183,11 +183,11 @@
 		function callUpvote(inputDealID) {
 			if( allowVote && USER_EMAIL != "" ) {
 				allowVote = false;
-				upVoteImg = document.getElementById("upvote"+inputDealID);
-				upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
+				var upVoteImg = document.getElementById("upvote"+inputDealID);
+				var upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
 
-				downVoteValue = document.getElementById("downvote"+inputDealID+"Value");
-				totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByTagName("totalVotes")[0];
+				var downVoteValue = document.getElementById("downvote"+inputDealID+"Value");
+				var totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("totalVotes")[0];
 
 				if( upVoteValue.value == "false" ) {
 					upVoteImg.src = "green_up_arrow.png?t=" + new Date().getTime();
@@ -204,7 +204,7 @@
 					upVoteValue.value = "false";
 					totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) - 1;
 				}
-				downVoteImg = document.getElementById("downvote"+inputDealID);
+				var downVoteImg = document.getElementById("downvote"+inputDealID);
 				downVoteImg.src = "gray_down_arrow.png?t=" + new Date().getTime();
 				downVoteValue.value = "false";
 				$.ajax({
@@ -222,11 +222,11 @@
 		function callDownvote(inputDealID) {
 			if( allowVote && USER_EMAIL != "" ) {
 				allowVote = false;
-				downVoteImg = document.getElementById("downvote"+inputDealID);
-				downVoteValue = document.getElementById("downvote"+inputDealID+"Value");
+				var downVoteImg = document.getElementById("downvote"+inputDealID);
+				var downVoteValue = document.getElementById("downvote"+inputDealID+"Value");
 
-				upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
-				totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByTagName("totalVotes")[0];
+				var upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
+				var totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("totalVotes")[0];
 
 				if( downVoteValue.value == "false" ) {
 					downVoteImg.src = "red_down_arrow.png?t=" + new Date().getTime();
@@ -243,7 +243,7 @@
 					downVoteValue.value = "false";
 					totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) + 1;
 				}
-				upVoteImg = document.getElementById("upvote"+inputDealID);
+				var upVoteImg = document.getElementById("upvote"+inputDealID);
 				upVoteImg.src = "gray_up_arrow.png?t=" + new Date().getTime();
 				upVoteValue.value = "false";
 				$.ajax({
