@@ -187,7 +187,7 @@
 				upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
 
 				downVoteValue = document.getElementById("downvote"+inputDealID+"Value");
-				totalVotesDiv = document.getElementById("deal"+$dealID).getElementsByTagName("totalVotes")[0];
+				totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByTagName("totalVotes")[0];
 
 				if( upVoteValue.value == "false" ) {
 					upVoteImg.src = "green_up_arrow.png?t=" + new Date().getTime();
@@ -226,7 +226,7 @@
 				downVoteValue = document.getElementById("downvote"+inputDealID+"Value");
 
 				upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
-				totalVotesDiv = document.getElementById("deal"+$dealID).getElementsByTagName("totalVotes")[0];
+				totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByTagName("totalVotes")[0];
 
 				if( downVoteValue.value == "false" ) {
 					downVoteImg.src = "red_down_arrow.png?t=" + new Date().getTime();
