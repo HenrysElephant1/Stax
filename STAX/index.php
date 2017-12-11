@@ -13,6 +13,7 @@
 		var popMap;
 		var popUpMapMarker;
 
+
 		// Fills in popup data and makes it visible
 		function showPopup( dealID ) {
 			// Fill in image attributes
