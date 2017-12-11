@@ -175,7 +175,7 @@
 
 	<script type="text/javascript">
 		<?php
-			$totalDealsQuery = "SELECT COUNT(*) FROM favorites WHERE memberID = $;";
+			$totalDealsQuery = "SELECT COUNT(*) FROM favorites WHERE memberID = $_GET['userID'];";
 			$dealsResultSet = mysqli_query( $conn, $totalDealsQuery );
 			$totalDeals = mysqli_fetch_array( $dealsResultSet )[0];
 			echo "var totalDeals = " . $totalDeals . ";";
@@ -299,7 +299,7 @@
 					favoritesValue.value = "true";
 				}
 				else {
-					favoritesImg.src = "black_heart.png?t=" + new Date().getTime();
+					favoritesImg.src = "gray_heart.png?t=" + new Date().getTime();
 					favoritesValue.value = "false";
 				}
 				allowFavorite = false;
@@ -521,7 +521,7 @@
 				<a href="javascript:void(0);" onclick="callFavorites('.$dealID.')">
 					<div class="favorites">
 						<input type="hidden" id="favorites'.$dealID.'Value" value="false" >
-						<img src="black_heart.png" id="favorites'.$dealID.'" height="20" width="20">
+						<img src="gray_heart.png" id="favorites'.$dealID.'" height="20" width="20">
 					</div>
 				</a>
 			</div>
