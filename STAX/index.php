@@ -232,7 +232,7 @@
 
 		function callFavorites(inputDealID){
 			if( allowFavorite && USER_EMAIL != "" ) {
-				totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("totalVotes")[0];
+				totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("favorites")[0];
 				if( totalVotesDiv.innerHTML == "Favorite" ) {
 					totalVotesDiv.innerHTML = "Unfavorite";
 				}
