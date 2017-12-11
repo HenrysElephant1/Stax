@@ -12,17 +12,20 @@
 	<script>
 		function updateVoteColors() {
 			for( var i=0; i<10; i++ ) {
-				var currentTotalVotesDiv = document.getElementsByClassName[i];
+				var currentTotalVotesDiv = document.getElementsByClassName("totalVotes")[i];
 				console.log(i);
-				var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );
-				if( currentTotalVotes < 0 ) {
-					currentTotalVotesDiv.style.color = "#3C7F3F";
-				}
-				else if( currentTotalVotes  > 0 ) {
-					currentTotalVotesDiv.style.color = "9B372A";
-				}
+				if( currentTotalVotesDiv === null ) {}
 				else {
-					currentTotalVotesDiv.style.color = "A0A0A0";
+					var currentTotalVotes = Number( currentTotalVotesDiv.innerHTML );
+					if( currentTotalVotes < 0 ) {
+						currentTotalVotesDiv.style.color = "#3C7F3F";
+					}
+					else if( currentTotalVotes  > 0 ) {
+						currentTotalVotesDiv.style.color = "9B372A";
+					}
+					else {
+						currentTotalVotesDiv.style.color = "A0A0A0";
+					}
 				}
 			}
 		}
