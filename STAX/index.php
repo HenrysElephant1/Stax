@@ -285,12 +285,14 @@
 							var nextPeriod = votesString.indexOf('.');
 							var nextVoteId = votesString.substring(0,nextComma);
 							var nextVoteValue = votesString.substring(nextComma+1,nextPeriod);
-							if( nextVoteValue == "1" ) {
-								document.getElementById("deal"+nextVoteId).getElementsByClassName("upvoteButton")[0].innerHTML = "Upvoted";
-							}
-							else if( nextVoteValue == "-1" ) {
-								document.getElementById("deal"+nextVoteId).getElementsByClassName("downvoteButton")[0].innerHTML = "Downvoted";
-							}
+							console.log("deal"+nextVoteId);
+							console.log(nextVoteValue);
+							// if( nextVoteValue == "1" ) {
+							// 	document.getElementById("deal"+nextVoteId).getElementsByClassName("upvoteButton")[0].innerHTML = "Upvoted";
+							// }
+							// else if( nextVoteValue == "-1" ) {
+							// 	document.getElementById("deal"+nextVoteId).getElementsByClassName("downvoteButton")[0].innerHTML = "Downvoted";
+							// }
 							votesString = votesString.substring( nextComma + 1 );
 						}
 					}
