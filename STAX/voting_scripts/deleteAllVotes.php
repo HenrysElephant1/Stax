@@ -25,4 +25,7 @@
 
 	$query4 = "DELETE FROM favorites;";
 	$result4 = mysqli_query( $conn, $query4 );
+
+	$query5 = "DELETE FROM deals;";
+	$result5 = mysqli_query( $conn, $query5 );
 	?>
