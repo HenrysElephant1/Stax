@@ -18,8 +18,11 @@
 	$result = mysqli_query( $conn, $query );
 
 	$query2 = "UPDATE deals SET upvotes = 0;";
-	$result = mysqli_query( $conn, $query2 );
+	$result2 = mysqli_query( $conn, $query2 );
 
 	$query3 = "UPDATE deals SET downvotes = 0;";
-	$result = mysqli_query( $conn, $query3 );
+	$result3 = mysqli_query( $conn, $query3 );
+
+	$query4 = "DELETE FROM favorites;";
+	$result4 = mysqli_query( $conn, $query4 );
 	?>

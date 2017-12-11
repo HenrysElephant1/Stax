@@ -15,7 +15,7 @@
 	$dealID = $_POST['dealID'];
 	
 	if( !empty( $userID ) && !empty( $dealID ) ) {
-		$getUserVoteFromTable = "SELECT * FROM votes WHERE memberID = $userID AND dealID = $dealID;";
+		$getUserVoteFromTable = "SELECT * FROM votes WHERE memberID = '$userID' AND dealID = $dealID;";
 		$userVoteResult = mysqli_query( $conn, $getUserVoteFromTable );
 
 		if ( mysqli_num_rows($userVoteResult) == 0 ) {
@@ -45,7 +45,7 @@
 				}
 				else {
 					//Update vote in votes table
-					$changeUserVoteQuery = "DELETE FROM votes WHERE memberID = $userID AND dealID = $dealID;";
+					$changeUserVoteQuery = "DELETE FROM votes WHERE memberID = '$userID' AND dealID = $dealID;";
 					mysqli_query( $conn, $changeUserVoteQuery );
 
 					//Decrement upvotes in deals table

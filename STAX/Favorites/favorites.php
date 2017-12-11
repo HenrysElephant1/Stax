@@ -16,7 +16,7 @@ $userID = $_POST['userID'];
 $dealID = $_POST['dealID'];
 
 if( !empty( $userID ) && !empty( $dealID ) ) {
-	$getUserFavoriteFromTable = "SELECT * FROM favorites WHERE memberID = $userID AND dealID = $dealID;";
+	$getUserFavoriteFromTable = "SELECT * FROM favorites WHERE memberID = '$userID' AND dealID = $dealID;";
 	$userVoteResult = mysqli_query( $conn, $getUserFavoriteFromTable );
 
 	if ( mysqli_num_rows($userVoteResult) == 0 ) {
@@ -28,7 +28,7 @@ if( !empty( $userID ) && !empty( $dealID ) ) {
 	}
 	
 	else {
-			$changeUserFavoritesQuery = "DELETE FROM favorites WHERE memberID = $userID AND dealID = $dealID;";
+			$changeUserFavoritesQuery = "DELETE FROM favorites WHERE memberID = '$userID' AND dealID = $dealID;";
 			mysqli_query( $conn, $changeUserFavoritesQuery );
 			
 		echo $changeUserFavoritesQuery;
