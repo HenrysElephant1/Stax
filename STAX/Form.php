@@ -180,7 +180,6 @@
 					<div id="selectImageFile">
 						<a href="#" onclick="openPicker()">Select File</a>
 						<input type="hidden" id="imageFileToUpload" name="Image" value="">
-						<!-- <p><b>Image:&nbsp </b><input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" onchange="loadFile(event)" required ></p> -->
 					</div>
 					<div id="previewImage">
 						<span class="imageHelper"></span><img id="uploadedImage"/>
@@ -216,6 +215,7 @@
 
 					<script src="https://static.filestackapi.com/v3/filestack.js"></script>
 					<script type="text/javascript">
+						// Open Filestack API to upload an image
 						var fsClient = filestack.init('ArzLhFWrdQKcx6QBrQB1iz');
 						function openPicker() {
 							fsClient.pick({
@@ -223,11 +223,7 @@
 								fromSources:["local_file_system","imagesearch","facebook","instagram","dropbox"],
 								maxFiles: 1
 							}).then(function(response) {
-						  		// declare this function to handle response
-								//handleFilestack(response);
-								// var imageURL = result.filesUploaded[0].url; 
-  								// link.href=imageURL; 
-  								// link.innerHTML=imageURL;
+								// Get image URL from Filestack and store it to be accessed again later
   								var imageURL = response['filesUploaded'][0]['url'];
   								var uploadedImage = document.getElementById('uploadedImage');
 								uploadedImage.src = imageURL;
@@ -235,6 +231,7 @@
 							});
 						}
 
+						// Since Filestack is not part of the form, we cannot add a "required" tag, so check if image has been uploaded manually
 						function checkImageUploaded() {
 							if( document.getElementById("imageFileToUpload").value == "" ) {
 								alert("Please select an image to upload");

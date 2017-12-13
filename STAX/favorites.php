@@ -1,6 +1,6 @@
-<?php 
+<!-- Most of this page is the same as index.php, the only differences being the queries used to get which deals to display and the self-referential links. Therefore, please reference index.php for documentation on specific functions -->
 
-	// $conn = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
+<?php
 
 	$host = "staxsmysql.mysql.database.azure.com";
 	$db_name = "stax_";
@@ -30,13 +30,6 @@
 		var popMap;
 		var popUpMapMarker;
 		function showPopup( dealID ) {
-			// var currentScrollHeight = document.documentElement.scrollTop || document.body.scrollTop;
-			// var contentsDiv = document.getElementById("contents");
-			// var mainContentsDiv = document.getElementById("mainContents");
-			// mainContentsDiv.setAttribute( "-webkit-transform", "translateY(-" + currentScrollHeight + ")");
-			// mainContentsDiv.setAttribute( "-ms-transform", "translateY(-" + currentScrollHeight + ")");
-			// mainContentsDiv.style.top = "-" + currentScrollHeight + "px";
-			// mainContentsDiv.style.overflow = "hidden";
 
 			// Fill in image attributes
 			var dealDiv = document.getElementById( dealID );

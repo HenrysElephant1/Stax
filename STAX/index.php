@@ -27,6 +27,7 @@
 			popupImage.setAttribute("height", imageHeight);
 			popupImage.setAttribute("width", imageWidth);
 
+			// Sets other popup information
 			var dealType = document.getElementById(dealID).getElementsByClassName("dealType")[0].innerHTML;
 			document.getElementById("popupDealType").innerHTML = dealType;
 
@@ -42,25 +43,26 @@
 			var displayDealStore = document.getElementById(dealID).getElementsByClassName("displayDealStore")[0].innerHTML;
 			document.getElementById("popupDisplayDealStore").innerHTML = displayDealStore;
 
+			// Makes the popup visible
 			document.getElementById("cardBackgroundOverlay").style.display = 'block';
 			document.getElementById("clickedCard").style.display = 'block';
 
+			// Initialize popup Google map
 			initPopMap();
-
 			popUpMapMarker.setPosition({lat: parseFloat(document.getElementById(dealID+'lat').getAttribute('value')), lng: parseFloat(document.getElementById(dealID+'long').getAttribute('value'))});
 			popMap.setCenter(popUpMapMarker.getPosition());
 		}
 
+		// Set popup display to be invisible
 		function hidePopup() {
 			document.getElementById("cardBackgroundOverlay").style.display = "none";
 			document.getElementById("clickedCard").style.display = "none";
-			document.getElementById("popupDealItem").innerHTML = "";
-			document.getElementById("popupDealNewPrice").innerHTML = "";
-			document.getElementById("popupDealOldPrice").innerHTML = "";
 		}
 
+		// Used to prevent user from sorting by distance until their distance is found
 		var followDistLink = false;
 
+		// Get user info on signin and chane some related displays
 		var USER_EMAIL = "";
 		function onSignIn(googleUser) {
 			changeHeader();
@@ -70,23 +72,26 @@
 			getVotesAndFavorites();
 		}
 
+		// Reload page on user signout
 		function signOut() {
 			var auth2 = gapi.auth2.getAuthInstance();
 				auth2.signOut().then(function () {
-				console.log('User signed out.');
 				auth2.disconnect();
 				window.location.replace('index.php');
 			});
 		}
-
 	</script>
+
 </head>
 <body>
+
+<!-- Header -->
 <div id="headerSpan">
 	<div id="header">
 		<a href="index.php"><div id="headerImage"><img src="logo2.png" alt="STAX" height="40" width="40"></div>
 		<div id="headerText"><h2>STAX</h2></div></a>
 		<script>
+			// Display correct buttons based on whether or not user is signed in
 			function changeHeader() {
 				var userSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
 
@@ -105,6 +110,7 @@
 	</div> 
 </div>
 
+<!-- Main Page Contents -->
 <div id="contentsSpacer"></div>
 <div id="contents">
 	<div id="spacer"></div>
@@ -123,6 +129,7 @@
 	</div>
 
 	<?php
+		// Create hidden input for page to know how results are being sorted
 		$sortBy = $_GET['sortBy'];
 		if( empty( $sortBy ) || ($sortBy != "oldest" && $sortBy != "priceLowToHigh" && $sortBy != "priceHighToLow" && $sortBy != "distance" ) ) {
 			$sortBy = "newest";
@@ -132,6 +139,7 @@
 	?>
 
 	<script>
+		// Display current sorting option as being selected
 		var sortBy = document.getElementById("sortBy").value;
 		if( sortBy == "newest" ) {
 			document.getElementById("newestSort").id = "activeSidebarButton";
@@ -149,6 +157,7 @@
 			document.getElementById("distanceSort").id = "activeSidebarButton";
 		}
 
+		// Attempt to get user's location, then call setDistanceURL if successful
 		var dealsHeader = document.getElementById( "dealsHeader" );
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(setDistanceURL);
@@ -157,18 +166,25 @@
 			dealsHeader.innerHTML = "Geolocation is not supported by this browser.";
 		}
 
+		// Set Sort by Distance link to contain users location for sorting purposes
 		function setDistanceURL(position) {
 			var latitude = position.coords.latitude;
 			var longitude = position.coords.longitude;
-			
 			var distURL = "index.php?sortBy=distance&latitude="+latitude+"&longitude="+longitude;
 			var link = document.getElementById("sidebar").getElementsByTagName("a")[7];
 			link.href = distURL;
+
+			// Allow user to sort by distance
 			followDistLink = true;
 		}
-	</script>
 
-	<script type="text/javascript">
+
+
+		/***********************************
+		 * Voting and Favoriting functions *	
+		 ***********************************/
+
+		// Go though all deals on page and set the color of the vote count to green if positive, red if negative, gray if 0
 		function updateVoteColors() {
 			for( var i=0; i<10; i++ ) {
 				var currentTotalVotesDiv = document.getElementsByClassName("totalVotes")[i];
@@ -189,6 +205,7 @@
 			}
 		}
 
+		// Booleans used to prevent user from voting or favoriting again before current script has finished executing
 		var allowVote = true;
 		var allowFavorite = true;
 
@@ -201,9 +218,13 @@
 				var downVoteValue = document.getElementById("downvote"+inputDealID+"Value");
 				var totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("totalVotes")[0];
 
+				// Handle different cases of current votes
 				if( upVoteValue.value == "false" ) {
+					// User has not upvoted this deal before, so change display to color up arrow
 					upVoteImg.src = "green_up_arrow.png?t=" + new Date().getTime();
 					upVoteValue.value = "true";
+
+					// Change number of votes based on whether the deal was previously downvoted or not
 					if( downVoteValue.value == "true" ) {
 						totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) + 2;
 					}
@@ -212,14 +233,20 @@
 					}
 				}
 				else {
+					// User had upvoted deal previously, so change image to gray up arrow and correct votes
 					upVoteImg.src = "gray_up_arrow.png?t=" + new Date().getTime();
 					upVoteValue.value = "false";
 					totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) - 1;
 				}
+				// Update all vote colors
 				updateVoteColors();
+
+				// No matter the upvote value, downvote will now be false, so turn down arrow gray
 				var downVoteImg = document.getElementById("downvote"+inputDealID);
 				downVoteImg.src = "gray_down_arrow.png?t=" + new Date().getTime();
 				downVoteValue.value = "false";
+
+				// Call upvoting script with AJAX to handle updating vote information in the database
 				$.ajax({
 					type: 'POST',
 					url: 'voting_scripts/upvote.php',
@@ -244,9 +271,13 @@
 				var upVoteValue = document.getElementById("upvote"+inputDealID+"Value");
 				var totalVotesDiv = document.getElementById("deal"+inputDealID).getElementsByClassName("totalVotes")[0];
 
+				// Handle different cases of current votes
 				if( downVoteValue.value == "false" ) {
+					// User has not downvoted this deal before, so change display to color down arrow
 					downVoteImg.src = "red_down_arrow.png?t=" + new Date().getTime();
 					downVoteValue.value = "true";
+
+					// Change number of votes based on whether the deal was previously upvoted or not
 					if( upVoteValue.value == "true" ) {
 						totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) - 2;
 					}
@@ -259,10 +290,15 @@
 					downVoteValue.value = "false";
 					totalVotesDiv.innerHTML = Number(totalVotesDiv.innerHTML) + 1;
 				}
+				// Update all vote colors
 				updateVoteColors();
+
+				// No matter the downvote value, upvote will now be false, so turn up arrow gray
 				var upVoteImg = document.getElementById("upvote"+inputDealID);
 				upVoteImg.src = "gray_up_arrow.png?t=" + new Date().getTime();
 				upVoteValue.value = "false";
+
+				// Call downvoting script with AJAX to handle updating vote information in the database
 				$.ajax({
 					type: 'POST',
 					url: 'voting_scripts/downvote.php',
@@ -282,15 +318,20 @@
 			if( allowFavorite && USER_EMAIL != "" ) {
 				var favoritesImg = document.getElementById("favorites"+inputDealID);
 				var favoritesValue = document.getElementById("favorites"+inputDealID+"Value");
+
 				if( favoritesValue.value == "false" ) {
+					// Deal was not favorited before, so update display and value to reflect favorite
 					favoritesImg.src = "red_heart.png?t=" + new Date().getTime();
 					favoritesValue.value = "true";
 				}
 				else {
+					// Deal was favorited before, so make heart gray and value false
 					favoritesImg.src = "gray_heart.png?t=" + new Date().getTime();
 					favoritesValue.value = "false";
 				}
 				allowFavorite = false;
+
+				// Use AJAX to call script to update database favorites information
 				$.ajax({
 					type: 'POST',
 					url: 'Favorites/favorites.php',
@@ -306,8 +347,11 @@
 			}
 		}
 
+		// Get users votes and favorites to correctly display deals on signin and reload
 		function getVotesAndFavorites() {
 			if( USER_EMAIL != "" ) {
+
+				// Use AJAX to get favorites
 				$.ajax({
 					type: 'POST',
 					url: 'Favorites/getUserFavorites.php',
@@ -316,22 +360,28 @@
 					success: function(data) {
 						var favoritesString = data;
 
+						// Parse returned string to get ids of user's favorited deals
 						while( favoritesString != "" ) {
 							var nextComma = favoritesString.indexOf(',');
 							var nextFavoriteId = favoritesString.substring(0,nextComma);
 							var thisDiv = document.getElementById("deal"+nextFavoriteId);
-							if( thisDiv === null || !thisDiv ) {}
+							if( thisDiv === null || !thisDiv ) {
+								//Don't do anything if deal isn't on current page
+							}
 							else {
+								// Color heart and update favorite value of user's previously favorited deal
 								var favoritesImg = document.getElementById("favorites"+nextFavoriteId);
 								var favoritesValue = document.getElementById("favorites"+nextFavoriteId+"Value");
 								favoritesImg.src = "red_heart.png?t=" + new Date().getTime();
 								favoritesValue.value = "true";
 							}
+							// Reduce favorites string
 							favoritesString = favoritesString.substring( nextComma + 1 );
 						}
 					}
 				});
 				
+				//Use AJAX to get votes
 				$.ajax({
 					type: 'POST',
 					url: 'voting_scripts/getUserVotes.php',
@@ -340,12 +390,14 @@
 					success: function(data) {
 						var votesString = data;
 
+						// Parse returned string to get ids of user's voted deals
 						while( votesString != "" ) {
 							var nextComma = votesString.indexOf(',');
 							var nextPeriod = votesString.indexOf('.');
 							var nextVoteId = votesString.substring(0,nextPeriod);
 							var nextVoteValue = votesString.substring(nextPeriod+1,nextComma);
 							if( nextVoteValue == "1" ) {
+								// If vote was upvote, color up arrow and set value appropriately
 								var thisImg = document.getElementById("upvote"+nextVoteId);
 								if( thisImg === null || !thisImg ) {}
 								else {
@@ -354,6 +406,7 @@
 								}
 							}
 							else if( nextVoteValue == "-1" ) {
+								// If vote was downvote, color down arrow and set value appropriately
 								var thisImg = document.getElementById("downvote"+nextVoteId);
 								if( thisImg === null || !thisImg ) {}
 								else {
@@ -362,13 +415,13 @@
 								}
 							}
 							votesString = votesString.substring( nextComma + 1 );
-							updateVoteColors();
 						}
 					}
 				});
 			}
 		}
 
+		// Update all vote colors
 		updateVoteColors();
 	</script>
 	
@@ -382,8 +435,7 @@
 <?php
 	$DEALS_PER_PAGE = 10;
 
-	// $conn = @mysqli_connect('127.0.0.1', 'root', 'root', 'stax');
-
+	// Database connection information
 	$host = "staxsmysql.mysql.database.azure.com";
 	$db_name = "stax_";
 	$username = "master_stax@staxsmysql";
@@ -396,6 +448,7 @@
 		die('Failed to connect to MySQL: '.mysqli_connect_error());
 	}
 
+	// Queries based on user's sorting method
 	if( $sortBy == "oldest" ) {
 		$query = "SELECT * FROM deals 
 			ORDER BY dealID 
@@ -448,6 +501,7 @@
 		$image = $row[10];
 		$memberID = $row[11];
 
+		// Resize image to maintain correct proportions
 		if( list($width, $height, $type, $attr) = @getimagesize( $image ) ) {
 			if( $height > $width ) {
 				$resizingValue = $height;
@@ -464,6 +518,7 @@
 		}
 
 		
+		// Echo out deal format with appropriately filled in information
 		echo '
 		<div class="deal" id="deal' . $dealID . '">
 			<div class="dealImage" onclick="showPopup(\'deal' . $dealID . '\')"><span class="imageHelper"></span><img class="actualImage" src="' . $image . '" alt="Item Image" width="' . $imageDisplayWidth . '" height="' . $imageDisplayHeight . '"></div>
@@ -517,6 +572,7 @@
 
 		<div id="pageLinks">
 <?php
+	// If necessary, add links for pages 
 	$totalDealsQuery = "SELECT COUNT(*) FROM deals;";
 	$dealsResultSet = mysqli_query( $conn, $totalDealsQuery );
 	$totalDeals = mysqli_fetch_array( $dealsResultSet )[0];
@@ -570,6 +626,7 @@
 	<div id="popupMap"></div>
 
 	<script>
+		// Initialize popup Google Map with appropriate information
 		function initPopMap() {
 			var myLatLng = {lat: 0, lng: 0};
 
@@ -594,5 +651,3 @@
 </div>
 </body>
 </html>
-
-<!--  -->
